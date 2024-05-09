@@ -1,0 +1,41 @@
+<div class="ligne">
+    <div *ngIf="match.is_played">
+        <i class="fa-regular fa-clock"></i>
+        {{match.time.slice(0, -3)}}
+    </div>
+    <div>
+        <img class="logo" src="{{match.team_home_logo}}">
+    </div>
+    <div class="team">
+        <a [routerLink]="['team']">
+            <div class="text-container" #textContainer>
+                {{ match.team_home_name }}
+                <span *ngIf="textContainer.offsetWidth < textContainer.scrollWidth" class="tooltip">{{
+                    match.team_home_name }}</span>
+            </div>
+        </a>
+    </div>
+    <div class="score">
+        <ng-container *ngIf="match.is_played">
+            {{match.score_home}} - {{match.score_away}}
+        </ng-container>
+        <ng-container *ngIf="!match.is_played">
+            <i class="fa-regular fa-clock"></i>
+            {{match.time.slice(0, -3)}}
+        </ng-container>
+    </div>
+    <div class="team">
+        <a [routerLink]="['team']">{{match.team_away_name}}</a>
+    </div>
+    <div>
+        <img class="logo" src="{{match.team_away_logo}}">
+    </div>
+    <div>
+        <i class="fa-solid fa-location-dot"></i>
+        {{match.sporthall.name}}
+    </div>
+    <div class="tournament">
+        <a [routerLink]="['round']">{{match.round_name}}</a>
+        <a [routerLink]="['tournament']"><strong>{{match.competition_name}}</strong></a>
+    </div>
+</div>

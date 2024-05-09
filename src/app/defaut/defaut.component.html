@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="tabs is-boxed is-right">
+        <ul>
+            <li *ngIf="visu.live_games && visu.live_games.length>0" [class]="selected_sous_menu === 'LIVE' ? 'is-active' :''" (click)="selected_sous_menu='LIVE'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-image" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Live</span>
+                </a>
+            </li>
+            <li [class]="selected_sous_menu === 'TERMINE' ? 'is-active' :''" (click)="selected_sous_menu='TERMINE'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-music" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Terminé</span>
+                </a>
+            </li>
+            <li [class]="selected_sous_menu === 'PROCHAIN' ? 'is-active' :''" (click)="selected_sous_menu='PROCHAIN'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-film" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Prochainement</span>
+                </a>
+            </li>
+            <li [class]="selected_sous_menu === 'TOUS' ? 'is-active' :''" (click)="selected_sous_menu='TOUS'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="far fa-file-alt" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Tous les matchs</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <app-game-list *ngIf="selected_sous_menu == 'TERMINE' && visu.games_played" [matchs]="visu.games_played" [liste_date]="visu.date_list_games_played"></app-game-list>
+    <app-game-list *ngIf="selected_sous_menu == 'PROCHAIN' && visu.games_to_come" [matchs]="visu.games_to_come" [liste_date]="visu.date_list"></app-game-list>
+</div>

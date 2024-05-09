@@ -1,0 +1,22 @@
+export class individual_prizelist {
+  ranking:number;
+  competitionName:string;
+  competitionid:number;
+  seasonid:number;
+  seasonname:string;
+  agecategoryid:number;
+  agecategoryname:string;
+  type:string;
+  value:number;
+  constructor(){
+    this.ranking=-1,
+    this.competitionName='',
+    this.competitionid=-1,
+    this.seasonid=-1,
+    this.seasonname='',
+    this.agecategoryid=-1,
+    this.agecategoryname='',
+    this.type='',
+    this.value=-1
+  };
+}

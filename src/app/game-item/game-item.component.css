@@ -1,0 +1,32 @@
+.ligne{    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    height: 40px;
+    margin: 2px;
+    font-size: small;
+    gap: 8px;
+}
+.team{
+    text-transform: uppercase;
+    width: 200px;
+    font-weight: bold;
+}
+.score{
+    width: 40px;
+    font-weight: bold;
+}
+
+.logo{
+    height: 36px;
+    width:  36px;
+}
+
+.tournament{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
