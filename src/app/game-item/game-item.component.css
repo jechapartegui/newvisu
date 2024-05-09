@@ -16,7 +16,7 @@
     font-weight: bold;
 }
 .score{
-    width: 40px;
+    width: 50px;
     font-weight: bold;
 }
 
@@ -24,7 +24,15 @@
     height: 36px;
     width:  36px;
 }
-
+.heure_score{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    gap: 5px;
+}
 .tournament{
     display: flex;
     flex-direction: row;

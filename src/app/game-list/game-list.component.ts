@@ -14,8 +14,6 @@ export class GameListComponent implements OnInit {
   liste_objets: KeyValuePairDB[] = [];
 
   ngOnInit(): void {
-    console.log(this.liste_date);
-    console.log(this.matchs);
     // Pour chaque date dans la liste, créez un objet DateAvecBool avec la date et un booléen (à titre d'exemple, mettons tous les booléens à true)
     this.liste_date.forEach(date => {
       this.liste_objets.push(new KeyValuePairDB(date, true));

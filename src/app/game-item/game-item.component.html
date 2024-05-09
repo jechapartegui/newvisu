@@ -20,8 +20,9 @@
             {{match.score_home}} - {{match.score_away}}
         </ng-container>
         <ng-container *ngIf="!match.is_played">
-            <i class="fa-regular fa-clock"></i>
-            {{match.time.slice(0, -3)}}
+            <span class="heure_score"> <i class="fa-regular fa-clock"></i>
+                {{match.time.slice(0, -3)}}</span>
+           
         </ng-container>
     </div>
     <div class="team">

@@ -67,7 +67,7 @@ export class DefautComponent implements OnInit {
   LoadMatchToPlay() {
     const errorService = ErrorService.instance;
     this.action = $localize`Charger les matchs à jouer`;
-    this.matchservice.GetPlayedMatch().then((list_matchs: response_listmatch) => {
+    this.matchservice.GetNextMatch().then((list_matchs: response_listmatch) => {
       if (list_matchs) {
         this.visu.load_games_to_come(list_matchs);
       } else {

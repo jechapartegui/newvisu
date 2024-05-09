@@ -51,26 +51,33 @@
           (click)="GlobalService.updateSelectedMenuStatus('CLASSEMENT')" [routerLink]="['/gerer-groupe']" i18n>
           Classements
         </a>
-      </div>
-      <div class="navbar-end">     
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a               [class]="'navbar-link'">
-              Fédération
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a               [class]="'navbar-link'">
+            Fédération
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Fichiers
             </a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
-                Fichiers
-              </a>
-              <a class="navbar-item">
-                Contact
-              </a>
-              <hr class="navbar-divider">
-              <a class="navbar-item">
-                Site de la FFFL
-              </a>
-            </div>
+            <a class="navbar-item">
+              Contact
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              Site de la FFFL
+            </a>
           </div>
-          <input class="input" type="text" i18n-placeholder placeholder="Rechercher">
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="field">
+          <p class="control has-icons-left has-icons-right"> <input class="input" type="text" i18n-placeholder placeholder="Rechercher"  (keydown)="keyDownFunction($event)">
+            <span class="icon is-small is-left">
+              <i class="fas fa-magnifying-glass"></i>
+            </span>
+          </p>
+        </div>               
+         
         <a [routerLink]="['/menu-inscription']" (click)="GlobalService.updateSelectedMenuStatus('MATCH')"
           [class]="(GlobalService.SelectedMenu$ | async) === 'MATCH' ? 'button is-outlined is-primary' : 'button is-primary'">
           <strong>Matchs</strong>

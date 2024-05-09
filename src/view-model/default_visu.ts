@@ -60,7 +60,9 @@ export class default_visu {
         this.date_list.push(element.date);
       }
     });
-    this.date_list.sort();
+    this.date_list.sort(function (a, b) {
+      return a < b ? 1 : -1;
+    });
     this.games_to_come.sort(
       function (a, b) {
         return a.time > b.time ? 1 : -1;
@@ -165,7 +167,9 @@ export class default_visu {
         this.date_list_all_games.push(element.date);
       }
     });
-    this.date_list_all_games.sort();
+    this.date_list_all_games.sort(function (a, b) {
+      return a < b ? 1 : -1;
+    });
     this.all_games_filtered.sort(
       function (a, b) {
         return a.time > b.time ? 1 : -1;
@@ -185,7 +189,9 @@ export class default_visu {
         this.date_list_live_games.push(element.date);
       }
     });
-    this.date_list_live_games.sort();
+    this.date_list_live_games.sort(function (a, b) {
+      return a < b ? 1 : -1;
+    });
     this.live_games.sort(
       function (a, b) {
         return a.time > b.time ? 1 : -1;
