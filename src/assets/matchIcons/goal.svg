@@ -1,0 +1,23 @@
+<svg data-name="Layer 2" id="Layer_2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>.cls-1 {
+      fill: #fff;
+      stroke: #000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2px;
+    }</style>
+  </defs>
+  <title>Artboard 19</title>
+  <circle class="cls-1" cx="49.99" cy="49.17" r="38.14"/>
+  <circle class="cls-1" cx="35.39" cy="35.69" r="4.67"/>
+  <circle class="cls-1" cx="50" cy="63.85" r="5.66"/>
+  <ellipse class="cls-1" cx="50" cy="14.35" rx="5.66" ry="3.32"/>
+  <ellipse class="cls-1" cx="40.06" cy="82.03" rx="2.58" ry="5.66" transform="translate(-49.33 100.57) rotate(-75.69)"/>
+  <ellipse class="cls-1" cx="65.14" cy="80.14" rx="5.66" ry="2.58" transform="translate(-17.78 18.58) rotate(-14.31)"/>
+  <ellipse class="cls-1" cx="24.31" cy="63.73" rx="4.09" ry="5.19" transform="translate(-12.32 6.19) rotate(-11.6)"/>
+  <ellipse class="cls-1" cx="75.68" cy="63.98" rx="5.19" ry="4.09" transform="translate(-2.79 124.49) rotate(-77.85)"/>
+  <circle class="cls-1" cx="65.48" cy="35.69" r="4.67"/>
+  <ellipse class="cls-1" cx="16.73" cy="34.51" rx="4.67" ry="1.76" transform="translate(-21.19 40.27) rotate(-72.77)"/>
+  <ellipse class="cls-1" cx="83.67" cy="35.69" rx="1.76" ry="4.67" transform="translate(-6.82 26.38) rotate(-17.23)"/>
+</svg>

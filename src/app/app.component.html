@@ -35,21 +35,14 @@
 
     <div id="navMaSeance" [class]="isactive ? 'navbar-menu is-active' :  'navbar-menu'">
       <div class="navbar-start">
-        <a [class]="(GlobalService.SelectedMenu$ | async) === 'CHAMPIONNAT' ? 'navbar-item is-selected' : 'navbar-item'"
-          (click)="GlobalService.updateSelectedMenuStatus('CHAMPIONNAT')" [routerLink]="['/gerer-riders']" i18n>
-          Championnat
+        <a [class]="(GlobalService.SelectedMenu$ | async) === 'COMPETITION' ? 'navbar-item is-selected' : 'navbar-item'"
+          (click)="GlobalService.updateSelectedMenuStatus('COMPETITION')" [routerLink]="['/competition']" i18n>
+          Compétitions
         </a>
-        <a [class]="(GlobalService.SelectedMenu$ | async) === 'JOUEUR' ? 'navbar-item is-selected' : 'navbar-item'"
-          (click)="GlobalService.updateSelectedMenuStatus('JOUEUR')" [routerLink]="['/gerer-seance']" i18n>
-          Joueurs
-        </a>
+       
         <a [class]="(GlobalService.SelectedMenu$ | async) === 'CLUB' ? 'navbar-item is-selected' : 'navbar-item'"
-          (click)="GlobalService.updateSelectedMenuStatus('CLUB')" [routerLink]="['/gerer-cours']" i18n>
+          (click)="GlobalService.updateSelectedMenuStatus('CLUB')" [routerLink]="['/clubs']" i18n>
           Clubs
-        </a>
-        <a [class]="(GlobalService.SelectedMenu$ | async) === 'CLASSEMENT' ? 'navbar-item is-selected' : 'navbar-item'"
-          (click)="GlobalService.updateSelectedMenuStatus('CLASSEMENT')" [routerLink]="['/gerer-groupe']" i18n>
-          Classements
         </a>
         <div class="navbar-item has-dropdown is-hoverable">
           <a               [class]="'navbar-link'">
@@ -63,7 +56,7 @@
               Contact
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
+            <a class="navbar-item" href="">
               Site de la FFFL
             </a>
           </div>
@@ -71,14 +64,14 @@
       </div>
       <div class="navbar-end">
         <div class="field">
-          <p class="control has-icons-left has-icons-right"> <input class="input" type="text" i18n-placeholder placeholder="Rechercher"  (keydown)="keyDownFunction($event)">
+          <p class="control has-icons-left has-icons-right"> <input class="input" type="text" i18n-placeholder placeholder="Rechercher" [(ngModel)]="search_text"  (keydown)="keyDownFunction($event)">
             <span class="icon is-small is-left">
               <i class="fas fa-magnifying-glass"></i>
             </span>
           </p>
         </div>               
          
-        <a [routerLink]="['/menu-inscription']" (click)="GlobalService.updateSelectedMenuStatus('MATCH')"
+        <a [routerLink]="['/defaut']" (click)="GlobalService.updateSelectedMenuStatus('MATCH')"
           [class]="(GlobalService.SelectedMenu$ | async) === 'MATCH' ? 'button is-outlined is-primary' : 'button is-primary'">
           <strong>Matchs</strong>
         </a>
@@ -89,3 +82,4 @@
 
   <router-outlet></router-outlet>
 </div>
+<notif_jecha></notif_jecha>

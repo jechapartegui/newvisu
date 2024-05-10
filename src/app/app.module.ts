@@ -13,12 +13,19 @@ import { StaticClass } from './global';
 import { DatePipe } from '@angular/common';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameItemComponent } from './game-item/game-item.component';
+import { SearchComponent } from './search/search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JoueurItemComponent } from './joueur-item/joueur-item.component';
+import { EquipeItemComponent } from './equipe-item/equipe-item.component';
+import { ClubItemComponent } from './club-item/club-item.component';
+import { CompetitionItemComponent } from './competition-item/competition-item.component';
+import { GymnaseItemComponent } from './gymnase-item/gymnase-item.component';
 
 @NgModule({
   declarations: [
-    AppComponent, NotifJechaComponent, DefautComponent, GameListComponent, GameItemComponent],
+    AppComponent, NotifJechaComponent, DefautComponent, GameListComponent, GameItemComponent, SearchComponent, JoueurItemComponent, EquipeItemComponent, ClubItemComponent, CompetitionItemComponent, GymnaseItemComponent],
   imports: [
-    BrowserModule,HttpClientModule,
+    BrowserModule,HttpClientModule,  BrowserAnimationsModule,
     AppRoutingModule, FormsModule
   ],
   providers: [GlobalService,  ErrorService, StaticClass, DatePipe],

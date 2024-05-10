@@ -9,14 +9,14 @@ import { search_global_result } from 'src/class/search_result';
   providedIn: 'root'
 })
 export class GlobalService {
-  private isSelectedMenu = new BehaviorSubject<"MATCH" | "JOUEUR" | "CLASSEMENT" | "CLUB" | "CHAMPIONNAT">("MATCH");
-  static selected_menu: "MATCH" | "JOUEUR" | "CLASSEMENT" | "CLUB" | "CHAMPIONNAT" = "MATCH";
-  SelectedMenu$: Observable<"MATCH" | "JOUEUR" | "CLASSEMENT" | "CLUB" | "CHAMPIONNAT"> = this.isSelectedMenu.asObservable();
+  private isSelectedMenu = new BehaviorSubject<"MATCH" | "CLUB" | "COMPETITION">("MATCH");
+  static selected_menu: "MATCH" | "CLUB" | "COMPETITION" = "MATCH";
+  SelectedMenu$: Observable<"MATCH" | "CLUB" | "COMPETITION"> = this.isSelectedMenu.asObservable();
 
   url: string;
   thisLanguage: "FR" | "EN" | "NL";
   constructor(private http: HttpClient, private datepipe: DatePipe) { }
-  updateSelectedMenuStatus(selected: "MATCH" | "JOUEUR" | "CLASSEMENT" | "CLUB" | "CHAMPIONNAT" ): void {
+  updateSelectedMenuStatus(selected: "MATCH" | "CLUB" | "COMPETITION" ): void {
     this.isSelectedMenu.next(selected);
     GlobalService.selected_menu = selected;
   }
@@ -117,7 +117,8 @@ export class GlobalService {
     this.url = environment.url + 'public_global_search.php';
     //  this.url = this.url + "login.php";
     const body = {
-      text: $text
+      text: $text,
+      new:true
     };
 
 

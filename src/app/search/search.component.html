@@ -1,0 +1,82 @@
+<div class="container">
+    <p *ngIf="visu.search_total_count==0" i18n>Pas de résultat</p>
+    <div *ngIf="visu.search_total_count>0" class="tabs is-boxed is-right">
+        <ul>
+            <li *ngIf="visu.players_results_count>0" [class]="visu.selected === 'JOUEUR' ? 'is-active' :''"
+                (click)="visu.selected='JOUEUR'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-image" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Joueurs ({{visu.players_results_count}})</span>
+                </a>
+            </li>
+            <li *ngIf="visu.teams_results_count>0" [class]="visu.selected === 'EQUIPE' ? 'is-active' :''"
+                (click)="visu.selected='EQUIPE'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-image" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Equipes ({{visu.teams_results_count}})</span>
+                </a>
+            </li>
+            <li *ngIf="visu.clubs_results_count>0" [class]="visu.selected === 'CLUB' ? 'is-active' :''"
+                (click)="visu.selected='CLUB'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-image" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Clubs ({{visu.clubs_results_count}})</span>
+                </a>
+            </li>
+            <li *ngIf="visu.competitions_results_count>0" [class]="visu.selected === 'COMPETITION' ? 'is-active' :''"
+                (click)="visu.selected='COMPETITION'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-image" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Compétitions ({{visu.competitions_results_count}})</span>
+                </a>
+            </li>
+            <li *ngIf="visu.sporthalls_results_count>0" [class]="visu.selected === 'GYMNASE' ? 'is-active' :''"
+                (click)="visu.selected='GYMNASE'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-image" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>Gymnase ({{visu.sporthalls_results_count}})</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <ng-container *ngIf="visu.search_total_count>0">
+        <div class="content">
+            <ng-container *ngIf="visu.selected === 'JOUEUR'">
+                <ng-container *ngFor="let item of visu.search_players">
+                    <app-joueur-item  [joueur]="item"></app-joueur-item>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="visu.selected === 'CLUB'">
+                <ng-container *ngFor="let item of visu.search_clubs">
+                    <app-club-item  [club]="item"></app-club-item>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="visu.selected === 'EQUIPE'">
+                <ng-container *ngFor="let item of visu.search_teams">
+                    <app-equipe-item  [equipe]="item"></app-equipe-item>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="visu.selected === 'COMPETITION'">
+                <ng-container *ngFor="let item of visu.search_competitions">
+                    <app-competition-item  [competition]="item"></app-competition-item>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="visu.selected === 'GYMNASE'">
+                <ng-container *ngFor="let item of visu.search_sporthalls">
+                    <app-gymnase-item  [gymnase]="item"></app-gymnase-item>
+                </ng-container>
+            </ng-container>
+        </div>
+    </ng-container>
+
+</div>

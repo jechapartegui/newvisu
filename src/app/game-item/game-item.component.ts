@@ -9,7 +9,12 @@ import { full_game } from 'src/class/full_game';
 })
 export class GameItemComponent implements OnInit {
 @Input() match:full_game
-
+@Input() display_date:boolean = false;
+@Input() display_competition:boolean = false;
+@Input() display_round:boolean = false;
+@Input() display_referee:boolean = false;
+@Input() display_sportshall:boolean=false;
+@Input() display_validation:boolean=false;
 ngOnInit(): void {
    
 

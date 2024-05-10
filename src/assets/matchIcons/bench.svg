@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+  data-name="Layer 2"
+  id="Layer_2"
+  inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+  sodipodi:docname="bench.svg"
+  version="1.1"
+  viewBox="0 0 100 100"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+>
+  <sodipodi:namedview
+    bordercolor="#000000"
+    borderopacity="0.25"
+    id="namedview33763"
+    inkscape:current-layer="Layer_2"
+    inkscape:cx="49.940263"
+    inkscape:cy="50.059737"
+    inkscape:deskcolor="#d1d1d1"
+    inkscape:pagecheckerboard="0"
+    inkscape:pageopacity="0.0"
+    inkscape:showpageshadow="2"
+    inkscape:window-height="1017"
+    inkscape:window-maximized="1"
+    inkscape:window-width="1920"
+    inkscape:window-x="-8"
+    inkscape:window-y="-8"
+    inkscape:zoom="8.37"
+    pagecolor="#ffffff"
+    showgrid="false"/>
+  <defs
+    id="defs33750">
+    <style
+      id="style33748">.cls-1, .cls-2 {
+      fill: #fff;
+      stroke: #000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2px;
+    }
+
+    .cls-2 {
+      font-size: 64.08px;
+      font-family: BNPPExpandedSans-Bold, BNPP Expanded Sans;
+      font-weight: 700;
+    }</style>
+  </defs>
+  <title
+    id="title33752">Artboard 21</title>
+  <rect
+    class="cls-1"
+    height="10.67"
+    id="rect33754"
+    width="68"
+    x="16"
+    y="70.33"/>
+  <rect
+    class="cls-1"
+    height="14"
+    id="rect33756"
+    width="6"
+    x="21.42"
+    y="81"/>
+  <rect
+    class="cls-1"
+    height="14"
+    id="rect33758"
+    width="6"
+    x="71.42"
+    y="81"/>
+  <metadata
+    id="metadata35334">
+    <rdf:RDF>
+      <cc:Work
+        rdf:about="">
+        <dc:title>Artboard 21</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

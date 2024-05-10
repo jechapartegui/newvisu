@@ -6,7 +6,6 @@ import { NotifJechaComponent } from './custom-notification/custom-notification.c
 import { GlobalService } from 'src/services/global.services';
 import { environment } from 'src/environments/environment.prod';
 import { FederationService } from 'src/services/federation.service';
-import { default_visu } from 'src/view-model/default_visu';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ export class AppComponent {
   action: string;
   isactive: boolean = false;
   g: StaticClass;
-  search_text:string;
+  search_text:string = "";
   envt = environment;
   @ViewChild(NotifJechaComponent, { static: true }) child: NotifJechaComponent;
   constructor(
@@ -33,7 +32,7 @@ export class AppComponent {
       this.DisplayError(data);
     })
   }
-  public selected_menu: "MATCH" | "JOUEUR" | "CLASSEMENT" | "CLUB" | "CHAMPIONNAT"= "MATCH";
+  public selected_menu: "MATCH" | "CLUB" | "COMPETITION"= "MATCH";
   ngOnInit(): void {
     this.setFederation();
   }
@@ -68,10 +67,7 @@ export class AppComponent {
         let o = errorService.CreateError(this.action, $localize`3 caractères minimum pour effectuer une recherche`);
         errorService.emitChange(o);
       } else {
-        this._router.navigate(['default', {search: this.search_text}])
-          .then(() => {
-            window.location.reload();
-          });
+        this._router.navigate(['/search'], { queryParams: { search: this.search_text } });
 
       }
     }

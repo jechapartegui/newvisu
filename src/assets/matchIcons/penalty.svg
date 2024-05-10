@@ -1,0 +1,23 @@
+<svg data-name="Layer 2" id="Layer_2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>.cls-1 {
+      fill: #fff;
+    }
+
+    .cls-1, .cls-2 {
+      stroke: #000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2px;
+    }
+
+    .cls-2 {
+      fill: none;
+    }</style>
+  </defs>
+  <title>Artboard 23 copy</title>
+  <polyline class="cls-1" points="67.38 49.15 81.1 58.15 81.1 18.48 18.9 18.48 18.9 58.15 32.63 49.15"/>
+  <polygon class="cls-2" points="67.38 49.15 32.63 49.15 18.9 18.48 81.1 18.48 67.38 49.15"/>
+  <polygon class="cls-1"
+           points="54.58 80.87 50 83.25 45.42 80.87 40.1 83.52 44.68 86 39.7 88.59 45.01 91.59 50 88.89 54.99 91.59 60.3 88.59 55.32 86 59.9 83.52 54.58 80.87"/>
+</svg>

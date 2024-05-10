@@ -25,27 +25,13 @@ export class default_visu {
   activeindex: number;
   disabledlive: boolean;
   public list: string[] = [];
-  public selected = "";
 
   public tournament_list: Array<Tournament>;
   public round_list: Array<Round>;
   public team_list: Array<teams>;
   public sporthall_list: Array<sporthall>;
 
-  search_total_count: number;
-  players_results_count: number;
-  clubs_results_count: number;
-  teams_results_count: number;
-  sporthalls_results_count: number;
-  competitions_results_count: number;
-  search_players: any[] = [];
-  search_clubs: any[] = [];
-  search_teams: any[] = [];
-  search_sporthalls: any[] = [];
-  search_competitions: any[] = [];
 
-  games_display: boolean;
-  search_text: string;
 
   load_games_to_come(reponse: response_listmatch) {
     reponse.list_match.forEach(m => {
@@ -206,76 +192,7 @@ export class default_visu {
     }
   }
 
-  load_search(list_search: search_global_result) {
-    this.search_clubs = list_search.club;
-    this.search_competitions = list_search.tournament;
-    this.search_players = list_search.player;
-    this.search_teams = list_search.team;
-    this.search_sporthalls = list_search.sporthall;
-    var max = 1;
-    let lib = $localize`Players`;
-    if (this.search_players.length === 0) {
-      this.list.push(lib);
-    } else {
-      lib += " (" + this.search_players.length + ")";
-      this.list.push(lib);
-      if (this.search_players.length > max) {
-        max = this.search_players.length;
-        this.selected = lib;
-      }
-    }
-    lib = $localize`Teams`;
-    if (this.search_teams.length === 0) {
-      this.list.push(lib);
-    } else {
-      lib += " (" + this.search_teams.length + ")";
-      this.list.push(lib);
-      if (this.search_teams.length > max) {
-        max = this.search_teams.length;
-        this.selected = lib;
-      }
-    }
-    lib = $localize`Clubs`;
-    if (this.search_clubs.length === 0) {
-      this.list.push(lib);
-    } else {
-      lib += " (" + this.search_clubs.length + ")";
-      this.list.push(lib);
-      if (this.search_clubs.length > max) {
-        max = this.search_clubs.length;
-        this.selected = lib;
-      }
-    }
-    
-    lib = $localize`Competitions`;
-    if (this.search_competitions.length === 0) {
-      this.list.push(lib);
-    } else {
-      lib += " (" + this.search_competitions.length + ")";
-      this.list.push(lib);
-      if (this.search_competitions.length > max) {
-        max = this.search_competitions.length;
-        this.selected = lib;
-      }
-    }
-    lib = $localize`Sporthalls`;
-    if (this.search_sporthalls.length === 0) {
-      this.list.push(lib);
-    } else {
-      lib += " (" + this.search_sporthalls.length + ")";
-      this.list.push(lib);
-      if (this.search_sporthalls.length > max) {
-        max = this.search_sporthalls.length;
-        this.selected = lib;
-      }
-    }
-    this.sporthalls_results_count = this.search_sporthalls.length;
-    this.clubs_results_count = this.search_clubs.length;
-    this.teams_results_count = this.search_teams.length;
-    this.players_results_count = this.search_players.length;
-    this.competitions_results_count = this.search_competitions.length;
-    this.search_total_count = this.sporthalls_results_count + this.clubs_results_count + this.teams_results_count + this.players_results_count + this.competitions_results_count;
-  }
+
 }
 
 
