@@ -11,17 +11,19 @@ import { search_visu } from 'src/view-model/search_visu';
 })
 export class SearchComponent implements OnInit {
   visu:search_visu;
+  loading:boolean = false;
   action:string=  $localize`Effectuer une rechercher`;
-  constructor(private route: ActivatedRoute, public globalserv:GlobalService) { }
+  constructor(private route: ActivatedRoute, public globalserv:GlobalService, public _router:Router) { }
   ngOnInit(): void {
     this.visu = new search_visu();
     const errorService = ErrorService.instance;
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       if ('search' in params) {
         this.visu.search_text = params['search'];
+        this.loading = true;
         this.globalserv.searchGlobal(this.visu.search_text).then((result) =>{
           this.visu.load_search(result);
+          this.loading = false;
           let o = errorService.OKMessage(this.action);
           errorService.emitChange(o);
         }).catch((err) => {
@@ -29,7 +31,7 @@ export class SearchComponent implements OnInit {
           errorService.emitChange(o);
         });
       } else {
-
+        this._router.navigate(['/defaut']);
       }
 
     });

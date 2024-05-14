@@ -1,6 +1,8 @@
 <div class="container">
-    <p *ngIf="visu.search_total_count==0" i18n>Pas de résultat</p>
-    <div *ngIf="visu.search_total_count>0" class="tabs is-boxed is-right">
+    <progress *ngIf="loading" class="progress is-large is-info" max="100">60%</progress>
+    <p *ngIf="loading">Recherche en cours</p>
+    <p *ngIf="!loading && visu.search_total_count==0" i18n>Pas de résultat</p>
+    <div *ngIf="!loading &&  visu.search_total_count>0" class="tabs is-boxed is-right">
         <ul>
             <li *ngIf="visu.players_results_count>0" [class]="visu.selected === 'JOUEUR' ? 'is-active' :''"
                 (click)="visu.selected='JOUEUR'">

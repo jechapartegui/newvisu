@@ -1,1 +1,42 @@
-<p>{{joueur.firstname}} {{joueur.lastname}}</p>
+<div class="box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="{{joueur.photo}}" alt="Image" />
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p >
+            <span class="title"><strong>{{joueur.firstname}} {{joueur.lastname}}</strong></span> &nbsp;<small>{{joueur.age}} <span i18n>ans</span></small>
+            <br />
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item" aria-label="reply">
+              <span class="icon is-small">
+                <i *ngIf="joueur.sex == 'Male'" class="fas fa-mars"></i>
+                <i *ngIf="joueur.sex == 'Female'" class="fas fa-venus"></i>
+              </span>
+            </a>
+            <a class="level-item" >
+                <img *ngIf="joueur.nat1 && joueur.nat1 != '0'" class="nat1" width="15px" src="assets/flags/{{joueur.nat1 | lowercase}}.png"
+                 title="{{joueur.nat1}}">          
+             
+            </a>
+            <a class="level-item" aria-label="like">
+                <img *ngIf="joueur.nat2 && joueur.nat2 != '0'" class="nat2" width="15px" src="assets/flags/{{joueur.nat2 | lowercase}}.png"
+                title="{{joueur.nat2}}">
+            </a>
+          </div>
+        </nav>
+      </div>
+      <div class="media-right">
+        <figure class="image is-32x32">
+          <img src="{{joueur.clublogo}}" alt="logo" />
+        </figure>
+        <p class="team">{{joueur.clubname}}</p>
+      </div>
+    </article>
+  </div>

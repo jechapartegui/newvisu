@@ -20,10 +20,11 @@ import { EquipeItemComponent } from './equipe-item/equipe-item.component';
 import { ClubItemComponent } from './club-item/club-item.component';
 import { CompetitionItemComponent } from './competition-item/competition-item.component';
 import { GymnaseItemComponent } from './gymnase-item/gymnase-item.component';
+import { GamesComponent } from './games/games.component';
 
 @NgModule({
   declarations: [
-    AppComponent, NotifJechaComponent, DefautComponent, GameListComponent, GameItemComponent, SearchComponent, JoueurItemComponent, EquipeItemComponent, ClubItemComponent, CompetitionItemComponent, GymnaseItemComponent],
+    AppComponent, NotifJechaComponent, GamesComponent, DefautComponent, GameListComponent, GameItemComponent, SearchComponent, JoueurItemComponent, EquipeItemComponent, ClubItemComponent, CompetitionItemComponent, GymnaseItemComponent],
   imports: [
     BrowserModule,HttpClientModule,  BrowserAnimationsModule,
     AppRoutingModule, FormsModule
