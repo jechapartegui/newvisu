@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { full_game } from 'src/class/full_game';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-item',
@@ -15,8 +15,12 @@ export class GameItemComponent implements OnInit {
 @Input() display_referee:boolean = false;
 @Input() display_sportshall:boolean=false;
 @Input() display_validation:boolean=false;
+constructor(private router:Router){}
 ngOnInit(): void {
    
 
+}
+GoToMatch(){
+  this.router.navigate(['/games'], { queryParams: { id: this.match.id } });     
 }
 }

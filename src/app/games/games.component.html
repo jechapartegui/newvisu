@@ -4,6 +4,111 @@
         <p>Chargement en cours</p>
     </ng-container>
     <ng-container *ngIf="!loading">
-        
+        <article class="panel is-primary">
+            <p class="panel-heading" i18n>Information du match</p>
+            <div class="panel-block">
+                <div class="columns" style="width: 100%;">
+                    <div class="column">
+                        <div class="ligne">
+                            <div>
+                                <img class="logo" src="{{visu.match.team_home_logo}}">
+                            </div>
+                            <div class="team">
+                                <a [routerLink]="['team']">
+                                    <div class="text-container" #textContainer>
+                                        {{ visu.match.team_home_name }}
+                                        <span *ngIf="textContainer.offsetWidth < textContainer.scrollWidth"
+                                            class="tooltip">{{
+                                            visu.match.team_home_name }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="score">
+                                <ng-container *ngIf="visu.match.is_played">
+                                    {{visu.match.score_home}}
+                                </ng-container>
+                                <ng-container *ngIf="!visu.match.is_played">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="ligne">
+                            <div>
+                                <img class="logo" src="{{visu.match.team_away_logo}}">
+                            </div>
+                            <div class="team">
+                                <a [routerLink]="['team']">
+                                    <div class="text-container" #textContainer>
+                                        {{ visu.match.team_away_name }}
+                                        <span *ngIf="textContainer.offsetWidth < textContainer.scrollWidth"
+                                            class="tooltip">{{
+                                            visu.match.team_away_name }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="score">
+                                <ng-container *ngIf="visu.match.is_played">
+                                    {{visu.match.score_away}}
+                                </ng-container>
+                                <ng-container *ngIf="!visu.match.is_played">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        {{visu.match.date | date: 'dd/MM/yyyy'}}
+                        {{visu.match.time}}
+                    </div>
+                </div>
+            </div>
+            <p *ngIf="visu.selection != 'NO'" class="panel-tabs is-boxed">
+                <a *ngIf="(visu.match.home_players && visu.match.home_players.length>0) ||
+                 (visu.match.away_players && visu.match.away_players.length>0)"
+                    [class]="visu.selection === 'COMPO' ? 'is-active' : ''" (click)="visu.selection='COMPO'"
+                    i18n>Compositions</a>
+                <a *ngIf="visu.match.events" [class]="visu.selection === 'EVENT' ? 'is-active' : ''"
+                    (click)="visu.selection='EVENT'" i18n>Déroulement</a>
+                <a *ngIf="visu.match.referees" [class]="visu.selection === 'REF' ? 'is-active' : ''"
+                    (click)="visu.selection='REF'" i18n>Officiels et arbitres</a>
+                <a *ngIf="visu.classement_live" [class]="visu.selection === 'LIVE_CLASS' ? 'is-active' : ''"
+                    (click)="visu.selection='LIVE_CLASS'" i18n>Classement live</a>
+            </p>
+            <div class="panel-block" *ngIf="visu.selection === 'COMPO'">
+                <div class="columns" style="width: 100%;">
+                    <div class="column">
+                        <div class="card" style="width: 100%;">
+                            <header class="card-header">
+                                <p class="card-header-title">{{ visu.match.team_home_name }}</p>
+                                <img class="logo" src="{{visu.match.team_home_logo}}">
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <ng-container *ngFor="let jr of visu.match.home_players">
+                                        <app-joueur-item [context]="'MATCH'" style="width: 100%;" [joueur_game]="jr"></app-joueur-item>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card" style="width: 100%;">
+                            <header class="card-header">
+                                <p class="card-header-title">{{ visu.match.team_away_name }}</p>
+                                <img class="logo" src="{{visu.match.team_away_logo}}">
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <ng-container *ngFor="let jr of visu.match.away_players">
+                                        <app-joueur-item [context]="'MATCH'" style="width: 100%;" [joueur_game]="jr"></app-joueur-item>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
     </ng-container>
 </div>

@@ -15,7 +15,7 @@
             </div>
         </a>
     </div>
-    <div class="score">
+    <div class="score"  (click)="GoToMatch()">
         <ng-container *ngIf="match.is_played">
             {{match.score_home}} - {{match.score_away}}
         </ng-container>

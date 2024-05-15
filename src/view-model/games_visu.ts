@@ -8,6 +8,8 @@ import { referee } from "src/class/referee";
 export class games_visu{
     public match: full_game;
   public events: Array<game_events>;
+  public classement_live:boolean=false;
+  public selection: "COMPO" | "EVENT" | "REF" | "LIVE_CLASS" | "NO" = "NO";
 
   constructor(_match: full_game, _player : player_game[], _off : officials[], _ref : referee[], _score : detailed_score[], _event : game_events[]) {
     if (_match) {
@@ -15,6 +17,13 @@ export class games_visu{
       this.match.events = _event;
       this.match.home_players = _player.filter(x => x.teamid == this.match.team_home_id);
       this.match.away_players = _player.filter(x => x.teamid == this.match.team_away_id);
+      if(this.match.home_players && this.match.home_players.length > 0){
+        this.selection = "COMPO";
+      } else {
+        if(this.match.away_players && this.match.away_players.length > 0){
+          this.selection = "COMPO";
+        }
+      }
       this.match.officials = _off;
       this.match.referees = _ref;
       this.match.scores = _score;
@@ -35,7 +44,18 @@ export class games_visu{
         // build a timestamp that will be used for sorting on the timeline
         ev.timestamp = this.buildEventTimestamp(ev);
       });
-
+      if(this.match.events && this.match.events.length> 0){
+        this.selection = "EVENT";
+      }
+      if(this.selection === "NO"){
+        if(this.match.referees && this.match.referees.length >0 ){
+          this.selection = "REF";
+        } else {
+          if(this.match.officials && this.match.officials.length >0 ){
+            this.selection = "REF";
+          }
+        }
+      }
       this.match.events.sort(
         function(a, b) {
            return a.timestamp > b.timestamp ? -1 : 1;

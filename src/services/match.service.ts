@@ -69,10 +69,12 @@ export class MatchService {
       });
   }
   get_match(id: number): Promise<full_game> {
-    this.url = environment.url + 'public_mt_matchs_getlist.php';
+    this.url = environment.url + 'public_mt_match_get.php';
     //  this.url = this.url + "login.php";
     const body = {
-      id: id, command: "match", old: true
+      id: id, 
+      command: "match", 
+      old: true
     };
     return this.global.POST(this.url, body)
     .then((response) => {
@@ -87,7 +89,7 @@ export class MatchService {
 
   // players of the game
   get_player_match(id: number): Promise<player_game[]> {
-    this.url = environment.url + 'public_mt_matchs_getlist.php';
+    this.url = environment.url + 'public_mt_match_get.php';
     //  this.url = this.url + "login.php";
     const body = {
       id: id,command: "player", old: true
@@ -105,7 +107,7 @@ export class MatchService {
 
   // officials of the game
   get_official(id: number): Promise<officials[]> {
-    this.url = environment.url + 'public_mt_matchs_getlist.php';
+    this.url = environment.url + 'public_mt_match_get.php';
     //  this.url = this.url + "login.php";
     const body = {
       id: id, command: "official",old: true
@@ -123,7 +125,7 @@ export class MatchService {
 
   // referees of the game
   get_referee(id: number): Promise<referee[]> {
-    this.url = environment.url + 'public_mt_matchs_getlist.php';
+    this.url = environment.url + 'public_mt_match_get.php';
     //  this.url = this.url + "login.php";
     const body = {
       id: id,command: "referee", old: true
@@ -140,7 +142,7 @@ export class MatchService {
   }
   // events of the game
   get_event(id: number): Promise<game_events[]> {
-    this.url = environment.url + 'public_mt_matchs_getlist.php';
+    this.url = environment.url + 'public_mt_match_get.php';
     //  this.url = this.url + "login.php";
     const body = {
       id: id,command: "event", old: true
@@ -157,7 +159,7 @@ export class MatchService {
 
   // score of the game
   get_score(id: number): Promise<detailed_score[]> {
-    this.url = environment.url + 'public_mt_matchs_getlist.php';
+    this.url = environment.url + 'public_mt_match_get.php';
     //  this.url = this.url + "login.php";
     const body = {
       id: id,command: "score"

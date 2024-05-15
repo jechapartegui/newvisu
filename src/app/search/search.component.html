@@ -55,7 +55,7 @@
         <div class="content">
             <ng-container *ngIf="visu.selected === 'JOUEUR'">
                 <ng-container *ngFor="let item of visu.search_players">
-                    <app-joueur-item  [joueur]="item"></app-joueur-item>
+                    <app-joueur-item [context]="'RECHERCHE'"  [joueur]="item"></app-joueur-item>
                 </ng-container>
             </ng-container>
             <ng-container *ngIf="visu.selected === 'CLUB'">

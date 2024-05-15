@@ -12,7 +12,7 @@ import { MatchService } from 'src/services/match.service';
   styleUrls: ['./games.component.css']
 })
 export class GamesComponent implements OnInit {
-  visu:games_visu;
+  visu:games_visu;  
   id:number;
   loading:boolean = false;
   action:string=  $localize`Charger un match`;
@@ -23,8 +23,7 @@ export class GamesComponent implements OnInit {
       if ('id' in params) {
         this.id = params['id'];
         this.loading = true;
-        this.match_serv.Get(this.id).then((result) =>{
-          this.visu = new games_visu(result)
+        this.getMatch(this.id).then(() =>{
           this.loading = false;
           let o = errorService.OKMessage(this.action);
           errorService.emitChange(o);
