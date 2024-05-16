@@ -9,12 +9,7 @@ import { Router } from '@angular/router';
 })
 export class GameItemComponent implements OnInit {
 @Input() match:full_game
-@Input() display_date:boolean = false;
-@Input() display_competition:boolean = false;
-@Input() display_round:boolean = false;
-@Input() display_referee:boolean = false;
-@Input() display_sportshall:boolean=false;
-@Input() display_validation:boolean=false;
+@Input() federation:boolean = false;
 constructor(private router:Router){}
 ngOnInit(): void {
    
@@ -22,5 +17,14 @@ ngOnInit(): void {
 }
 GoToMatch(){
   this.router.navigate(['/games'], { queryParams: { id: this.match.id } });     
+}
+GoToRound(id){
+  this.router.navigate(['/round'], { queryParams: { id: id} });     
+}
+GoToTournament(id){
+  this.router.navigate(['/tournament'], { queryParams: { id: id } });     
+}
+GoToTeam(id){
+  this.router.navigate(['/team'], { queryParams: { id: id } });     
 }
 }

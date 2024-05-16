@@ -1,42 +1,71 @@
-<div class="ligne">
-    <div *ngIf="match.is_played">
-        <i class="fa-regular fa-clock"></i>
-        {{match.time.slice(0, -3)}}
+<div class="columns">
+    <div class="column not-mobile start">
+        <div class="time_game" *ngIf="match.is_played">
+            <i class="fa-regular fa-clock"></i>
+            {{match.time.slice(0, -3)}}
+        </div>
+        <div class="sporthall">
+            <i class="fa-solid fa-location-dot"></i>
+            {{match.sporthall.name}}
+        </div>
     </div>
-    <div>
-        <img class="logo" src="{{match.team_home_logo}}">
-    </div>
-    <div class="team">
-        <a [routerLink]="['team']">
-            <div class="text-container" #textContainer>
-                {{ match.team_home_name }}
-                <span *ngIf="textContainer.offsetWidth < textContainer.scrollWidth" class="tooltip">{{
-                    match.team_home_name }}</span>
+    <div class="column is-two-thirds">
+        <div class="ligne">
+            <div *ngIf="federation" class="maillot">
+                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
+                    <path fill="none" d="M0 0h24v24H0z"/>
+                    <path d="M21 3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-2.001L19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1l-.001-8.001L3 12a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a3 3 0 0 0 6 0h6z"
+                      [style]="{'fill': match.team_home_color, 'stroke':'lightgray','color':'#fffff'}">
+                    </path>
+                  </svg>
             </div>
-        </a>
+            <div class="team end">
+                <span (click)="GoToTeam(match.team_home_id)">{{match.team_home_name}}</span>
+            </div>
+            <div>
+                <img class="logo" src="{{match.team_home_logo}}">
+            </div>
+            <div class="score" (click)="GoToMatch()">
+                <ng-container *ngIf="match.is_played">
+                    {{match.score_home}} - {{match.score_away}}
+                </ng-container>
+                <ng-container *ngIf="!match.is_played">
+                    <span class="heure_score"> <i class="fa-regular fa-clock"></i>
+                        {{match.time.slice(0, -3)}}</span>
+
+                </ng-container>
+            </div>
+            <div>
+                <img class="logo" src="{{match.team_away_logo}}">
+            </div>
+            <div class="team start">
+                <span (click)="GoToTeam(match.team_away_id)">{{match.team_away_name}}</span>
+            </div>
+            <div *ngIf="federation" class="maillot">
+                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
+                    <path fill="none" d="M0 0h24v24H0z"/>
+                    <path d="M21 3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-2.001L19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1l-.001-8.001L3 12a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a3 3 0 0 0 6 0h6z"
+                      [style]="{'fill': match.team_away_color, 'stroke':'lightgray','color':'#fffff'}">
+                    </path>
+                  </svg>
+            </div>
+        </div>
+        <div *ngIf="federation" class="ligne">
+            <i *ngIf="match.is_confirmed" class="fas fa-check-circle"></i>
+            <img *ngIf="match.designated_referee.length > 0"
+            i18n-title
+            src="assets/default/referee.png" style="max-width:20px;max-height:20px;width:auto;height:auto;object-fit:contain;" title="Referees">
+       <span class="textlist" style="margin-left: 0.5ch;max-width: 12ch;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;" title="{{match.designated_referee}}"><i>{{match.designated_referee}}</i></span>
+        </div>
+        <div class="ligne mobile-only">
+            <span (click)="GoToRound(match.round_id)">{{match.round_name}}</span>
+            <span (click)="GoToTournament(match.competition_id)"><strong>{{match.competition_name}}</strong></span>
+        </div>
     </div>
-    <div class="score"  (click)="GoToMatch()">
-        <ng-container *ngIf="match.is_played">
-            {{match.score_home}} - {{match.score_away}}
-        </ng-container>
-        <ng-container *ngIf="!match.is_played">
-            <span class="heure_score"> <i class="fa-regular fa-clock"></i>
-                {{match.time.slice(0, -3)}}</span>
-           
-        </ng-container>
-    </div>
-    <div class="team">
-        <a [routerLink]="['team']">{{match.team_away_name}}</a>
-    </div>
-    <div>
-        <img class="logo" src="{{match.team_away_logo}}">
-    </div>
-    <div>
-        <i class="fa-solid fa-location-dot"></i>
-        {{match.sporthall.name}}
-    </div>
-    <div class="tournament">
+    <div class="column not-mobile end">
         <a [routerLink]="['round']">{{match.round_name}}</a>
         <a [routerLink]="['tournament']"><strong>{{match.competition_name}}</strong></a>
     </div>
 </div>
+
+<hr>

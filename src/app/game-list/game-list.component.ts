@@ -2,6 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { full_game } from 'src/class/full_game';
 import { KeyValuePairDB } from 'src/class/kvp';
+import { MatchService } from 'src/services/match.service';
+import { gameslist_visu } from 'src/class/gameslist_visu';
+import { games_visu } from 'src/view-model/games_visu';
+import { response_listmatch } from 'src/class/response_listmatch';
 
 @Component({
   selector: 'app-game-list',
@@ -13,13 +17,9 @@ export class GameListComponent implements OnInit {
   @Input() liste_date:Date[];
   liste_objets: KeyValuePairDB[] = [];
   group_by:"DATE" | "NO" | "SEASON" | "COMPETITION"= "DATE";
-  @Input() display_date:boolean = false;
-  @Input() display_competition:boolean = false;
-  @Input() display_round:boolean = false;
-  @Input() display_referee:boolean = false;
-  @Input() display_sportshall:boolean=false;
-  @Input() display_validation:boolean=false;
-  
+  @Input() federation:boolean = false;
+
+ 
 
 
   ngOnInit(): void {
@@ -28,4 +28,6 @@ export class GameListComponent implements OnInit {
       this.liste_objets.push(new KeyValuePairDB(date, true));
     });
   }
+
+  
 }

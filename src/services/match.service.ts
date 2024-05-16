@@ -68,6 +68,26 @@ export class MatchService {
         return Promise.reject(error);
       });
   }
+
+  GetAll():Promise<response_listmatch>{
+    this.url = environment.url + 'public_mt_matchs_getlist.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+     federation:true,
+     command:"all"
+    };
+    
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
+
   get_match(id: number): Promise<full_game> {
     this.url = environment.url + 'public_mt_match_get.php';
     //  this.url = this.url + "login.php";

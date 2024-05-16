@@ -1,7 +1,8 @@
 <div class="container">
     <div class="tabs is-boxed is-right">
         <ul>
-            <li *ngIf="visu.live_games && visu.live_games.length>0" [class]="selected_sous_menu === 'LIVE' ? 'is-active' :''" (click)="selected_sous_menu='LIVE'">
+            <li *ngIf="visu.live_games && visu.live_games.length>0"
+                [class]="selected_sous_menu === 'LIVE' ? 'is-active' :''" (click)="selected_sous_menu='LIVE'">
                 <a>
                     <!-- <span class="icon is-small"
             ><i class="fas fa-image" aria-hidden="true"></i
@@ -25,7 +26,8 @@
                     <span i18n>Prochainement</span>
                 </a>
             </li>
-            <li [class]="selected_sous_menu === 'TOUS' ? 'is-active' :''" (click)="selected_sous_menu='TOUS'">
+            <li [class]="selected_sous_menu === 'TOUS' ? 'is-active' :''"
+                (click)="selected_sous_menu='TOUS'; LoadAll()">
                 <a>
                     <!-- <span class="icon is-small"
             ><i class="far fa-file-alt" aria-hidden="true"></i
@@ -36,6 +38,86 @@
         </ul>
     </div>
 
-    <app-game-list *ngIf="selected_sous_menu == 'TERMINE' && visu.games_played" [matchs]="visu.games_played" [liste_date]="visu.date_list_games_played"></app-game-list>
-    <app-game-list *ngIf="selected_sous_menu == 'PROCHAIN' && visu.games_to_come" [matchs]="visu.games_to_come" [liste_date]="visu.date_list"></app-game-list>
+    <app-game-list *ngIf="selected_sous_menu == 'TERMINE' && visu.games_played" [matchs]="visu.games_played"
+        [liste_date]="visu.date_list_games_played"></app-game-list>
+    <app-game-list *ngIf="selected_sous_menu == 'PROCHAIN' && visu.games_to_come" [matchs]="visu.games_to_come"
+        [liste_date]="visu.date_list"></app-game-list>
+    <app-game-list *ngIf="selected_sous_menu == 'LIVE' && visu.live_games" [matchs]="visu.live_games"
+        [liste_date]="visu.date_list"></app-game-list>
+    <ng-container *ngIf="loading">
+        <progress class="progress is-large is-info" max="100">60%</progress>
+        <p>Chargement en cours</p>
+    </ng-container>
+    <ng-container *ngIf="!loading">
+        <div *ngIf="selected_sous_menu == 'TOUS'" class="box" style="font-size: x-small;">
+            <div class="content">
+                <div class="columns">
+                    <div class="column">
+                        <h1 i18n>Filtrer : </h1>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="competition" class="label" i18n>Compétition</label>
+                            <div class="select is-small">
+                                <select (onModelChange)="ChangeFilter()" id="seasons" [(ngModel)]="visu.TournamentSelected"
+                                    i18n-placeholder placeholder="Choisir le tournoi">
+                                    <!-- Options pour les professeurs -->
+                                    <ng-container *ngFor="let tt of visu.tournament_list">
+                                        <option [value]="tt">{{tt.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="competition" class="label" i18n>Tour</label>
+                            <div class="select is-small">
+                                <select (onModelChange)="ChangeFilter()" id="seasons" [(ngModel)]="visu.SelRound"
+                                    i18n-placeholder placeholder="Choisir le tour">
+                                    <!-- Options pour les professeurs -->
+                                    <ng-container *ngFor="let tt of visu.round_list">
+                                        <option [value]="tt">{{tt.name}}</option>
+                                    </ng-container>
+                                </select>
+                                <button type="button" (click)="visu.SelRound = null" class="button is-outlined is-danger is-rounded">
+                                    <i style="fill: red;" class="fas fa-ban"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="competition" class="label" i18n>Equipe</label>
+                            <div class="select is-small">
+                                <select (onModelChange)="ChangeFilter()" id="seasons" [(ngModel)]="visu.SelTeam"
+                                    i18n-placeholder placeholder="Choisir la saison">
+                                    <!-- Options pour les professeurs -->
+                                    <ng-container *ngFor="let tt of visu.team_list">
+                                        <option [value]="tt">{{tt.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="competition" class="label" i18n>Gymnase</label>
+                            <div class="select is-small">
+                                <select (onModelChange)="ChangeFilter()" id="seasons" [(ngModel)]="visu.SelSportHall"
+                                    i18n-placeholder placeholder="Choisir la saison">
+                                    <!-- Options pour les professeurs -->
+                                    <ng-container *ngFor="let tt of visu.sporthall_list">
+                                        <option [value]="tt">{{tt.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-game-list *ngIf="selected_sous_menu == 'TOUS'&& visu.all_games" [matchs]="visu.all_games"
+            [liste_date]="visu.date_list_all_games" [federation]="true"></app-game-list>
+    </ng-container>
 </div>
