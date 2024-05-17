@@ -4,6 +4,7 @@ import { ErrorService } from 'src/services/error.service';
 import { default_visu } from 'src/view-model/default_visu';
 import { ActivatedRoute } from '@angular/router';
 import { response_listmatch } from 'src/class/response_listmatch';
+import { FilterTeamPipe } from 'src/filter/filter_team.pipe';
 
 @Component({
   selector: 'app-defaut',
@@ -98,9 +99,6 @@ export class DefautComponent implements OnInit {
       errorService.emitChange(o);
     });
   }
-  ChangeFilter() {
-    console.log("hu");
-    this.visu.filter_games();
-  }
+
 
 }

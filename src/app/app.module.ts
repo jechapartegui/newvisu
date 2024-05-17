@@ -21,10 +21,15 @@ import { ClubItemComponent } from './club-item/club-item.component';
 import { CompetitionItemComponent } from './competition-item/competition-item.component';
 import { GymnaseItemComponent } from './gymnase-item/gymnase-item.component';
 import { GamesComponent } from './games/games.component';
+import { FilterTeamPipe } from 'src/filter/filter_team.pipe';
+import { FilterRoundPipe } from 'src/filter/filter_round.pipe';
+import { FilterSporthallPipe } from 'src/filter/filter_sporthall.pipe';
+import { FilterTournamentPipe } from 'src/filter/filter_tournament.pipe';
+import { CompetitionsComponent } from './competitions/competitions.component';
 
 @NgModule({
-  declarations: [
-    AppComponent, NotifJechaComponent, GamesComponent, DefautComponent, GameListComponent, GameItemComponent, SearchComponent, JoueurItemComponent, EquipeItemComponent, ClubItemComponent, CompetitionItemComponent, GymnaseItemComponent],
+  declarations: [ FilterTeamPipe, FilterRoundPipe, FilterSporthallPipe, FilterTournamentPipe,
+    AppComponent, NotifJechaComponent, GamesComponent, DefautComponent, GameListComponent, GameItemComponent, SearchComponent, JoueurItemComponent, EquipeItemComponent, ClubItemComponent, CompetitionItemComponent, GymnaseItemComponent, CompetitionsComponent],
   imports: [
     BrowserModule,HttpClientModule,  BrowserAnimationsModule,
     AppRoutingModule, FormsModule

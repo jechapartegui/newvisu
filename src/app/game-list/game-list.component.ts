@@ -29,5 +29,9 @@ export class GameListComponent implements OnInit {
     });
   }
 
+  GetGameMatch(dategame: Date): boolean {
+    return this.matchs.some(match => match.date === dategame);
+  }
+  
   
 }

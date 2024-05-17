@@ -1,27 +1,28 @@
 <ng-container *ngIf="group_by == 'DATE'">
     <ng-container *ngFor="let item of liste_objets">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">{{item.key | date: 'dd/MM/yyyy'}}</p>
-                <button class="card-header-icon" (click)="item.value ? item.value = false : item.value = true"
-                    aria-label="more options">
-                    <span *ngIf="item.value" class="icon">
-                        <i class="fas fa-angle-up" aria-hidden="true"></i>
-                    </span>
-                    <span *ngIf="!item.value" class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                </button>
-            </header>
-            <div *ngIf="item.value" class="card-content">
-                <ng-container *ngFor="let itm of matchs">
-                    <ng-container *ngIf="itm.date == item.key">
-                        <app-game-item  [federation]="federation"
-                        [match]="itm"></app-game-item>
+        <ng-container *ngIf="GetGameMatch(item.key)">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">{{item.key | date: 'dd/MM/yyyy'}}</p>
+                    <button class="card-header-icon" (click)="item.value ? item.value = false : item.value = true"
+                        aria-label="more options">
+                        <span *ngIf="item.value" class="icon">
+                            <i class="fas fa-angle-up" aria-hidden="true"></i>
+                        </span>
+                        <span *ngIf="!item.value" class="icon">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </header>
+                <div *ngIf="item.value" class="card-content">
+                    <ng-container *ngFor="let itm of matchs">
+                        <ng-container *ngIf="itm.date == item.key">
+                            <app-game-item [federation]="federation" [match]="itm"></app-game-item>
+                        </ng-container>
                     </ng-container>
-                </ng-container>
+                </div>
             </div>
-        </div>
+        </ng-container>
     </ng-container>
 </ng-container>
 <ng-container *ngIf="group_by == 'COMPETITION'">
@@ -42,8 +43,7 @@
             <div *ngIf="item.value" class="card-content">
                 <ng-container *ngFor="let itm of matchs">
                     <ng-container *ngIf="itm.date == item.key">
-                        <app-game-item [federation]="federation"
-                        [match]="itm"></app-game-item>
+                        <app-game-item [federation]="federation" [match]="itm"></app-game-item>
                     </ng-container>
                 </ng-container>
             </div>

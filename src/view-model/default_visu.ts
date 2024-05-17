@@ -12,11 +12,11 @@ export class default_visu {
   date_list: Array<Date>;
   games_played: Array<full_game>;
   date_list_games_played: Array<Date>;
-  public TournamentSelected: Tournament;
-  public all_games_filtered: Array<full_game>;
-  SelRound: Round;
-  SelTeam: teams;
-  SelSportHall: sporthall;
+  SelRound: number;
+  SelTeam: number;
+  SelSportHall: number;
+  SelTournament: number;
+
   calendar: number = 0;
   all_games: Array<full_game>;
   date_list_all_games: Array<Date>;
@@ -91,11 +91,17 @@ export class default_visu {
       m.sporthall = reponse.list_sporthall.filter(x => x.id == m.sporthall_id)[0];
     })
     this.all_games = reponse.list_match;
-    this.all_games_filtered = reponse.list_match
     this.round_list = [];
     this.sporthall_list = [];
+    this.tournament_list = [];
     this.team_list = [];
     this.all_games.forEach((gg) => {
+      if (!this.tournament_list.find(x => x.id == gg.competition_id)) {
+        let cmp = new Tournament();
+        cmp.id = gg.competition_id;
+        cmp.name = gg.competition_name;
+        this.tournament_list.push(cmp);
+      }
       if (!this.round_list.find(x => x.id == gg.round_id)) {
         let trd = new Round();
         trd.id = gg.round_id;
@@ -126,29 +132,10 @@ export class default_visu {
     })
 
     if (round_id > 0) {
-      this.SelRound = this.round_list.find(x => x.id == round_id);
-    }
-
-    this.filter_games();
-
-  }
-
-  filter_games() {
-    this.all_games_filtered = this.all_games;
-    if (this.SelRound) {
-      let tmp_list = this.all_games.filter(x => x.round_id == this.SelRound.id);
-      this.all_games_filtered = tmp_list;
-    }
-    if (this.SelTeam) {
-      let tmp_list = this.all_games_filtered.filter(x => (x.team_away_id == this.SelTeam.id) || (x.team_home_id == this.SelTeam.id));
-      this.all_games_filtered = tmp_list;
-    }
-    if (this.SelSportHall) {
-      let tmp_list = this.all_games_filtered.filter(x => x.sporthall_id == this.SelSportHall.id);
-      this.all_games_filtered = tmp_list;
+      this.SelRound = this.round_list.find(x => x.id == round_id).id;
     }
     this.date_list_all_games = new Array<Date>();
-    this.all_games_filtered.forEach(element => {
+    this.all_games.forEach(element => {
       if (!(this.date_list_all_games.find(e => e == element.date))) {
         this.date_list_all_games.push(element.date);
       }
@@ -156,11 +143,13 @@ export class default_visu {
     this.date_list_all_games.sort(function (a, b) {
       return a < b ? 1 : -1;
     });
-    this.all_games_filtered.sort(
+    this.all_games.sort(
       function (a, b) {
         return a.time > b.time ? 1 : -1;
       });
+
   }
+
 
   load_live_games(reponse: response_listmatch) {
     reponse.list_match.forEach(m => {

@@ -59,8 +59,8 @@
                         <div class="field">
                             <label for="competition" class="label" i18n>Compétition</label>
                             <div class="select is-small">
-                                <select (onModelChange)="ChangeFilter()" id="seasons" [(ngModel)]="visu.TournamentSelected"
-                                    i18n-placeholder placeholder="Choisir le tournoi">
+                                <select id="seasons" [(ngModel)]="visu.SelTournament" i18n-placeholder
+                                    placeholder="Choisir le tournoi">
                                     <!-- Options pour les professeurs -->
                                     <ng-container *ngFor="let tt of visu.tournament_list">
                                         <option [value]="tt">{{tt.name}}</option>
@@ -70,54 +70,76 @@
                         </div>
                     </div>
                     <div class="column">
-                        <div class="field">
-                            <label for="competition" class="label" i18n>Tour</label>
-                            <div class="select is-small">
-                                <select (onModelChange)="ChangeFilter()" id="seasons" [(ngModel)]="visu.SelRound"
-                                    i18n-placeholder placeholder="Choisir le tour">
-                                    <!-- Options pour les professeurs -->
-                                    <ng-container *ngFor="let tt of visu.round_list">
-                                        <option [value]="tt">{{tt.name}}</option>
-                                    </ng-container>
-                                </select>
-                                <button type="button" (click)="visu.SelRound = null" class="button is-outlined is-danger is-rounded">
-                                    <i style="fill: red;" class="fas fa-ban"></i>
-                                </button>
+                        <label for="competition" class="label" i18n>Tour</label>
+                        <div class="field has-addons">
+                            <div class="control" style="display: flex; flex-direction: row;">
+                                <div class="select is-small filter">
+                                    <select id="seasons" [(ngModel)]="visu.SelRound" i18n-placeholder
+                                        placeholder="Choisir le tour">
+                                        <!-- Options pour les professeurs -->
+                                        <ng-container *ngFor="let tt of visu.round_list">
+                                            <option [value]="tt.id">{{tt.name}}</option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                                <div class="control">
+                                    <button type="button" (click)="visu.SelRound = null"
+                                        class="button is-outlined is-danger is-rounded is-small">
+                                        <i style="fill: red;" class="fas fa-ban"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="column">
-                        <div class="field">
-                            <label for="competition" class="label" i18n>Equipe</label>
-                            <div class="select is-small">
-                                <select (onModelChange)="ChangeFilter()" id="seasons" [(ngModel)]="visu.SelTeam"
-                                    i18n-placeholder placeholder="Choisir la saison">
-                                    <!-- Options pour les professeurs -->
-                                    <ng-container *ngFor="let tt of visu.team_list">
-                                        <option [value]="tt">{{tt.name}}</option>
-                                    </ng-container>
-                                </select>
+                        <label for="competition" class="label" i18n>Equipe</label>
+                        <div class="field has-addons">
+                            <div class="control" style="display: flex; flex-direction: row;">
+                                <div class="select is-small">
+                                    <select id="seasons" [(ngModel)]="visu.SelTeam" i18n-placeholder
+                                        placeholder="Choisir l'équipe">
+                                        <!-- Options pour les professeurs -->
+                                        <ng-container *ngFor="let tt of visu.team_list">
+                                            <option [value]="tt.id">{{tt.name}}</option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                                <div class="control">
+                                    <button type="button" (click)="visu.SelTeam = null"
+                                        class="button is-outlined is-danger is-rounded is-small">
+                                        <i style="fill: red;" class="fas fa-ban"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="column">
-                        <div class="field">
-                            <label for="competition" class="label" i18n>Gymnase</label>
-                            <div class="select is-small">
-                                <select (onModelChange)="ChangeFilter()" id="seasons" [(ngModel)]="visu.SelSportHall"
-                                    i18n-placeholder placeholder="Choisir la saison">
-                                    <!-- Options pour les professeurs -->
-                                    <ng-container *ngFor="let tt of visu.sporthall_list">
-                                        <option [value]="tt">{{tt.name}}</option>
-                                    </ng-container>
-                                </select>
+                        <label for="competition" class="label" i18n>Gymnase</label>
+                        <div class="field has-addons">
+                            <div class="control" style="display: flex; flex-direction: row;">
+                                <div class="select is-small">
+                                    <select id="seasons" [(ngModel)]="visu.SelSportHall" i18n-placeholder
+                                        placeholder="Choisir la saison">
+                                        <!-- Options pour les professeurs -->
+                                        <ng-container *ngFor="let tt of visu.sporthall_list">
+                                            <option [value]="tt.id">{{tt.name}}</option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                                <div class="control">
+                                    <button type="button" (click)="visu.SelSportHall = null"
+                                        class="button is-outlined is-danger is-rounded is-small">
+                                        <i style="fill: red;" class="fas fa-ban"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <app-game-list *ngIf="selected_sous_menu == 'TOUS'&& visu.all_games" [matchs]="visu.all_games"
+        <app-game-list *ngIf="selected_sous_menu == 'TOUS'&& visu.all_games"
+            [matchs]="visu.all_games | filterTeam : visu.SelTeam | filterRound : visu.SelRound | filterSporthall : visu.SelSportHall"
             [liste_date]="visu.date_list_all_games" [federation]="true"></app-game-list>
     </ng-container>
 </div>

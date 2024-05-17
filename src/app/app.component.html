@@ -19,7 +19,7 @@
     <div id="navMaSeance" [class]="isactive ? 'navbar-menu is-active' :  'navbar-menu'">
       <div class="navbar-start">
         <a [class]="(GlobalService.SelectedMenu$ | async) === 'COMPETITION' ? 'navbar-item is-selected' : 'navbar-item'"
-          (click)="GlobalService.updateSelectedMenuStatus('COMPETITION')" [routerLink]="['/competition']" i18n>
+          (click)="GlobalService.updateSelectedMenuStatus('COMPETITION')" [routerLink]="['/competitions']" i18n>
           Compétitions
         </a>
        
