@@ -23,6 +23,9 @@ export class Round {
   public bestscorer?: number;
   public iscanceled: boolean = false;
   public ishide: boolean = false;
+  public is_nul: boolean = false;
+  public is_ot: boolean = false;
+  public is_fft: boolean = false;
   public reasonofcancel: string;
   public match_goalkeeper_required: boolean = true;
   public match_max_players: number;

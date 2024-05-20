@@ -4,6 +4,7 @@ export class teams_standings{
   public team_name = '';
   public round_id:number = 0;
   public ranking_order:number = 0;
+  public team_logo:any;
   public PTS:number = 0;
   public GP: number = 0;
   public WIN: number = 0;

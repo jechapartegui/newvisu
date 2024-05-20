@@ -1,0 +1,52 @@
+<ng-container *ngIf="event.type == 'Goal'">
+    <div class="content">
+        <div class="columns is-mobile">
+            <div class="column is-5 is-mobile">
+                <div *ngIf="event.teamid==team_home_id" class="domicile">
+                    <div *ngIf="event.playerid1" class="buteur">
+                        <figure class="image is-32x32 mobile" style="margin: 0px;">
+                            <img src="{{event.player1photo}}" alt="Buteur" />
+                        </figure>
+                        <a class="nom_buteur" (click)="GoToJoueur(event.playerid1)">{{event.player1Name}}</a>
+                        <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
+                    </div>
+                    <div *ngIf="event.playerid2" class="passeur">
+                        <figure class="logo_passe" style="margin: 0px;">
+                            <img src="assets/default/Assist.png" alt="But" />
+                        </figure>
+                        <a class="nom_passeur" (click)="GoToJoueur(event.playerid2)">{{event.player2Name}}</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="column is-2 is-mobile" style="display: flex; flex-direction: column; align-items: center;">
+                <figure class="image is-32x32 mobile" style="margin: 0px;">
+                    <img src="assets/matchIcons/goal.svg" alt="But" />
+                </figure>
+            </div>
+            <div class="column is-5  is-mobile">
+                <div *ngIf="event.teamid==team_away_id" class="exterieur">
+                    <div *ngIf="event.playerid1" class="buteur">
+                        <figure class="image is-32x32 mobile" style="margin: 0px;">
+                            <img src="{{event.player1photo}}" alt="Buteur" />
+                        </figure>
+                        <a class="nom_buteur" (click)="GoToJoueur(event.playerid1)">{{event.player1Name}}</a>
+                        <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
+                    </div>
+                    <div *ngIf="event.playerid2" class="passeur">
+                        <figure class="logo_passe" style="margin: 0px;">
+                            <img src="assets/default/Assist.png" alt="But" />
+                        </figure>
+                        <a class="nom_passeur" (click)="GoToJoueur(event.playerid2)">{{event.player2Name}}</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ng-container>
+<ng-container *ngIf="event.type == 'Goal'">
+
+</ng-container>
+<hr>

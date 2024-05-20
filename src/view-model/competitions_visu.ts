@@ -12,5 +12,9 @@ export class competitions_visu{
     category_list:categories[];
     tournament_list:Tournament[];
     round_list:Round[];
+    thisSeason:season;
+    thisCategory:categories;
+    thisTournament:Tournament;
+    thisRound:Round; 
     
 }

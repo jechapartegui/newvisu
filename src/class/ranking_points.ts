@@ -5,12 +5,13 @@ export class ranking_player {
   assists: number;
   points: number;
   games_played: number;
-  saved: number;
+  saves: number;
   faults: number;
-  perc_saved: number;
-  goals_conceed: number;
-  team_id: number;
+  percentage: number;
+  goals_allowed: number;
   teamid: number;
+  team_id: number;
+  clubid:number;
   team_name: string;
   team_logo: string;
   list_games: [];

@@ -1,0 +1,18 @@
+.player_team{
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    align-items: flex-start;
+    cursor: pointer;
+}
+.tri{
+    cursor: pointer;
+}
+@media screen and (max-width: 767px) {
+    .mobile{
+        font-size: x-small;
+    }
+    .team{
+        display: none;
+    }
+}

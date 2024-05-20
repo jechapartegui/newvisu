@@ -26,10 +26,15 @@ import { FilterRoundPipe } from 'src/filter/filter_round.pipe';
 import { FilterSporthallPipe } from 'src/filter/filter_sporthall.pipe';
 import { FilterTournamentPipe } from 'src/filter/filter_tournament.pipe';
 import { CompetitionsComponent } from './competitions/competitions.component';
+import { RoundDetailComponent } from './round-detail/round-detail.component';
+import { CompetitionDetailComponent } from './competition-detail/competition-detail.component';
+import { RankingComponent } from './ranking/ranking.component';
+import { RankingPlayerComponent } from './ranking-player/ranking-player.component';
+import { GameEventComponent } from './game-event/game-event.component';
 
 @NgModule({
-  declarations: [ FilterTeamPipe, FilterRoundPipe, FilterSporthallPipe, FilterTournamentPipe,
-    AppComponent, NotifJechaComponent, GamesComponent, DefautComponent, GameListComponent, GameItemComponent, SearchComponent, JoueurItemComponent, EquipeItemComponent, ClubItemComponent, CompetitionItemComponent, GymnaseItemComponent, CompetitionsComponent],
+  declarations: [ FilterTeamPipe, FilterRoundPipe, FilterSporthallPipe, FilterTournamentPipe, CompetitionDetailComponent, RankingComponent, RankingPlayerComponent, GameEventComponent,
+    AppComponent, NotifJechaComponent, GamesComponent, DefautComponent, GameListComponent, GameItemComponent, SearchComponent, JoueurItemComponent, EquipeItemComponent, ClubItemComponent, CompetitionItemComponent, GymnaseItemComponent, CompetitionsComponent, CompetitionItemComponent, RoundDetailComponent],
   imports: [
     BrowserModule,HttpClientModule,  BrowserAnimationsModule,
     AppRoutingModule, FormsModule

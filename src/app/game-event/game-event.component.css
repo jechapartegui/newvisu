@@ -1,0 +1,33 @@
+.buteur{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    font-size: medium;
+    font-weight: bold;
+    gap: 8px;
+    align-items: center;
+}
+.logo_passe{
+    height: 16px;
+    width: 16px;
+}
+.passeur{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: flex-start;
+    padding-left: 40px;
+    gap: 8px;
+    font-size: small;
+}
+.small-info{
+    font-size: x-small;
+    font-style: italic;
+}
+.domicile{    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-content: center;
+
+}

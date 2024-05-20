@@ -1,0 +1,88 @@
+<table class="table mobile">
+    <thead>
+        <th i18n>#</th>
+        <th i18n>Equipe</th>
+        <th class="tri" i18n (click)="Sort('PTS')" i18n-title title="Points">Pts 
+            <i *ngIf="sort=='PTS_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='PTS_DESC'" class="fas fa-sort-down"></i></th>
+        <th  class="tri"  i18n (click)="Sort('VIC')" i18n-title title="Victoire">V
+            <i *ngIf="sort=='VIC_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='VIC_DESC'" class="fas fa-sort-down"></i></th>
+        <th class="tri"  *ngIf="is_ot" i18n (click)="Sort('VIC_OT')"  i18n-title title="Victoire après prolongtation / tirs aux buts">V.A.P
+            <i *ngIf="sort=='VIC_OT_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='VIC_OT_DESC'" class="fas fa-sort-down"></i></th>
+        <th class="tri" *ngIf="is_nul" i18n (click)="Sort('NUL')"  i18n-title title="Nul">N
+            <i *ngIf="sort=='NUL_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='NUL_DESC'" class="fas fa-sort-down"></i></th>
+        <th class="tri" i18n (click)="Sort('DEF')"  i18n-title title="Défaite">D
+            <i *ngIf="sort=='DEF_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='DEF_DESC'" class="fas fa-sort-down"></i></th>
+        <th class="tri"  *ngIf="is_ot" i18n (click)="Sort('DEF_OT')" i18n-title title="Défaite après prolongation / tirs aux buts">D.A.P
+            <i *ngIf="sort=='DEF_OT_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='DEF_OT_DESC'" class="fas fa-sort-down"></i></th>
+            <th *ngIf="is_fft" class="tri" i18n (click)="Sort('FFT')"  i18n-title title="Forfait">F
+                <i *ngIf="sort=='FFT_ASC'" class="fas fa-sort-up"></i>
+                <i *ngIf="sort=='FFT_DESC'" class="fas fa-sort-down"></i></th>
+        <th  class="tri" i18n (click)="Sort('MJ')"  i18n-title title="Matchs joués">MJ
+            <i *ngIf="sort=='MJ_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='MJ_DESC'" class="fas fa-sort-down"></i></th>
+            
+        <th  class="tri noshow" i18n (click)="Sort('BUT')"  i18n-title title="Buts pour">BP
+            <i *ngIf="sort=='BUT_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='BUT_DESC'" class="fas fa-sort-down"></i></th>
+            
+        <th  class="tri noshow" i18n (click)="Sort('CONC')"  i18n-title title="Buts contre">BC
+            <i *ngIf="sort=='CONC_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='CONC_DESC'" class="fas fa-sort-down"></i></th>
+            
+        <th  class="tri" i18n (click)="Sort('DIFF')"  i18n-title title="Différence de buts">+/-
+            <i *ngIf="sort=='DIFF_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='DIFF_DESC'" class="fas fa-sort-down"></i></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of ranking let i = index">
+            <td>
+                {{item.ranking_order}}
+            </td>
+            <td class="player_team">
+                <span class="team" (click)="GoToTeam(item.team_id)">{{item.team_name}}</span>
+                <figure class="image is-16x16" (click)="GoToTeam(item.team_id)">
+                    <img src="{{item.team_logo}}" alt="logo" />
+                </figure>
+            </td>
+            <td>
+                {{item.PTS}}
+            </td>
+            <td >
+                {{item.WIN}}
+            </td>
+            <td *ngIf="is_ot">
+                {{item.OT_WIN}}
+            </td>
+            <td *ngIf="is_nul">
+                {{item.DRAW}}
+            </td>
+            <td >
+                {{item.LOST}}
+            </td>
+            <td *ngIf="is_ot">
+                {{item.OT_LOST}}
+            </td>
+            <td *ngIf="is_fft">
+                {{item.FORFEIT}}
+            </td>
+            <td>
+                {{item.GP}}
+            </td>
+            <td class="noshow">
+                {{item.GOAL_FOR}}
+            </td>
+            <td class="noshow">
+                {{item.GOAL_AGAINST}}
+            </td>
+            <td>
+                {{item.GOAL_DIFF}}
+            </td>
+        </tr>
+    </tbody>
+</table>

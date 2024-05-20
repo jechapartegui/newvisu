@@ -1,0 +1,41 @@
+<ng-component *ngIf="!thisRound.game_lists">
+    <progress class="progress is-large is-info" max="100">60%</progress>
+    <p>Chargement en cours</p>
+</ng-component>
+<div class="tabs is-toggle is-fullwidth">
+    <ul>
+        <li *ngIf="this.thisRound.game_lists" [class]="selected_sous_menu === 'MATCH' ? 'is-active' :''"
+            (click)="selected_sous_menu = 'MATCH'">
+            <a>
+                <span i18n>Matchs</span>
+            </a>
+        </li>
+        <li *ngIf="this.thisRound.ranking_team" [class]="selected_sous_menu === 'RANKING' ? 'is-active' :''"
+            (click)="selected_sous_menu = 'RANKING'">
+            <a>
+                <span i18n>Classement</span>
+            </a>
+        </li>
+        <li *ngIf="this.thisRound.ranking_goalies_list" [class]="selected_sous_menu === 'GOALIE' ? 'is-active' :''"
+            (click)="selected_sous_menu = 'GOALIE'">
+            <a>
+                <span i18n>Gardiens</span>
+            </a>
+        </li>
+        <li *ngIf="this.thisRound.ranking_points_list" [class]="selected_sous_menu === 'SCORER' ? 'is-active' :''"
+            (click)="selected_sous_menu = 'SCORER'">
+            <a>
+                <span i18n>Pointeurs</span>
+            </a>
+        </li>
+
+    </ul>
+</div>
+<app-game-list *ngIf="thisRound.game_lists && selected_sous_menu === 'MATCH'" [matchs]="thisRound.game_lists"
+    [liste_date]="thisRound.date_list"></app-game-list>
+<app-ranking-player *ngIf="thisRound.ranking_goalies_list && selected_sous_menu === 'GOALIE'"
+    [ranking]="thisRound.ranking_goalies_list" [type]="selected_sous_menu"></app-ranking-player>
+<app-ranking-player *ngIf="thisRound.ranking_points_list && selected_sous_menu === 'SCORER'"
+    [ranking]="thisRound.ranking_points_list" [type]="selected_sous_menu"></app-ranking-player>
+<app-ranking *ngIf="thisRound.ranking_team && selected_sous_menu === 'RANKING'" [ranking]="this.thisRound.ranking_team"
+[is_ot]="thisRound.is_ot" [is_nul]="thisRound.is_nul"  [is_fft]="thisRound.is_fft"></app-ranking>

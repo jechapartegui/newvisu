@@ -10,9 +10,22 @@
     margin: 2px;
     gap: 8px;
 }
+.sous-info{
+    display: flex;
+    flex-direction: row;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin: 2px;
+    gap: 8px;
+}
 .team{
     text-transform: uppercase;
-    width: 200px;
     font-weight: bold;
 }
 .score{
@@ -25,8 +38,26 @@
     height: 36px;
     width:  36px;
 }
+.left-bloc{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-start;
+}
+.right-bloc{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: end;
+}
 @media screen and (max-width: 767px) {
     .card-content{
         padding: 0px;
+    }
+    .info{
+        flex-direction: row;
+        font-size: x-small;
     }
   }

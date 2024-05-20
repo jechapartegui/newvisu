@@ -1,15 +1,7 @@
-.box.recherche{
-    width: 50%;
-}
 .box.games{
     padding: 0.15em;
 }
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-    .box{
-        width: 100%;
-    }
-  }
+
 .team{
     font-weight: bold;
     font-size: smaller;
@@ -27,4 +19,18 @@
     display: flex;
     flex-direction: column;
     align-items: end;
+}
+@media screen and (max-width: 767px) {
+    .mobile{
+        display: block;
+    }
+
+    .noshow{
+        display: none;
+    }
+    .team{
+        font-weight :lighter;
+        font-size: x-small;
+        text-align: end;
+    }
 }

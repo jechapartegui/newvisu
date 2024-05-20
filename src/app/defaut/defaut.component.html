@@ -43,7 +43,7 @@
     <app-game-list *ngIf="selected_sous_menu == 'PROCHAIN' && visu.games_to_come" [matchs]="visu.games_to_come"
         [liste_date]="visu.date_list"></app-game-list>
     <app-game-list *ngIf="selected_sous_menu == 'LIVE' && visu.live_games" [matchs]="visu.live_games"
-        [liste_date]="visu.date_list"></app-game-list>
+        [liste_date]="visu.date_list_live_games"></app-game-list>
     <ng-container *ngIf="loading">
         <progress class="progress is-large is-info" max="100">60%</progress>
         <p>Chargement en cours</p>

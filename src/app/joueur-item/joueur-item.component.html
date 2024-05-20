@@ -2,7 +2,10 @@
   <div *ngIf="joueur" class="box recherche">
     <article class="media">
       <div class="media-left">
-        <figure class="image is-64x64">
+        <figure class="image is-64x64 noshow">
+          <img src="{{joueur.photo}}" alt="Image" />
+        </figure>
+        <figure class="image is-32x32 mobile">
           <img src="{{joueur.photo}}" alt="Image" />
         </figure>
       </div>
@@ -10,11 +13,12 @@
         <div class="content">
           <p>
             <span class="title"><strong>{{joueur.firstname}} {{joueur.lastname}}</strong></span>
-            &nbsp;<small>{{joueur.age}} <span i18n>ans</span></small>
+            &nbsp;<small class="noshow">{{joueur.age}} <span i18n>ans</span></small>
             <br />
+            <span class="mobile team"><strong>{{joueur.clubname}}</strong></span>
           </p>
         </div>
-        <nav class="level is-mobile">
+        <nav class="level is-mobile noshow">
           <div class="level-left">
             <a class="level-item" aria-label="reply">
               <span class="icon is-small">
@@ -35,10 +39,13 @@
         </nav>
       </div>
       <div class="media-right">
-        <figure class="image is-32x32">
+        <figure class="image is-32x32 noshow">
           <img src="{{joueur.clublogo}}" alt="logo" />
         </figure>
-        <p class="team">{{joueur.clubname}}</p>
+        <figure class="image is-16x16 mobile">
+          <img src="{{joueur.clublogo}}" alt="logo" />
+        </figure>
+        <p class="team noshow">{{joueur.clubname}}</p>
       </div>
     </article>
   </div>

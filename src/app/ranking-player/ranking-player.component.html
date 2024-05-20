@@ -1,0 +1,61 @@
+<table class="table mobile">
+    <thead>
+        <th i18n>#</th>
+        <th i18n>Nom</th>
+        <th class="tri" *ngIf="type == 'SCORER'" i18n (click)="Sort('BUT')">Buts 
+            <i *ngIf="sort=='BUT_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='BUT_DESC'" class="fas fa-sort-down"></i></th>
+        <th  class="tri" *ngIf="type == 'SCORER'" i18n (click)="Sort('ASS')">Passes D
+            <i *ngIf="sort=='ASS_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='ASS_DESC'" class="fas fa-sort-down"></i></th>
+        <th class="tri"  *ngIf="type == 'SCORER'" i18n (click)="Sort('PTS')">Pts
+            <i *ngIf="sort=='PTS_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='PTS_DESC'" class="fas fa-sort-down"></i></th>
+        <th class="tri"  *ngIf="type == 'GOALIE'" i18n (click)="Sort('ARR')">Arrêts
+            <i *ngIf="sort=='ARR_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='ARR_DESC'" class="fas fa-sort-down"></i></th>
+        <th class="tri"  *ngIf="type == 'GOALIE'" i18n (click)="Sort('CONC')">Concédés
+            <i *ngIf="sort=='CONC_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='CONC_DESC'" class="fas fa-sort-down"></i></th>
+        <th class="tri"  *ngIf="type == 'GOALIE'" i18n (click)="Sort('PERC')">%
+            <i *ngIf="sort=='PERC_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='PERC_DESC'" class="fas fa-sort-down"></i></th>
+        <th  class="tri" i18n (click)="Sort('MJ')">Matchs joués
+            <i *ngIf="sort=='MJ_ASC'" class="fas fa-sort-up"></i>
+            <i *ngIf="sort=='MJ_DESC'" class="fas fa-sort-down"></i></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of ranking | filterTeam: SelTeam; let i = index">
+            <td>
+                {{i+1}}
+            </td>
+            <td class="player_team">
+                <span (click)="GoToPlayer(item.id)">{{item.name}}</span><span class="team" (click)="GoToTeam(item.teamid)">({{item.team_name}})</span>
+                <figure class="image is-16x16" (click)="GoToTeam(item.teamid)">
+                    <img src="{{item.team_logo}}" alt="logo" />
+                </figure>
+            </td>
+            <td *ngIf="type == 'SCORER'">
+                {{item.goals}}
+            </td>
+            <td *ngIf="type == 'SCORER'">
+                {{item.assists}}
+            </td>
+            <td *ngIf="type == 'SCORER'">
+                {{item.points}}
+            </td>
+            <td *ngIf="type == 'GOALIE'">
+                {{item.saves}}
+            </td>
+            <td *ngIf="type == 'GOALIE'">
+                {{item.goals_allowed}}
+            </td>
+            <td *ngIf="type == 'GOALIE'">
+                {{item.percentage}}
+            </td>
+            <td>
+                {{item.games_played}}
+            </td>
+        </tr>
+    </tbody>
+</table>

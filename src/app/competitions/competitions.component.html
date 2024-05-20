@@ -1,1 +1,119 @@
-<p>competitions works!</p>
+<div class="container">
+    <div class="box" style="font-size: x-small;">
+        <div class="content">
+            <div class="columns">
+                <div class="column">
+                    <h1 i18n>Filtrer : </h1>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label for="competition" class="label" i18n>Saison</label>
+                        <div class="select is-small">
+                            <select id="seasons" [(ngModel)]="visu.selSeason" i18n-placeholder (ngModelChange)="onSelSeasonChange($event)"
+                                placeholder="Choisir la saison">
+                                <!-- Options pour les professeurs -->
+                                <ng-container *ngFor="let tt of visu.season_list">
+                                    <option [value]="tt.id">{{tt.name}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <label for="competition" class="label" i18n>Catégorie</label>
+                    <div class="field has-addons">
+                        <div class="control" style="display: flex; flex-direction: row;">
+                            <div class="select is-small filter">
+                                <select [disabled]="!visu.selSeason" (ngModelChange)="onSelCategoryChange($event)" id="seasons" [(ngModel)]="visu.selCategory"
+                                    i18n-placeholder placeholder="Choisir la catégorie">
+                                    <!-- Options pour les professeurs -->
+                                    <option [ngValue]="null" i18n>Aucune catégorie sélectionnée</option>
+                                    <ng-container *ngFor="let tt of visu.category_list">
+                                        <option [value]="tt.id">{{tt.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="control">
+                                <button type="button" (click)="RemoveCategory()"
+                                    class="button is-outlined is-danger is-rounded is-small">
+                                    <i style="fill: red;" class="fas fa-ban"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <label for="competition" class="label" i18n>Compétition</label>
+                    <div class="field has-addons">
+                        <div class="control" style="display: flex; flex-direction: row;">
+                            <div class="select is-small">
+                                <select [disabled]="(!visu.selCategory || visu.selCategory == null)" (ngModelChange)="onSelTournamentChange($event)" id="seasons" [(ngModel)]="visu.selTournament"
+                                    i18n-placeholder placeholder="Choisir la compétition">
+                                    <!-- Options pour les professeurs -->
+                                    <option [ngValue]="null" i18n>Aucune compétition sélectionnée</option>
+                                    <ng-container *ngFor="let tt of visu.tournament_list">
+                                        <option [value]="tt.id">{{tt.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="control">
+                                <button type="button" (click)="RemoveTournament()"
+                                    class="button is-outlined is-danger is-rounded is-small">
+                                    <i style="fill: red;" class="fas fa-ban"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <label for="competition" class="label" i18n>Tour</label>
+                    <div class="field has-addons">
+                        <div class="control" style="display: flex; flex-direction: row;">
+                            <div class="select is-small">
+                                <select [disabled]="!visu.selTournament || visu.selTournament == null" (ngModelChange)="onSelRoundChange($event)" id="seasons" [(ngModel)]="visu.selRound" i18n-placeholder
+                                    placeholder="Choisir le tour">
+                                    <!-- Options pour les professeurs -->
+                                    <option [ngValue]="null" i18n>Aucun tour sélectionné</option>
+                                    <ng-container *ngFor="let tt of visu.round_list">
+                                        <option [value]="tt.id">{{tt.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="control">
+                                <button type="button" (click)="RemoveRound()"
+                                    class="button is-outlined is-danger is-rounded is-small">
+                                    <i style="fill: red;" class="fas fa-ban"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tabs is-boxed is-right">
+        <ul>
+            <li *ngIf="visu.selTournament" [class]="selected_sous_menu === 'TOURNAMENT' ? 'is-active' :''"
+                (click)="selected_sous_menu='TOURNAMENT'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-image" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>{{visu.thisTournament.name}}</span>
+                </a>
+            </li>
+            <li *ngIf="visu.thisRound" [class]="selected_sous_menu === 'ROUND' ? 'is-active' :''" (click)="selected_sous_menu='ROUND'">
+                <a>
+                    <!-- <span class="icon is-small"
+            ><i class="fas fa-music" aria-hidden="true"></i
+          ></span> -->
+                    <span i18n>{{visu.thisRound.name}}</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+    <app-competition-detail *ngIf="visu.thisTournament && selected_sous_menu == 'TOURNAMENT'" [thisTournament]="visu.thisTournament"></app-competition-detail>
+    <app-round-detail *ngIf="visu.thisRound && selected_sous_menu == 'ROUND'" [thisRound]="visu.thisRound"></app-round-detail>
+</div>
