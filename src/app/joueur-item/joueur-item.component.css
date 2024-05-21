@@ -20,6 +20,9 @@
     flex-direction: column;
     align-items: end;
 }
+.mobile{
+    display: none;
+}
 @media screen and (max-width: 767px) {
     .mobile{
         display: block;

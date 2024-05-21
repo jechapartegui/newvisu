@@ -19,6 +19,10 @@
     padding-left: 40px;
     gap: 8px;
     font-size: small;
+    justify-content: flex-end;
+}
+.passeur.ext{
+    justify-content: flex-start;
 }
 .small-info{
     font-size: x-small;
@@ -26,8 +30,9 @@
 }
 .domicile{    
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-end;
     align-content: center;
+    align-items: flex-end;
 
 }

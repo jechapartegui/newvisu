@@ -1,44 +1,46 @@
-<div class="box">
-    <article class="media">
-        <div class="media-left">
-            <figure class="image is-64x64">
-                <img src="{{equipe.logoclub}}" alt="Image" />
-            </figure>
-        </div>
-        <div class="media-content">
-            <div class="content">
-                <p>
-                    <span class="title"><strong>{{equipe.name}}</strong></span> &nbsp;<small>{{equipe.clubname}}</small>
-                    <br />
-                </p>
+<ng-container *ngIf="context == 'RECHERCHE'">
+    <div *ngIf="equipe" class="box recherche">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64 noshow">
+                    <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ equipe.clubid }}">
+                </figure>
+                <figure class="image is-32x32 mobile" style="margin: 0.15em;">
+                    <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ equipe.clubid }}">
+                </figure>
             </div>
-            <nav class="level is-mobile">
-                <div class="level-left">
-                    <a class="level-item" aria-label="reply">
-                        <span class="icon is-small">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                                <path fill=equipe.colorhome1
-                                    d="M631.2 96.5L436.5 0C416.4 27.8 371.9 47.2 320 47.2S223.6 27.8 203.5 0L8.8 96.5c-7.9 4-11.1 13.6-7.2 21.5l57.2 114.5c4 7.9 13.6 11.1 21.5 7.2l56.6-27.7c10.6-5.2 23 2.5 23 14.4V480c0 17.7 14.3 32 32 32h256c17.7 0 32-14.3 32-32V226.3c0-11.8 12.4-19.6 23-14.4l56.6 27.7c7.9 4 17.5 .8 21.5-7.2L638.3 118c4-7.9 .8-17.6-7.1-21.5z" />
-                            </svg>
-                            <i class="fad fa-tshirt"
-                                style="--fa-primary-color: {{equipe.colorhome1 }}; --fa-secondary-color: {{equipe.colorhome2 }};"></i>
-                            <i class="fad fa-tshirt"
-                                style="--fa-primary-color: {{equipe.coloraway1 }}; --fa-secondary-color: {{equipe.coloraway2 }};"></i>
-                        </span>
-                    </a>
-                    <a class="level-item">
-
-
-                    </a>
-                    <a class="level-item" aria-label="like">
-
-                    </a>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <span (click)="GoToTeam(equipe.id)" class="title"><strong>{{equipe.name}}</strong></span>
+                        &nbsp;<small class="noshow">{{equipe.clubname}} </small>
+                        <br />
+                        <span  (click)="GoToCategory(equipe.agecategoryid)"  class="title">{{equipe.category}}</span>
+                    </p>
                 </div>
-            </nav>
-        </div>
-        <div class="media-right">
-            <p class="team">{{equipe.category}}</p>
-        </div>
-    </article>
-</div>
+                <nav class="level is-mobile noshow">
+                    <div class="level-left">
+                        <a class="level-item" >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path
+                                    d="M21 3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-2.001L19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1l-.001-8.001L3 12a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a3 3 0 0 0 6 0h6z"
+                                    [style]="{'fill': equipe.colorhome1, 'stroke':'lightgray','color':'#fffff'}">
+                                </path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path
+                                    d="M21 3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-2.001L19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1l-.001-8.001L3 12a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a3 3 0 0 0 6 0h6z"
+                                    [style]="{'fill': equipe.coloraway1, 'stroke':'lightgray','color':'#fffff'}">
+                                </path>
+                            </svg>
+                        </a>
+                       
+                    </div>
+                </nav>
+            </div>
+          
+        </article>
+    </div>
+</ng-container>

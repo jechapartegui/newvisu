@@ -1,52 +1,152 @@
-<ng-container *ngIf="event.type == 'Goal'">
-    <div class="content">
-        <div class="columns is-mobile">
-            <div class="column is-5 is-mobile">
-                <div *ngIf="event.teamid==team_home_id" class="domicile">
-                    <div *ngIf="event.playerid1" class="buteur">
-                        <figure class="image is-32x32 mobile" style="margin: 0px;">
-                            <img src="{{event.player1photo}}" alt="Buteur" />
-                        </figure>
-                        <a class="nom_buteur" (click)="GoToJoueur(event.playerid1)">{{event.player1Name}}</a>
-                        <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
-                    </div>
-                    <div *ngIf="event.playerid2" class="passeur">
-                        <figure class="logo_passe" style="margin: 0px;">
-                            <img src="assets/default/Assist.png" alt="But" />
-                        </figure>
-                        <a class="nom_passeur" (click)="GoToJoueur(event.playerid2)">{{event.player2Name}}</a>
+<div [ngSwitch]="event.type">
+    <ng-container *ngSwitchCase="'Goal'">
+        <div class="content">
+            <div class="columns is-mobile">
+                <div class="column is-5 is-mobile">
+                    <div *ngIf="event.teamid==team_home_id" class="domicile">
+                        <div *ngIf="event.playerid1" class="buteur">
+                            <figure class="image is-32x32 mobile" style="margin: 0px;">
+                                <img src="{{event.player1photo}}" alt="Buteur" />
+                            </figure>
+                            <a class="nom_buteur" (click)="GoToJoueur(event.playerid1)">{{event.player1Name}}</a>
+                            <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
+                        </div>
+                        <div *ngIf="event.playerid2" class="passeur">
+                            <figure class="logo_passe" style="margin: 0px;">
+                                <img src="assets/default/Assist.png" alt="But" />
+                            </figure>
+                            <a class="nom_passeur" (click)="GoToJoueur(event.playerid2)">{{event.player2Name}}</a>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2 is-mobile" style="display: flex; flex-direction: column; align-items: center;">
+                    <figure class="image is-32x32 mobile" style="margin: 0px;">
+                        <img src="assets/matchIcons/goal.svg" alt="But" />
+                    </figure>
+                    {{event.runningscore}}
+                </div>
+                <div class="column is-5  is-mobile">
+                    <div *ngIf="event.teamid==team_away_id" class="exterieur">
+                        <div *ngIf="event.playerid1" class="buteur">
+                            <figure class="image is-32x32 mobile" style="margin: 0px;">
+                                <img src="{{event.player1photo}}" alt="Buteur" />
+                            </figure>
+                            <a class="nom_buteur" (click)="GoToJoueur(event.playerid1)">{{event.player1Name}}</a>
+                            <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
+                        </div>
+                        <div *ngIf="event.playerid2" class="passeur ext">
+                            <figure class="logo_passe" style="margin: 0px;">
+                                <img src="assets/default/Assist.png" alt="But" />
+                            </figure>
+                            <a class="nom_passeur" (click)="GoToJoueur(event.playerid2)">{{event.player2Name}}</a>
+
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="column is-2 is-mobile" style="display: flex; flex-direction: column; align-items: center;">
-                <figure class="image is-32x32 mobile" style="margin: 0px;">
-                    <img src="assets/matchIcons/goal.svg" alt="But" />
-                </figure>
-            </div>
-            <div class="column is-5  is-mobile">
-                <div *ngIf="event.teamid==team_away_id" class="exterieur">
-                    <div *ngIf="event.playerid1" class="buteur">
-                        <figure class="image is-32x32 mobile" style="margin: 0px;">
-                            <img src="{{event.player1photo}}" alt="Buteur" />
-                        </figure>
-                        <a class="nom_buteur" (click)="GoToJoueur(event.playerid1)">{{event.player1Name}}</a>
-                        <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
-                    </div>
-                    <div *ngIf="event.playerid2" class="passeur">
-                        <figure class="logo_passe" style="margin: 0px;">
-                            <img src="assets/default/Assist.png" alt="But" />
-                        </figure>
-                        <a class="nom_passeur" (click)="GoToJoueur(event.playerid2)">{{event.player2Name}}</a>
 
-                    </div>
-                </div>
-            </div>
         </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'Own Goal'">
+        <div class="content">
+            <div class="columns is-mobile">
+                <div class="column is-5 is-mobile">
+                    <div *ngIf="event.teamid==team_away_id" class="domicile">
+                        <div class="buteur">
+                            <a class="nom_buteur" i18n>Contre son camp</a>
+                            <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2 is-mobile" style="display: flex; flex-direction: column; align-items: center;">
+                    <figure class="image is-32x32 mobile" style="margin: 0px;">
+                        <img src="assets/matchIcons/goal.svg" alt="But" />
+                    </figure>
+                    {{event.runningscore}}
+                </div>
+                <div class="column is-5  is-mobile">
+                    <div *ngIf="event.teamid==team_home_id" class="exterieur">
+                        <div class="buteur">
+                            <a class="nom_buteur" i18n>Contre son camp</a>
+                            <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    </div>
-</ng-container>
-<ng-container *ngIf="event.type == 'Goal'">
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'Other'">
+        <div class="content">
+            <div class="columns is-mobile">
+                <div class="column is-5 is-mobile">
+                    <div *ngIf="event.teamid==team_home_id" class="domicile">
+                        <div *ngIf="event.playerid1" class="buteur">
+                            <figure class="image is-32x32 mobile" style="margin: 0px;">
+                                <img src="{{event.player1photo}}" alt="Buteur" />
+                            </figure>
+                            <a class="nom_buteur" (click)="GoToJoueur(event.playerid1)">{{event.player1Name}}</a>
+                            <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
+                        </div>
+                        <div class="passeur">
+                            <a class="nom_passeur" >{{event.penality}} {{ event.codeName }}</a>
 
-</ng-container>
-<hr>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2 is-mobile" style="display: flex; flex-direction: column; align-items: center;">
+                    <ng-container
+                        *ngIf="event.penality!='N/A' && event.code!='MPS' && event.code!='MPSAET' && event.code!='PSAET'">
+                        <figure class="image is-32x32 mobile" style="margin: 0px;">
+                            <img *ngIf="event.penality=='B2'" src="assets/matchIcons/bench2.svg" />
+                            <img *ngIf="event.penality=='B2+2'" src="assets/matchIcons/bench2+2.svg" />
+                            <img *ngIf="event.penality=='B5'" src="assets/matchIcons/bench5.svg" />
+                            <img *ngIf="event.penality=='P10'" src="assets/matchIcons/bench10.svg" />
+                            <img *ngIf="event.penality=='MP1'||event.penality=='MP2'||event.penality=='MP3'||event.penality=='MP'"
+                                src="assets/matchIcons/card.svg" />
+
+                        </figure>
+                    </ng-container>
+                    <ng-container *ngIf="event.penality!='N/A' && event.code=='MPS'">
+                        <figure class="image is-32x32 mobile" style="margin: 0px;">
+                            <img src="assets/matchIcons/penalty.svg" />
+                        </figure>
+                    </ng-container>
+                    <ng-container *ngIf="event.penality!='N/A' && event.code=='MPSAET'">
+                        <figure class="image is-32x32 mobile" style="margin: 0px;">
+                            <img src="assets/matchIcons/penalty.svg" />
+                        </figure>
+                    </ng-container>
+                    <ng-container *ngIf="event.penality!='N/A' && event.code=='PSAET'">
+                        <figure class="image is-32x32 mobile" style="margin: 0px;">
+                            <img src="assets/matchIcons/goal.svg" />
+                            <img src="assets/matchIcons/penalty.svg" />
+                            Penalty Shot
+                        </figure>
+                    </ng-container>
+                </div>
+                <div class="column is-5  is-mobile">
+                    <div *ngIf="event.teamid==team_away_id" class="exterieur">
+                        <div *ngIf="event.playerid1" class="buteur">
+                            <figure class="image is-32x32 mobile" style="margin: 0px;">
+                                <img src="{{event.player1photo}}" alt="Buteur" />
+                            </figure>
+                            <a class="nom_buteur" (click)="GoToJoueur(event.playerid1)">{{event.player1Name}}</a>
+                            <span class="small-info">({{event.period}} - {{event.time.slice(0,-3)}})</span>
+                        </div>
+                        <div  class="passeur ext">
+                            <a class="nom_passeur" >{{event.penality}} {{ event.codeName }}</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'Set goalkeeper'" i18n>
+        Ajout d'un gardien
+    </ng-container>
+    <hr>
+</div>

@@ -48,4 +48,8 @@ async getMatch(id: number) {
     this.visu = new games_visu(results[0],results[1],results[2],results[3],results[4],results[5]);
      });
 }
+
+GoToRound(id){
+  this._router.navigate(['/round'], { queryParams: { id: id} });     
+}
 }

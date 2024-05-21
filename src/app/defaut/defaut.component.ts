@@ -15,6 +15,7 @@ export class DefautComponent implements OnInit {
   selected_sous_menu: "LIVE" | "TERMINE" | "TOUS" | "PROCHAIN" = "TERMINE";
   action: string = "";
   visu: default_visu
+  filtred:boolean=false;
   loading:boolean=false;
   constructor(private matchservice: MatchService, private _Activatedroute: ActivatedRoute) { }
 
@@ -82,10 +83,30 @@ export class DefautComponent implements OnInit {
     });
   }
 
+  Filtrer(){    
+      const errorService = ErrorService.instance;
+      this.action = $localize`Charger les matchs à jouer`;
+      this.loading = true;
+      this.filtred = true;
+      this.matchservice.GetAllMatchTournament(this.visu.SelTournament, true).then((list_matchs: response_listmatch) => {
+        if (list_matchs) {
+          this.visu.load_all_games(list_matchs);
+          this.loading = false;
+        } else {
+          let o = errorService.CreateError(this.action, $localize`Erreur inconnue`);
+          errorService.emitChange(o);
+        }
+      }).catch((err) => {
+        let o = errorService.CreateError(this.action, err.message);
+        errorService.emitChange(o);
+      });
+  }
+
   LoadAll(){
     const errorService = ErrorService.instance;
     this.action = $localize`Charger les matchs à jouer`;
     this.loading = true;
+    this.filtred = false;
     this.matchservice.GetAll().then((list_matchs: response_listmatch) => {
       if (list_matchs) {
         this.visu.load_all_games(list_matchs);

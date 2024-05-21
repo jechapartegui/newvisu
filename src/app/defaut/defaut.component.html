@@ -55,19 +55,27 @@
                     <div class="column">
                         <h1 i18n>Filtrer : </h1>
                     </div>
-                    <div class="column">
+                    <div class="column" style="    border-right: #b1b0b0;
+                    border-right-style: dotted;">
                         <div class="field">
                             <label for="competition" class="label" i18n>Compétition</label>
                             <div class="select is-small">
                                 <select id="seasons" [(ngModel)]="visu.SelTournament" i18n-placeholder
                                     placeholder="Choisir le tournoi">
                                     <!-- Options pour les professeurs -->
+                                    <option [ngValue]="null" i18n>Toutes les compétitions</option>
                                     <ng-container *ngFor="let tt of visu.tournament_list">
-                                        <option [value]="tt">{{tt.name}}</option>
+                                        <option [value]="tt.id">{{tt.name}}</option>
                                     </ng-container>
                                 </select>
                             </div>
                         </div>
+                        <button *ngIf="!filtred" type="button" (click)="Filtrer()" class="button is-outlined is-rounded is-primary">
+                            <span i18n>Filtrer par compétition</span>
+                        </button>
+                        <button *ngIf="filtred" type="button" (click)="LoadAll()" class="button is-outlined is-rounded is-danger">
+                            <span i18n>Afficher tout</span>
+                        </button>
                     </div>
                     <div class="column">
                         <label for="competition" class="label" i18n>Tour</label>

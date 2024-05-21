@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-club-item',
@@ -7,4 +9,11 @@ import { Component, Input } from '@angular/core';
 })
 export class ClubItemComponent  {
   @Input() club:any;
+  @Input() context : "RECHERCHE" | "MATCH" | "CLUB";
+  url = environment.url;
+
+  constructor(private router:Router){}
+  GoToClub(id) {
+    this.router.navigate(['/team'], { queryParams: { club: id } });
+  }
 }

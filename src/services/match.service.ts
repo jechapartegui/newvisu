@@ -34,11 +34,12 @@ export class MatchService {
         return Promise.reject(error);
       });
   }
-  GetAllMatchTournament(id:number):Promise<response_listmatch>{
+  GetAllMatchTournament(id:number, federation:boolean = false):Promise<response_listmatch>{
     this.url = environment.url + 'public_mt_matchs_getlist.php';
     //  this.url = this.url + "login.php";
     const body = {
      command:"tournament",
+     federation:federation,
      id:id
     };
     

@@ -9,6 +9,9 @@ export class games_visu{
     public match: full_game;
   public events: Array<game_events>;
   public classement_live:boolean=false;
+  public hasXtEvents:boolean=false;
+  public hasPenEvents:boolean=false;
+  public useHours:boolean=false;
   public selection: "COMPO" | "EVENT" | "REF" | "LIVE_CLASS" | "NO" = "NO";
 
   constructor(_match: full_game, _player : player_game[], _off : officials[], _ref : referee[], _score : detailed_score[], _event : game_events[]) {
@@ -44,6 +47,7 @@ export class games_visu{
         // build a timestamp that will be used for sorting on the timeline
         ev.timestamp = this.buildEventTimestamp(ev);
       });
+        this.setEventScore();
       if(this.match.events && this.match.events.length> 0){
         this.selection = "EVENT";
       }
@@ -61,6 +65,47 @@ export class games_visu{
            return a.timestamp > b.timestamp ? -1 : 1;
         });
     }
+  }
+
+  setEventScore() {
+    // Also sets the running score...
+    let scoreA = 0
+    let scoreH = 0
+    this.match.events.forEach(e => {
+      if (e.teamid == this.match.team_home_id) {
+        if (e.type == 'Goal') {
+          scoreH++
+        }
+        if (e.type == 'Own Goal') {
+          scoreA++
+        }
+        if (e.code == 'PSAET') {
+          scoreH++
+        }
+      } else {
+        if (e.type == 'Goal') {
+          scoreA++
+        }
+        if (e.type == 'Own Goal') {
+          scoreH++
+        }
+        if (e.code == 'PSAET') {
+          scoreA++
+        }
+      }
+      if (e.type == 'Goal' || e.type == 'Own Goal' || e.code == 'PSAET') {
+        e.runningscore = scoreH.toString().concat(" - ", scoreA.toString())
+      }
+      if (e.period == 'XT') {
+        this.hasXtEvents = true
+      }
+      if (e.period == 'PEN') {
+        this.hasPenEvents = true
+      }
+      if (!e.time.startsWith('00:')) {
+        this.useHours = true // This seems to be an old match with minutes in hour field etc...
+      }
+    })
   }
 
   buildEventTimestamp(ev: game_events) : number{

@@ -18,7 +18,6 @@ export class GameEventComponent implements OnInit {
   constructor(private router:Router){}
 ngOnInit(): void {
   
-  console.log(this.event);
     if(this.event.playerid1){
       if(this.home_players.some(x => x.id == this.event.playerid1)){
         this.event.player1photo = this.home_players.find(x => x.id == this.event.playerid1).photo;

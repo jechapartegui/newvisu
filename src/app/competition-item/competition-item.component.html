@@ -1,1 +1,14 @@
-<p>competition-item works!</p>
+<div *ngIf="competition" class="box recherche">
+    <article class="media">
+       
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <span class="title" (click)="GoToRound(competition.id)"><strong>{{competition.name}}</strong></span>
+                    &nbsp;
+                   
+                </p>
+            </div>
+        </div>
+    </article>
+</div>

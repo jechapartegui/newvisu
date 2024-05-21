@@ -96,8 +96,8 @@ export class CompetitionsService {
 
 
     return this.global.POST(this.url, body)
-      .then((response) => {
-        return response;
+      .then((response : Round[]) => {
+        return response.filter((item: Round) => item.type.toString() !== "5");
       })
       .catch(error => {
         // Gestion de l'erreur

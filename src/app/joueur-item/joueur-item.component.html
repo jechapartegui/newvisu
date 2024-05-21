@@ -5,7 +5,7 @@
         <figure class="image is-64x64 noshow">
           <img src="{{joueur.photo}}" alt="Image" />
         </figure>
-        <figure class="image is-32x32 mobile">
+        <figure class="image is-32x32 mobile" style="margin: 0.15em;">
           <img src="{{joueur.photo}}" alt="Image" />
         </figure>
       </div>
@@ -42,7 +42,7 @@
         <figure class="image is-32x32 noshow">
           <img src="{{joueur.clublogo}}" alt="logo" />
         </figure>
-        <figure class="image is-16x16 mobile">
+        <figure class="image is-16x16 mobile" style="margin: 0.15em;">
           <img src="{{joueur.clublogo}}" alt="logo" />
         </figure>
         <p class="team noshow">{{joueur.clubname}}</p>
@@ -87,9 +87,9 @@
               </span>
               <span class="icon is-small" style="width: auto;">
                 <div *ngIf="joueur.statistics.fault>0" style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
-                  <ng-container *ngFor="let i of nb_assist">
-                    <img *ngIf="i==1" height="20px" i18n-title src="assets/default/Fault.png" [title]="joueur.statistics.fault" width="20px">
-                    <img *ngIf="i!=1"height="20px"  [style.margin-left.px]="-10" i18n-title src="assets/default/Fault.png" [title]="joueur.statistics.fault" width="20px">
+                  <ng-container *ngFor="let i of nb_fault">
+                    <img *ngIf="i==1" height="20px" i18n-title src="assets/default/sifflet.png" [title]="joueur.statistics.fault" width="20px">
+                    <img *ngIf="i!=1"height="20px"  [style.margin-left.px]="-10" i18n-title src="assets/default/sifflet.png" [title]="joueur.statistics.fault" width="20px">
                   </ng-container>
                 </div>
               </span>

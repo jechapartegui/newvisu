@@ -1,1 +1,23 @@
-<p>gymnase-item works!</p>
+<div *ngIf="gymnase" class="box recherche">
+    <article class="media">
+        <div *ngIf="gymnase.clubid>0" class="media-left">
+            <figure class="image is-64x64 noshow">
+                <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ gymnase.clubid }}">
+            </figure>
+            <figure class="image is-32x32 mobile" style="margin: 0.15em;">
+                <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ gymnase.clubid }}">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <span class="title"><strong>{{gymnase.name}}</strong></span>
+                    &nbsp;
+                    <br />
+                    <span *ngIf="gymnase.clubid>0" (click)="GoToClub(gymnase.clubid)"
+                        class="title">{{gymnase.club}}</span>
+                </p>
+            </div>
+        </div>
+    </article>
+</div>

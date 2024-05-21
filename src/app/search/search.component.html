@@ -60,12 +60,12 @@
             </ng-container>
             <ng-container *ngIf="visu.selected === 'CLUB'">
                 <ng-container *ngFor="let item of visu.search_clubs">
-                    <app-club-item  [club]="item"></app-club-item>
+                    <app-club-item [context]="'RECHERCHE'"  [club]="item"></app-club-item>
                 </ng-container>
             </ng-container>
             <ng-container *ngIf="visu.selected === 'EQUIPE'">
                 <ng-container *ngFor="let item of visu.search_teams">
-                    <app-equipe-item  [equipe]="item"></app-equipe-item>
+                    <app-equipe-item [context]="'RECHERCHE'"   [equipe]="item"></app-equipe-item>
                 </ng-container>
             </ng-container>
             <ng-container *ngIf="visu.selected === 'COMPETITION'">

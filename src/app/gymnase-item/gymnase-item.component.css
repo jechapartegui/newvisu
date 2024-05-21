@@ -1,1 +1,40 @@
 
+.box{
+    padding: 0.15em;
+}
+
+.team{
+    font-weight: bold;
+    font-size: smaller;
+    text-align: end;
+}
+.title{
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 200px;
+    font-weight: bold;
+    font-size: smaller;
+    text-align:start;
+}
+.media-right{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+.mobile{
+    display: none;
+}
+@media screen and (max-width: 767px) {
+    .mobile{
+        display: block;
+    }
+
+    .noshow{
+        display: none;
+    }
+    .team{
+        font-weight :lighter;
+        font-size: x-small;
+        text-align: end;
+    }
+}

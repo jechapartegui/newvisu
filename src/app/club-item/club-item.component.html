@@ -1,1 +1,23 @@
-<p>club-item works!</p>
+<ng-container *ngIf="context == 'RECHERCHE'">
+    <div *ngIf="club" class="box recherche">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64 noshow">
+                    <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ club.id }}">
+                </figure>
+                <figure class="image is-32x32 mobile" style="margin: 0.15em;">
+                    <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ club.id }}">
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <span (click)="GoToClub(club.id)" class="title"><strong>{{club.name}}</strong></span>
+                        <br />
+                    </p>
+                </div>               
+            </div>
+          
+        </article>
+    </div>
+</ng-container>

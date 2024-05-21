@@ -114,6 +114,7 @@ export class CompetitionsComponent implements OnInit {
                   this.visu.tournament_list = tournois;
                   this.visu.selTournament = this.value;
                   this.selected_sous_menu = "TOURNAMENT";
+                  this.LoadTournament();
                 }).catch((err) => {
                   let o = errorService.CreateError(this.action, err.message);
                   errorService.emitChange(o);
@@ -142,25 +143,187 @@ export class CompetitionsComponent implements OnInit {
             this.comp_serv.GetAllTournament(round.agecategoryid).then((tournois) => {
               this.visu.tournament_list = tournois;
               this.visu.selTournament = round.tournament_id;
-              this.visu.selSeason = round.season_id;
-              this.action = $localize`Charger les catégories`;
-              //on charge les catégories
-              this.comp_serv.GetAllCategories(this.visu.selSeason).then((categoris) => {
-                this.visu.category_list = categoris;
-                this.visu.selCategory = round.agecategoryid;
-                this.action = $localize`Charger les tours`;
-                this.comp_serv.GetAllRound(round.tournament_id).then((rounds) => {
-                  this.visu.round_list = rounds;
-                  this.visu.selRound = this.value;
-                  this.selected_sous_menu = "ROUND";
+              this.visu.thisTournament = this.visu.tournament_list.find(x => x.id == this.visu.selTournament);
+              this.action = $localize`Charger les matchs`;
+              this.mat_serv.GetAllMatchTournament(this.visu.selTournament).then((reponse: response_listmatch) => {
+                reponse.list_match.forEach(m => {
+                  m.team_home_logo = reponse.list_logo.filter(x => x.id == m.club_home_id)[0].logo;
+                  m.team_away_logo = reponse.list_logo.filter(x => x.id == m.club_away_id)[0].logo;
+                  m.sporthall = reponse.list_sporthall.filter(x => x.id == m.sporthall_id)[0];
+                })
+                this.visu.thisTournament.game_lists = reponse.list_match;
+                this.visu.thisTournament.date_list = new Array<Date>();
+                this.visu.thisTournament.game_lists.forEach(element => {
+                  if (!(this.visu.thisTournament.date_list.find(e => e == element.date))) {
+                    this.visu.thisTournament.date_list.push(element.date);
+                  }
+                });
+                this.visu.thisTournament.date_list.sort(function (a, b) {
+                  return a < b ? 1 : -1;
+                });
+                this.visu.thisTournament.game_lists.sort(
+                  function (a, b) {
+                    return a.time > b.time ? 1 : -1;
+                  }
+                );
+                this.visu.selSeason = round.season_id;
+                this.action = $localize`Charger les catégories`;
+                //on charge les catégories
+                this.comp_serv.GetAllCategories(this.visu.selSeason).then((categoris) => {
+                  this.visu.category_list = categoris;
+                  this.visu.selCategory = round.agecategoryid;
+                  this.action = $localize`Charger les tours`;
+                  this.comp_serv.GetAllRound(round.tournament_id).then((rounds) => {
+                    this.visu.round_list = rounds;
+                    this.visu.selRound = this.value;
+                    this.visu.thisRound = this.visu.round_list.find(x => x.id == this.visu.selRound);
+                    this.selected_sous_menu = "ROUND";
+                    this.mat_serv.GetAllMatchRound(this.visu.selRound).then((reponse: response_listmatch) => {
+                      reponse.list_match.forEach(m => {
+                        m.team_home_logo = reponse.list_logo.filter(x => x.id == m.club_home_id)[0].logo;
+                        m.team_away_logo = reponse.list_logo.filter(x => x.id == m.club_away_id)[0].logo;
+                        m.sporthall = reponse.list_sporthall.filter(x => x.id == m.sporthall_id)[0];
+                      })
+                      this.visu.thisRound.game_lists = reponse.list_match;
+                      this.visu.thisRound.date_list = new Array<Date>();
+                      this.visu.thisRound.game_lists.forEach(element => {
+                        if (!(this.visu.thisRound.date_list.find(e => e == element.date))) {
+                          this.visu.thisRound.date_list.push(element.date);
+                        }
+                      });
+                      this.visu.thisRound.date_list.sort(function (a, b) {
+                        return a < b ? 1 : -1;
+                      });
+                      this.visu.thisRound.game_lists.sort(
+                        function (a, b) {
+                          return a.time > b.time ? 1 : -1;
+                        }
+                      );
+                      this.action = $localize`Charger les gardiens`;
+                      this.comp_serv.GetGoalieRound(this.visu.selRound).then((goalie) => {
+                        this.visu.thisRound.ranking_goalies_list = goalie;
+                        this.visu.thisRound.ranking_goalies_list.forEach(m => {
+                          if (reponse.list_logo.some(x => x.id === m.clubid)) {
+                            m.team_logo = reponse.list_logo.find(x => x.id === m.clubid).logo;
+                          }
+                          if (reponse.list_match.some(x => x.team_home_id == m.teamid)) {
+                            m.team_name = reponse.list_match.find(x => x.team_home_id == m.teamid).team_home_name;
+                          } else if (reponse.list_match.some(x => x.team_away_id == m.teamid)) {
+                            m.team_name = reponse.list_match.find(x => x.team_away_id == m.teamid).team_away_name;
+                          }
+                        })
+                        this.visu.thisRound.ranking_goalies_list.sort((a, b) => a.percentage > b.percentage ? -1 : a.percentage < b.percentage ? 1 : 0);
+                        this.action = $localize`Charger les joueurs`;
+                        this.comp_serv.GetScorerRound(this.visu.selRound).then((players) => {
+                          this.visu.thisRound.ranking_points_list = players;
+                          this.visu.thisRound.ranking_points_list.forEach(m => {
+                            m.points = Number(m.goals) + Number(m.assists);
+                            if (reponse.list_match.some(x => x.team_home_id == m.team_id)) {
+                              m.clubid = reponse.list_match.find(x => x.team_home_id == m.team_id).club_home_id;
+                              m.team_name = reponse.list_match.find(x => x.team_home_id == m.team_id).team_home_name;
+                            } else if (reponse.list_match.some(x => x.team_away_id == m.team_id)) {
+                              m.clubid = reponse.list_match.find(x => x.team_away_id == m.team_id).club_away_id;
+                              m.team_name = reponse.list_match.find(x => x.team_away_id == m.team_id).team_away_name;
+                            }
+                            if (reponse.list_logo.some(x => x.id === m.clubid)) {
+                              m.team_logo = reponse.list_logo.find(x => x.id === m.clubid).logo;
+                            }
+                          })
+                          this.visu.thisRound.ranking_points_list.sort((a, b) => a.points > b.points ? -1 : a.points < b.points ? 1 : 0);
+                          if (this.visu.thisRound.type == 2) {
+                            this.action = $localize`Charger le classement`;
+                            this.comp_serv.GetRanking(this.visu.selRound).then((st) => {
+                              this.visu.thisRound.ranking_team = st;
+                              this.visu.thisRound.ranking_team.forEach(m => {
+                                if (this.visu.thisRound.game_lists.some(x => x.team_home_id === m.team_id)) {
+                                  m.team_logo = this.visu.thisRound.game_lists.find(x => x.team_home_id === m.team_id).team_home_logo;
+                                }
+                                if (this.visu.thisRound.game_lists.some(x => x.team_away_id === m.team_id)) {
+                                  m.team_logo = this.visu.thisRound.game_lists.find(x => x.team_away_id === m.team_id).team_away_logo;
+                                }
+                              });
+                              this.visu.thisRound.is_nul = this.visu.thisRound.ranking_team.some(x => x.DRAW > 0);
+                              this.visu.thisRound.is_fft = this.visu.thisRound.ranking_team.some(x => x.FORFEIT > 0);
+                              this.visu.thisRound.is_ot = this.visu.thisRound.ranking_team.some(x => x.OT_WIN > 0) || this.visu.thisRound.ranking_team.some(x => x.OT_LOST > 0);
+                              //is ot is nul
+                            }).catch((err) => {
+                              let o = errorService.CreateError(this.action, err.message);
+                              errorService.emitChange(o);
+                            });
+                          }
+                        }).catch((err) => {
+                          let o = errorService.CreateError(this.action, err.message);
+                          errorService.emitChange(o);
+                        });
+                      }).catch((err) => {
+                        let o = errorService.CreateError(this.action, err.message);
+                        errorService.emitChange(o);
+                      });
+                    }).catch((err) => {
+                      let o = errorService.CreateError(this.action, err.message);
+                      errorService.emitChange(o);
+                    });
+                  }).catch((err) => {
+                    let o = errorService.CreateError(this.action, err.message);
+                    errorService.emitChange(o);
+                  });
+
                 }).catch((err) => {
                   let o = errorService.CreateError(this.action, err.message);
                   errorService.emitChange(o);
                 });
+                this.action = $localize`Charger les gardiens`;
+                this.comp_serv.GetGoalie(this.visu.selTournament).then((goalie) => {
+                  this.visu.thisTournament.ranking_goalies_list = goalie;
+                  this.visu.thisTournament.ranking_goalies_list.forEach(m => {
+                    if (reponse.list_logo.some(x => x.id === m.clubid)) {
+                      m.team_logo = reponse.list_logo.find(x => x.id === m.clubid).logo;
+                    }
+                    if (reponse.list_match.some(x => x.team_home_id == m.teamid)) {
+                      m.team_name = reponse.list_match.find(x => x.team_home_id == m.teamid).team_home_name;
+                    } else if (reponse.list_match.some(x => x.team_away_id == m.teamid)) {
+                      m.team_name = reponse.list_match.find(x => x.team_away_id == m.teamid).team_away_name;
+                    }
+                  })
+                  this.visu.thisTournament.ranking_goalies_list.sort((a, b) => a.percentage > b.percentage ? -1 : a.percentage < b.percentage ? 1 : 0);
+                  this.action = $localize`Charger les joueurs`;
+                  this.comp_serv.GetScorer(this.visu.selTournament).then((players) => {
+                    this.visu.thisTournament.ranking_points_list = players;
+                    this.visu.thisTournament.ranking_points_list.forEach(m => {
+                      m.points = Number(m.goals) + Number(m.assists);
+                      if (reponse.list_match.some(x => x.team_home_id == m.team_id)) {
+                        m.clubid = reponse.list_match.find(x => x.team_home_id == m.team_id).club_home_id;
+                        m.team_name = reponse.list_match.find(x => x.team_home_id == m.team_id).team_home_name;
+                      } else if (reponse.list_match.some(x => x.team_away_id == m.team_id)) {
+                        m.clubid = reponse.list_match.find(x => x.team_away_id == m.team_id).club_away_id;
+                        m.team_name = reponse.list_match.find(x => x.team_away_id == m.team_id).team_away_name;
+                      }
+                      if (reponse.list_logo.some(x => x.id === m.clubid)) {
+                        m.team_logo = reponse.list_logo.find(x => x.id === m.clubid).logo;
+                      }
+                    })
+                    this.visu.thisTournament.ranking_points_list.sort((a, b) => a.points > b.points ? -1 : a.points < b.points ? 1 : 0);
+                    this.action = $localize`Charger le palmares`;
+                    this.comp_serv.GetPrizelist(this.visu.selTournament).then((palmares) => {
+                      this.visu.thisTournament.prizelist = palmares;
+                    }).catch((err) => {
+                      let o = errorService.CreateError(this.action, err.message);
+                      errorService.emitChange(o);
+                    });
+                  }).catch((err) => {
+                    let o = errorService.CreateError(this.action, err.message);
+                    errorService.emitChange(o);
+                  });
+                }).catch((err) => {
+                  let o = errorService.CreateError(this.action, err.message);
+                  errorService.emitChange(o);
+                });
+
               }).catch((err) => {
                 let o = errorService.CreateError(this.action, err.message);
                 errorService.emitChange(o);
               });
+
             }).catch((err) => {
               let o = errorService.CreateError(this.action, err.message);
               errorService.emitChange(o);
@@ -302,12 +465,12 @@ export class CompetitionsComponent implements OnInit {
       this.comp_serv.GetGoalie(this.visu.selTournament).then((goalie) => {
         this.visu.thisTournament.ranking_goalies_list = goalie;
         this.visu.thisTournament.ranking_goalies_list.forEach(m => {
-          if(reponse.list_logo.some(x => x.id === m.clubid)){
+          if (reponse.list_logo.some(x => x.id === m.clubid)) {
             m.team_logo = reponse.list_logo.find(x => x.id === m.clubid).logo;
           }
-          if(reponse.list_match.some(x => x.team_home_id == m.teamid)){
+          if (reponse.list_match.some(x => x.team_home_id == m.teamid)) {
             m.team_name = reponse.list_match.find(x => x.team_home_id == m.teamid).team_home_name;
-          } else if(reponse.list_match.some(x => x.team_away_id == m.teamid)){
+          } else if (reponse.list_match.some(x => x.team_away_id == m.teamid)) {
             m.team_name = reponse.list_match.find(x => x.team_away_id == m.teamid).team_away_name;
           }
         })
@@ -316,22 +479,22 @@ export class CompetitionsComponent implements OnInit {
         this.comp_serv.GetScorer(this.visu.selTournament).then((players) => {
           this.visu.thisTournament.ranking_points_list = players;
           this.visu.thisTournament.ranking_points_list.forEach(m => {
-            m.points = Number(m.goals) + Number(m.assists);       
-            if(reponse.list_match.some(x => x.team_home_id == m.team_id)){
+            m.points = Number(m.goals) + Number(m.assists);
+            if (reponse.list_match.some(x => x.team_home_id == m.team_id)) {
               m.clubid = reponse.list_match.find(x => x.team_home_id == m.team_id).club_home_id;
               m.team_name = reponse.list_match.find(x => x.team_home_id == m.team_id).team_home_name;
-            } else if(reponse.list_match.some(x => x.team_away_id == m.team_id)){
-              m.clubid = reponse.list_match.find(x => x.team_home_id == m.team_id).club_away_id;
+            } else if (reponse.list_match.some(x => x.team_away_id == m.team_id)) {
+              m.clubid = reponse.list_match.find(x => x.team_away_id == m.team_id).club_away_id;
               m.team_name = reponse.list_match.find(x => x.team_away_id == m.team_id).team_away_name;
             }
-            if(reponse.list_logo.some(x => x.id === m.clubid)){
+            if (reponse.list_logo.some(x => x.id === m.clubid)) {
               m.team_logo = reponse.list_logo.find(x => x.id === m.clubid).logo;
             }
           })
           this.visu.thisTournament.ranking_points_list.sort((a, b) => a.points > b.points ? -1 : a.points < b.points ? 1 : 0);
           this.action = $localize`Charger le palmares`;
           this.comp_serv.GetPrizelist(this.visu.selTournament).then((palmares) => {
-            this.visu.thisTournament.prizelist = palmares;  
+            this.visu.thisTournament.prizelist = palmares;
           }).catch((err) => {
             let o = errorService.CreateError(this.action, err.message);
             errorService.emitChange(o);
@@ -377,12 +540,12 @@ export class CompetitionsComponent implements OnInit {
       this.comp_serv.GetGoalieRound(this.visu.selRound).then((goalie) => {
         this.visu.thisRound.ranking_goalies_list = goalie;
         this.visu.thisRound.ranking_goalies_list.forEach(m => {
-          if(reponse.list_logo.some(x => x.id === m.clubid)){
+          if (reponse.list_logo.some(x => x.id === m.clubid)) {
             m.team_logo = reponse.list_logo.find(x => x.id === m.clubid).logo;
           }
-          if(reponse.list_match.some(x => x.team_home_id == m.teamid)){
+          if (reponse.list_match.some(x => x.team_home_id == m.teamid)) {
             m.team_name = reponse.list_match.find(x => x.team_home_id == m.teamid).team_home_name;
-          } else if(reponse.list_match.some(x => x.team_away_id == m.teamid)){
+          } else if (reponse.list_match.some(x => x.team_away_id == m.teamid)) {
             m.team_name = reponse.list_match.find(x => x.team_away_id == m.teamid).team_away_name;
           }
         })
@@ -391,28 +554,28 @@ export class CompetitionsComponent implements OnInit {
         this.comp_serv.GetScorerRound(this.visu.selRound).then((players) => {
           this.visu.thisRound.ranking_points_list = players;
           this.visu.thisRound.ranking_points_list.forEach(m => {
-            m.points = Number(m.goals) + Number(m.assists);       
-            if(reponse.list_match.some(x => x.team_home_id == m.team_id)){
+            m.points = Number(m.goals) + Number(m.assists);
+            if (reponse.list_match.some(x => x.team_home_id == m.team_id)) {
               m.clubid = reponse.list_match.find(x => x.team_home_id == m.team_id).club_home_id;
               m.team_name = reponse.list_match.find(x => x.team_home_id == m.team_id).team_home_name;
-            } else if(reponse.list_match.some(x => x.team_away_id == m.team_id)){
-              m.clubid = reponse.list_match.find(x => x.team_home_id == m.team_id).club_away_id;
+            } else if (reponse.list_match.some(x => x.team_away_id == m.team_id)) {
+              m.clubid = reponse.list_match.find(x => x.team_away_id == m.team_id).club_away_id;
               m.team_name = reponse.list_match.find(x => x.team_away_id == m.team_id).team_away_name;
             }
-            if(reponse.list_logo.some(x => x.id === m.clubid)){
+            if (reponse.list_logo.some(x => x.id === m.clubid)) {
               m.team_logo = reponse.list_logo.find(x => x.id === m.clubid).logo;
             }
           })
           this.visu.thisRound.ranking_points_list.sort((a, b) => a.points > b.points ? -1 : a.points < b.points ? 1 : 0);
-          if(this.visu.thisRound.type == 2){
+          if (this.visu.thisRound.type == 2) {
             this.action = $localize`Charger le classement`;
-            this.comp_serv.GetRanking(this.visu.selRound).then((st) =>{
+            this.comp_serv.GetRanking(this.visu.selRound).then((st) => {
               this.visu.thisRound.ranking_team = st;
               this.visu.thisRound.ranking_team.forEach(m => {
-                if(this.visu.thisRound.game_lists.some(x => x.team_home_id === m.team_id)){
+                if (this.visu.thisRound.game_lists.some(x => x.team_home_id === m.team_id)) {
                   m.team_logo = this.visu.thisRound.game_lists.find(x => x.team_home_id === m.team_id).team_home_logo;
                 }
-                if(this.visu.thisRound.game_lists.some(x => x.team_away_id === m.team_id)){
+                if (this.visu.thisRound.game_lists.some(x => x.team_away_id === m.team_id)) {
                   m.team_logo = this.visu.thisRound.game_lists.find(x => x.team_away_id === m.team_id).team_away_logo;
                 }
               });
@@ -424,7 +587,7 @@ export class CompetitionsComponent implements OnInit {
               let o = errorService.CreateError(this.action, err.message);
               errorService.emitChange(o);
             });
-          }          
+          }
         }).catch((err) => {
           let o = errorService.CreateError(this.action, err.message);
           errorService.emitChange(o);
