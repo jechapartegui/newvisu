@@ -8,23 +8,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./game-item.component.css']
 })
 export class GameItemComponent implements OnInit {
-@Input() match:full_game
-@Input() federation:boolean = false;
-constructor(private router:Router){}
-ngOnInit(): void {
-   
+  @Input() match: full_game
+  @Input() federation: boolean = false;
+  constructor(private router: Router) { }
+  ngOnInit(): void {
 
-}
-GoToMatch(){
-  this.router.navigate(['/games'], { queryParams: { id: this.match.id } });     
-}
-GoToRound(id){
-  this.router.navigate(['/round'], { queryParams: { id: id} });     
-}
-GoToTournament(id){
-  this.router.navigate(['/tournament'], { queryParams: { id: id } });     
-}
-GoToTeam(id){
-  this.router.navigate(['/team'], { queryParams: { id: id } });     
-}
+
+  }
+  GoToMatch() {
+    this.router.navigate(['/games'], { queryParams: { id: this.match.id } });
+  }
+  GoToRound(id) {
+    this.router.navigate(['/competitions'], { queryParams: { round: id } });
+  }
+  GoToTournament(id) {
+    this.router.navigate(['/competitions'], { queryParams: { id: id } });
+  }
+  GoToTeam(id) {
+    this.router.navigate(['/clubs'], { queryParams: { team: id } });
+  }
 }

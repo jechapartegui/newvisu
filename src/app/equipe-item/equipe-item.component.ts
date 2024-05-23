@@ -15,7 +15,7 @@ export class EquipeItemComponent {
 
   constructor(private router:Router){}
   GoToTeam(id) {
-    this.router.navigate(['/team'], { queryParams: { id: id } });
+    this.router.navigate(['/clubs'], { queryParams: { team: id } });
   }
   GoToCategory(id) {
     this.router.navigate(['/competitions'], { queryParams: { category: id } });

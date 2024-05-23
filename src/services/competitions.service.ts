@@ -96,7 +96,7 @@ export class CompetitionsService {
 
 
     return this.global.POST(this.url, body)
-      .then((response : Round[]) => {
+      .then((response: Round[]) => {
         return response.filter((item: Round) => item.type.toString() !== "5");
       })
       .catch(error => {
@@ -218,6 +218,26 @@ export class CompetitionsService {
     const body = {
       id: id,
       command: "get_ranking"
+    };
+
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
+
+  GetRankingsTeam(id): Promise<any[]> {
+    this.url = environment.url + 'public_ranking_get.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+      command: "teams",
+      id: id, 
+      object: "team"
     };
 
 

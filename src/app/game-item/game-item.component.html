@@ -63,8 +63,8 @@
         </div>
     </div>
     <div class="column not-mobile end">
-        <a [routerLink]="['round']">{{match.round_name}}</a>
-        <a [routerLink]="['tournament']"><strong>{{match.competition_name}}</strong></a>
+        <span (click)="GoToRound(match.round_id)">{{match.round_name}}</span>
+        <span (click)="GoToTournament(match.competition_id)"><strong>{{match.competition_name}}</strong></span>
     </div>
 </div>
 

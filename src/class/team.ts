@@ -5,6 +5,7 @@ import {full_player} from "./full_player";
 import {prizelist} from "./prizelist";
 import {ranking_player} from "./ranking_points";
 import {teams_standings} from "./standings";
+import { Round } from "./round";
 
 export class teams extends obj_master {
   name: string;
@@ -25,6 +26,7 @@ export class teams extends obj_master {
   officiels: Array<officials>;
   players: Array<full_player>;
   ranking_team: Array<teams_standings>;
+  rounds_rk: Round[] = [];
   ranking_points_list: Array<ranking_player>;
   defaultcolorhome1: string;
   defaultcolorhome2: string;

@@ -4,6 +4,8 @@ import { DefautComponent } from './defaut/defaut.component';
 import { SearchComponent } from './search/search.component';
 import { GamesComponent } from './games/games.component';
 import { CompetitionsComponent } from './competitions/competitions.component';
+import { JoueursComponent } from './joueurs/joueurs.component';
+import { ClubsComponent } from './clubs/clubs.component';
 
 
 const routes: Routes = [
@@ -13,6 +15,8 @@ const routes: Routes = [
    { path: 'search', component: SearchComponent }, // Route 'defaut' qui affiche ImportRidersComponent
    { path: 'games', component: GamesComponent }, // Route 'defaut' qui affiche ImportRidersComponent
    { path: 'competitions', component: CompetitionsComponent }, // Route 'defaut' qui affiche ImportRidersComponent
+   { path: 'joueurs', component: JoueursComponent }, // Route 'defaut' qui affiche ImportRidersComponent
+   { path: 'clubs', component: ClubsComponent }, // Route 'defaut' qui affiche ImportRidersComponent
   
  ];
  

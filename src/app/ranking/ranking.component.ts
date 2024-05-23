@@ -16,7 +16,7 @@ export class RankingComponent {
   public sort: "DIFF_ASC" | "DIFF_DESC" | "CONC_ASC" | "CONC_DESC" | "BUT_ASC" | "BUT_DESC" | "VIC_ASC" | "VIC_DESC" | "PTS_ASC" | "PTS_DESC" | "MJ_ASC" | "MJ_DESC" | "NUL_ASC" | "NUL_DESC" | "DEF_ASC" | "DEF_DESC" | "VIC_OT_ASC" | "VIC_OT_DESC" | "DEF_OT_ASC" | "DEF_OT_DESC" | "FFT_ASC" | "FFT_DESC" | "NO" = "NO";
   constructor(public router: Router) { }
   GoToTeam(id) {
-    this.router.navigate(['/team'], { queryParams: { id: id } });
+    this.router.navigate(['/clubs'], { queryParams: { team: id } });
   }
   Sort(type: "BUT" | "CONC" | "VIC" | "MJ" | "PTS" | "NUL" | "DEF" | "VIC_OT" | "DEF_OT" | "FFT" | "DIFF") {
     switch (type) {

@@ -37,6 +37,6 @@ export class JoueurItemComponent implements OnInit {
       }
   }
   GoToJoueur(id:number){
-    this.router.navigate(['/joueur'], { queryParams: { id: id } });     
+    this.router.navigate(['/joueurs'], { queryParams: { id: id } });     
   }
 }

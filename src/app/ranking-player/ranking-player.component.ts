@@ -15,10 +15,10 @@ export class RankingPlayerComponent {
   public sort: "BUT_ASC" | "BUT_DESC" | "ASS_ASC" | "ASS_DESC" | "PTS_ASC" | "PTS_DESC" | "MJ_ASC" | "MJ_DESC" | "ARR_ASC" | "ARR_DESC" | "CONC_ASC" | "CONC_DESC" | "PERC_ASC" | "PERC_DESC" | "NO" = "NO";
   constructor(public router: Router) { }
   GoToTeam(id) {
-    this.router.navigate(['/team'], { queryParams: { id: id } });
+    this.router.navigate(['/clubs'], { queryParams: { team: id } });
   }
   GoToPlayer(id) {
-    this.router.navigate(['/joueur'], { queryParams: { id: id } });
+    this.router.navigate(['/joueurs'], { queryParams: { id: id } });
   }
   Sort(type: "BUT" | "ASS" | "MJ" | "PTS" | "ARR" | "CONC" | "PERC") {
     switch (type) {

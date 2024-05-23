@@ -23,5 +23,5 @@ export class clubs extends obj_master {
   region1: string;
   region2: string;
   halls: any;
-
+  teams:any[] = [];
 }

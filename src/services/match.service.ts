@@ -71,6 +71,24 @@ export class MatchService {
         return Promise.reject(error);
       });
   }
+  GetAllMatchTeam(id:number):Promise<response_listmatch>{
+    this.url = environment.url + 'public_mt_matchs_getlist.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+     command:"team",
+     id:id
+    };
+    
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
   GetNextMatch():Promise<response_listmatch>{
     this.url = environment.url + 'public_mt_matchs_getlist.php';
     //  this.url = this.url + "login.php";
