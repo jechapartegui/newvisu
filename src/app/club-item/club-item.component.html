@@ -12,12 +12,60 @@
             <div class="media-content">
                 <div class="content">
                     <p>
+                        <span (click)="GoToClubLien(club.id)" class="title"><strong>{{club.name}}</strong></span>
+                        <br />
+                    </p>
+                </div>
+            </div>
+
+        </article>
+    </div>
+</ng-container>
+<ng-container *ngIf="context == 'CLUB'">
+    <div *ngIf="club" class="box recherche">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64 noshow">
+                    <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ club.id }}">
+                </figure>
+                <figure class="image is-32x32 mobile" style="margin: 0.15em;">
+                    <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ club.id }}">
+                </figure>
+                <a class="level-item" >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path
+                            d="M21 3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-2.001L19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1l-.001-8.001L3 12a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a3 3 0 0 0 6 0h6z"
+                            [style]="{'fill': club.colorhome1, 'stroke':'lightgray','color':'#fffff'}">
+                        </path>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path
+                            d="M21 3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-2.001L19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1l-.001-8.001L3 12a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a3 3 0 0 0 6 0h6z"
+                            [style]="{'fill': club.coloraway1, 'stroke':'lightgray','color':'#fffff'}">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p>
                         <span (click)="GoToClub(club.id)" class="title"><strong>{{club.name}}</strong></span>
                         <br />
                     </p>
-                </div>               
+                    <span>{{club.shortname}}</span><br />
+                    <span>{{club.streetaddress}} {{club.postcode}} {{club.city}}</span><br />
+                    <a [href]="'mailto:'+club.email" *ngIf="club.email">{{club.email}} </a><br />
+                    <a [href]="club.website" *ngIf="club.website">{{club.website}} </a><br />
+                </div>
             </div>
-          
+            <div class="media-right">
+                <ng-container *ngFor="let tt of club.teams">
+                    <span (click)="GoToTeam(tt.id)" style="margin: 1px;cursor: pointer;" class="tag is-link">{{tt.name}}</span></ng-container>
+            </div>
+
+
         </article>
     </div>
 </ng-container>

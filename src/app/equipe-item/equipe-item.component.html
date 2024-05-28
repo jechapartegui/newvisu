@@ -44,3 +44,49 @@
         </article>
     </div>
 </ng-container>
+<ng-container *ngIf="context == 'CLUB'">
+    <div *ngIf="equipe" class="box recherche">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64 noshow">
+                    <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ equipe.clubid }}">
+                </figure>
+                <figure class="image is-32x32 mobile" style="margin: 0.15em;">
+                    <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ equipe.clubid }}">
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <span (click)="GoToTeamLien(equipe.id)" class="title"><strong>{{equipe.name}}</strong></span>
+                        &nbsp;<small (click)="GoToClubLien(equipe.clubid)" style="cursor: pointer;" class="noshow">{{equipe.clubname}} </small>
+                        <br />
+                        <span  (click)="GoToCategory(equipe.agecategoryid)"  class="title">{{equipe.category}}</span>
+                    </p>
+                </div>
+                <nav class="level is-mobile noshow">
+                    <div class="level-left">
+                        <a class="level-item" >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path
+                                    d="M21 3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-2.001L19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1l-.001-8.001L3 12a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a3 3 0 0 0 6 0h6z"
+                                    [style]="{'fill': equipe.colorhome1, 'stroke':'lightgray','color':'#fffff'}">
+                                </path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path
+                                    d="M21 3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-2.001L19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1l-.001-8.001L3 12a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a3 3 0 0 0 6 0h6z"
+                                    [style]="{'fill': equipe.coloraway1, 'stroke':'lightgray','color':'#fffff'}">
+                                </path>
+                            </svg>
+                        </a>
+                       
+                    </div>
+                </nav>
+            </div>
+          
+        </article>
+    </div>
+</ng-container>

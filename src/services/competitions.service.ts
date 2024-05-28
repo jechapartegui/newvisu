@@ -8,6 +8,8 @@ import { Round } from 'src/class/round';
 import { ranking_player } from 'src/class/ranking_points';
 import { prizelist } from 'src/class/prizelist';
 import { teams_standings } from 'src/class/standings';
+import { clubs } from 'src/class/club';
+import { teams } from 'src/class/team';
 
 @Injectable({
   providedIn: 'root'
@@ -236,7 +238,7 @@ export class CompetitionsService {
     //  this.url = this.url + "login.php";
     const body = {
       command: "teams",
-      id: id, 
+      id: id,
       object: "team"
     };
 
@@ -250,4 +252,58 @@ export class CompetitionsService {
         return Promise.reject(error);
       });
   }
+  GetAllClubs(id): Promise<clubs[]> {
+    this.url = environment.url + 'public_clubs_getall.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+      seasonid: id
+    };
+
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
+  GetAllTeams(id): Promise<teams[]> {
+    this.url = environment.url + 'public_global_search.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+      idseason: id,
+      search_type: "team",
+      text: ""
+    };
+
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
+  GetTeam(id): Promise<teams> {
+    this.url = environment.url + 'public_teams_getinfo.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+      id: id
+    };
+
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
+  
 }

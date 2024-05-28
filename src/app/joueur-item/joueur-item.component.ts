@@ -11,7 +11,7 @@ import { player_game } from 'src/class/player_game_detail';
 export class JoueurItemComponent implements OnInit {
   @Input() joueur:full_player;
   @Input() joueur_game:player_game;
-  @Input() context : "RECHERCHE" | "MATCH";
+  @Input() context : "RECHERCHE" | "MATCH" | "CLUB";
   nb_but:number[] = [];
   nb_assist:number[] = [];
   nb_fault:number[] = [];
@@ -24,16 +24,16 @@ export class JoueurItemComponent implements OnInit {
         this.joueur.number = this.joueur_game.number;
         this.joueur.statistics = new player_game();
         this.joueur.statistics = this.joueur_game;
-        this.joueur.photo = this.joueur_game.photo;
-        for (let i = 1; i <= this.joueur.statistics.goal; i++) {
-          this.nb_but.push(i);
-        }
-        for (let i = 1; i <= this.joueur.statistics.assist; i++) {
-          this.nb_assist.push(i);
-        }
-        for (let i = 1; i <= this.joueur.statistics.fault; i++) {
-          this.nb_fault.push(i);
-        }
+        this.joueur.photo = this.joueur_game.photo;       
+      }
+      for (let i = 1; i <= this.joueur.statistics.goal; i++) {
+        this.nb_but.push(i);
+      }
+      for (let i = 1; i <= this.joueur.statistics.assist; i++) {
+        this.nb_assist.push(i);
+      }
+      for (let i = 1; i <= this.joueur.statistics.fault; i++) {
+        this.nb_fault.push(i);
       }
   }
   GoToJoueur(id:number){

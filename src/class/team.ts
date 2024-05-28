@@ -6,12 +6,14 @@ import {prizelist} from "./prizelist";
 import {ranking_player} from "./ranking_points";
 import {teams_standings} from "./standings";
 import { Round } from "./round";
+import { clubs } from "./club";
 
 export class teams extends obj_master {
   name: string;
   clubname: string;
   logoclub: string;
   clubid: number;
+  club:clubs
   agecategoryid: number;
   category: string;
   colorhome1: string;

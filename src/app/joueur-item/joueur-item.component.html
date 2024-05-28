@@ -102,3 +102,55 @@
     </article>
   </div>
 </ng-container>
+<ng-container *ngIf="context == 'CLUB'">
+  <div *ngIf="joueur" class="box games">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="{{joueur.photo}}" alt="Image" />
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <small>#{{joueur.statistics.number}}</small>&nbsp;<span class="title"
+              (click)="GoToJoueur(joueur.id)"><strong>{{joueur.firstname}} {{joueur.lastname}}</strong></span>
+            <br />
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item" aria-label="reply">
+              <span class="icon is-small" style="width: auto;">
+                <div *ngIf="joueur.statistics.goal>0" style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                  <ng-container *ngFor="let i of nb_but">
+                    <img *ngIf="i==1" height="20px" i18n-title src="assets/matchIcons/goal.svg" [title]="joueur.statistics.goal" width="20px">
+                    <img *ngIf="i!=1"height="20px"  [style.margin-left.px]="-10" i18n-title src="assets/matchIcons/goal.svg" [title]="joueur.statistics.goal" width="20px">
+                  </ng-container>
+                </div>
+              </span>
+              <span class="icon is-small"  style="width: auto;">
+                <div *ngIf="joueur.statistics.assist>0" style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                  <ng-container *ngFor="let i of nb_assist">
+                    <img *ngIf="i==1" height="20px" i18n-title src="assets/default/Assist.png" [title]="joueur.statistics.assist" width="20px">
+                    <img *ngIf="i!=1"height="20px"  [style.margin-left.px]="-10" i18n-title src="assets/default/Assist.png" [title]="joueur.statistics.assist" width="20px">
+                  </ng-container>
+                </div>
+              </span>
+              <span class="icon is-small" style="width: auto;">
+                <div *ngIf="joueur.statistics.fault>0" style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                  <ng-container *ngFor="let i of nb_fault">
+                    <img *ngIf="i==1" height="20px" i18n-title src="assets/default/sifflet.png" [title]="joueur.statistics.fault" width="20px">
+                    <img *ngIf="i!=1"height="20px"  [style.margin-left.px]="-10" i18n-title src="assets/default/sifflet.png" [title]="joueur.statistics.fault" width="20px">
+                  </ng-container>
+                </div>
+              </span>
+            </a>
+          
+          </div>
+        </nav>
+      </div>
+      
+    </article>
+  </div>
+</ng-container>

@@ -28,6 +28,9 @@
     .mobile{
         display: block;
     }
+    .media-content{
+        font-size: x-small;
+    }
 
     .noshow{
         display: none;
