@@ -26,15 +26,18 @@ export class JoueurItemComponent implements OnInit {
         this.joueur.statistics = this.joueur_game;
         this.joueur.photo = this.joueur_game.photo;       
       }
-      for (let i = 1; i <= this.joueur.statistics.goal; i++) {
-        this.nb_but.push(i);
+      if(this.joueur.statistics){
+        for (let i = 1; i <= this.joueur.statistics.goal; i++) {
+          this.nb_but.push(i);
+        }
+        for (let i = 1; i <= this.joueur.statistics.assist; i++) {
+          this.nb_assist.push(i);
+        }
+        for (let i = 1; i <= this.joueur.statistics.fault; i++) {
+          this.nb_fault.push(i);
+        }
       }
-      for (let i = 1; i <= this.joueur.statistics.assist; i++) {
-        this.nb_assist.push(i);
-      }
-      for (let i = 1; i <= this.joueur.statistics.fault; i++) {
-        this.nb_fault.push(i);
-      }
+     
   }
   GoToJoueur(id:number){
     this.router.navigate(['/joueurs'], { queryParams: { id: id } });     
