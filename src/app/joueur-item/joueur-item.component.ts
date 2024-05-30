@@ -36,6 +36,9 @@ export class JoueurItemComponent implements OnInit {
         for (let i = 1; i <= this.joueur.statistics.fault; i++) {
           this.nb_fault.push(i);
         }
+        if(this.joueur.statistics.shots>0){
+          this.joueur.statistics.pc_saves = this.joueur.statistics.saves / this.joueur.statistics.shots * 100
+        }
       }
      
   }

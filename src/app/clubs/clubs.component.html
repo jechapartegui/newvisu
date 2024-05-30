@@ -1,4 +1,4 @@
-<div [ngSwitch]="from" class="content">
+<div [ngSwitch]="from_type" class="content">
     <ng-container *ngSwitchCase="'SEASON'">
         <div class="tabs is-boxed is-right">
             <ul>
@@ -77,7 +77,39 @@
 
         </div>
         <app-club-item [club]="this.visu.thisClub" [context]="'CLUB'"></app-club-item>
+      
         <ng-container *ngIf="selected_menu=='CLUB'">
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label" i18n>Changer de saison</label>
+                        <div class="control">
+                            <div class="select">
+                                <select [(ngModel)]="season_id">
+                                    <ng-container *ngFor="let ss of visu.list_season">
+                                        <option [ngValue]="ss.id">{{ss.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button (click)="ChangerSeason()" class="button is-link" i18n>Changer</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    
+              <div class="tags are-medium">
+                    <ng-container *ngFor="let tt of visu.thisClub.teams">
+                        <a class="tag is-primary">{{tt.name}} {{tt.category}}</a>
+                    </ng-container></div>
+                </div>
+            </div>
+            <div class="box">
+               
+            </div>
             <div *ngIf="this.visu.thisClub" class="tabs is-toggle is-fullwidth">
                 <ul>                   
                     <li *ngIf="this.visu.thisClub.players" [class]="selected_sous_menu === 'JOUEURS' ? 'is-active' :''"
@@ -145,15 +177,5 @@
                 </ng-container></ng-container>
         </ng-container>
     </ng-container>
-    <ng-container *ngSwitchCase="'CLUB'">
-
-        <app-club-item [club]="this.visu.thisClub" [context]="'CLUB'"></app-club-item>
-        
-        <ng-container *ngIf="selected_sous_menu == 'JOUEURS'">
-            <ng-container *ngIf="visu.thisClub.players">
-                <ng-container *ngFor="let jr of visu.thisClub.players">
-                    <app-joueur-item [joueur]="jr" [context]="'CLUB'"></app-joueur-item>
-                </ng-container></ng-container>
-        </ng-container>
-    </ng-container>
+   
 </div>

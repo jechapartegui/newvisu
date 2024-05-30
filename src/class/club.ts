@@ -2,6 +2,7 @@ import {full_player} from "./full_player";
 import {obj_master} from "./obj_master";
 import {prizelist} from "./prizelist";
 import {resume} from "./resume";
+import { season } from "./season";
 
 export class clubs extends obj_master {
   name:string;
@@ -24,4 +25,5 @@ export class clubs extends obj_master {
   region2: string;
   halls: any;
   teams:any[] = [];
+  list_season:season[] = [];
 }

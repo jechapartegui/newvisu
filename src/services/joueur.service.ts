@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { GlobalService } from './global.services';
 import { full_player } from 'src/class/full_player';
 import { environment } from 'src/environments/environment.prod';
+import { teams } from 'src/class/team';
+import { season } from 'src/class/season';
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +50,6 @@ export class JoueurService {
         return Promise.reject(error);
       });
   }
+  
+
 }

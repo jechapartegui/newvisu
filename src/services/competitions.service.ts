@@ -305,5 +305,40 @@ export class CompetitionsService {
         return Promise.reject(error);
       });
   }
+  GetTeamsByClubBySeason(id:number, season_id:number):Promise<teams[]>{
+    this.url = environment.url + 'public_teams_byclubbyseason.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+      clubid:id,
+      seasonid:season_id
+    };
+
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
+  GetSeasonByClub(id:number):Promise<season[]>{
+    this.url = environment.url + 'public_seasons_byclub.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+      id:id
+    };
+
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
   
 }
