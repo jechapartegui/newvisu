@@ -1,1 +1,33 @@
-<p>joueurs works!</p>
+<ng-container *ngIf="!visu.player || loading">
+    <progress class="progress is-large is-info" max="100">60%</progress>
+    <p>Chargement en cours</p>
+</ng-container>
+<ng-container *ngIf="visu.player && loading==false">
+    <app-joueur-item *ngIf="visu" [context]="'JOUEUR'" [joueur]="visu.player"></app-joueur-item>
+    <div class="tabs is-toggle is-fullwidth">
+        <ul>
+            <li *ngIf="visu.player.matchs_list" [class]="selected_menu === 'MATCH' ? 'is-active' :''"
+                (click)="selected_menu = 'MATCH'">
+                <a>
+                    <span i18n>Matchs</span>
+                </a>
+            </li>
+            <li *ngIf="visu.player.seasons_details" [class]="selected_menu === 'SAISON' ? 'is-active' :''"
+                (click)="selected_menu = 'SAISON'">
+                <a>
+                    <span i18n>Saisons</span>
+                </a>
+            </li>
+            <li *ngIf="visu.player.prizelist" [class]="selected_menu === 'PALMARES' ? 'is-active' :''"
+                (click)="selected_menu = 'PALMARES'">
+                <a>
+                    <span i18n>Palmarès</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <ng-container *ngIf="selected_menu == 'MATCH'">
+        <app-game-list *ngIf="visu.player.matchs_list" [liste_date]="visu.date_list"
+            [matchs]="visu.player.matchs_list"></app-game-list>
+    </ng-container>

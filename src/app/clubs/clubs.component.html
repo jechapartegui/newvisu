@@ -77,16 +77,16 @@
 
         </div>
         <app-club-item [club]="this.visu.thisClub" [context]="'CLUB'"></app-club-item>
-      
-        <ng-container *ngIf="selected_menu=='CLUB'">
+
+        <div class="box">
             <div class="columns">
                 <div class="column">
                     <div class="field">
                         <label class="label" i18n>Changer de saison</label>
                         <div class="control">
                             <div class="select">
-                                <select [(ngModel)]="season_id">
-                                    <ng-container *ngFor="let ss of visu.list_season">
+                                <select [(ngModel)]="season_id_club">
+                                    <ng-container *ngFor="let ss of visu.thisClub.list_season">
                                         <option [ngValue]="ss.id">{{ss.name}}</option>
                                     </ng-container>
                                 </select>
@@ -95,23 +95,25 @@
                     </div>
                     <div class="field">
                         <div class="control">
-                            <button (click)="ChangerSeason()" class="button is-link" i18n>Changer</button>
+                            <button (click)="ChangerSeasonClub()" class="button is-link" i18n>Changer</button>
                         </div>
                     </div>
                 </div>
                 <div class="column">
-                    
-              <div class="tags are-medium">
-                    <ng-container *ngFor="let tt of visu.thisClub.teams">
-                        <a class="tag is-primary">{{tt.name}} {{tt.category}}</a>
-                    </ng-container></div>
+
+
+                    <div class="tags are-medium">
+                        <ng-container *ngFor="let tt of visu.thisClub.teams">
+                            <a class="tag is-primary" (click)="GoToTeam(tt.id)">{{tt.name}} {{tt.category}}</a>
+                        </ng-container>
+                    </div>
                 </div>
             </div>
-            <div class="box">
-               
-            </div>
+
+        </div>
+        <ng-container *ngIf="selected_menu=='CLUB'">
             <div *ngIf="this.visu.thisClub" class="tabs is-toggle is-fullwidth">
-                <ul>                   
+                <ul>
                     <li *ngIf="this.visu.thisClub.players" [class]="selected_sous_menu === 'JOUEURS' ? 'is-active' :''"
                         (click)="selected_sous_menu = 'JOUEURS'">
                         <a>
@@ -119,25 +121,28 @@
                         </a>
                     </li>
                     <li *ngIf="this.visu.thisClub.prizelist"
-                        [class]="selected_sous_menu === 'PALMARES' ? 'is-active' :''" (click)="selected_sous_menu = 'PALMARES'">
+                        [class]="selected_sous_menu === 'PALMARES' ? 'is-active' :''"
+                        (click)="selected_sous_menu = 'PALMARES'">
                         <a>
                             <span i18n>Palmarès</span>
                         </a>
                     </li>
-    
+
                 </ul>
             </div>
         </ng-container>
         <ng-container *ngIf="selected_menu=='TEAM'">
             <div *ngIf="this.visu.thisTeam" class="tabs is-toggle is-fullwidth">
                 <ul>
-                    <li *ngIf="this.visu.thisTeam.games_list" [class]="selected_sous_menu === 'MATCHS' ? 'is-active' :''"
+                    <li *ngIf="this.visu.thisTeam.games_list"
+                        [class]="selected_sous_menu === 'MATCHS' ? 'is-active' :''"
                         (click)="selected_sous_menu = 'MATCHS'">
                         <a>
                             <span i18n>Matchs</span>
                         </a>
                     </li>
-                    <li *ngIf="this.visu.thisTeam.rounds_rk" [class]="selected_sous_menu === 'CLASSEMENT' ? 'is-active' :''"
+                    <li *ngIf="this.visu.thisTeam.rounds_rk"
+                        [class]="selected_sous_menu === 'CLASSEMENT' ? 'is-active' :''"
                         (click)="selected_sous_menu = 'CLASSEMENT'">
                         <a>
                             <span i18n>Classements</span>
@@ -150,12 +155,13 @@
                         </a>
                     </li>
                     <li *ngIf="this.visu.thisTeam.ranking_points_list"
-                        [class]="selected_sous_menu === 'BUTEUR' ? 'is-active' :''" (click)="selected_sous_menu = 'BUTEUR'">
+                        [class]="selected_sous_menu === 'BUTEUR' ? 'is-active' :''"
+                        (click)="selected_sous_menu = 'BUTEUR'">
                         <a>
                             <span i18n>Pointeurs</span>
                         </a>
                     </li>
-    
+
                 </ul>
             </div>
             <ng-container *ngIf="selected_sous_menu == 'MATCHS'">
@@ -177,5 +183,5 @@
                 </ng-container></ng-container>
         </ng-container>
     </ng-container>
-   
+
 </div>

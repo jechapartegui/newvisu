@@ -35,19 +35,15 @@ export class ClubsComponent implements OnInit {
       if ('id' in params) {
         this.from = "CLUB";
         this.value = params['id'];
-        this.from_type = "EQUIPE";
       } else if ('team' in params) {
         this.from = "EQUIPE";
         this.value = params['team'];
-        this.from_type = "EQUIPE";
       } else if ('season' in params) {
         this.from = "SEASON";
         this.value = params['season'];
-        this.from_type = "SEASON";
       } else {
         this.from = "SEASON";
         this.value = null;
-        this.from_type = "SEASON";
       }
 
     });
@@ -58,9 +54,6 @@ export class ClubsComponent implements OnInit {
     const errorService = ErrorService.instance;
     switch (this.from) {
       case "EQUIPE":
-
-      case "CLUB":
-        this.action = $localize`Charger l'équipe`;
         this.comp_serv.GetTeam(this.value).then((equipe) => {
 
           this.visu.thisTeam = equipe;
@@ -118,15 +111,52 @@ export class ClubsComponent implements OnInit {
                         }
                       })
                       this.selected_sous_menu = "JOUEURS";
-                      console.log(this.visu.thisTeam.players);
+                      this.from_type = "EQUIPE";
                     }).catch((err) => {
                       let o = errorService.CreateError(this.action, err.message);
                       errorService.emitChange(o);
                     });
                   }).catch((err) => {
-                    let o = errorService.CreateError(this.action, err.message);
-                    errorService.emitChange(o);
-                  });
+                      let o = errorService.CreateError(this.action, err.message);
+                      errorService.emitChange(o);
+                    });
+                }).catch((err) => {
+                  let o = errorService.CreateError(this.action, err.message);
+                  errorService.emitChange(o);
+                });
+              }).catch((err) => {
+                let o = errorService.CreateError(this.action, err.message);
+                errorService.emitChange(o);
+              });
+            }).catch((err) => {
+              let o = errorService.CreateError(this.action, err.message);
+              errorService.emitChange(o);
+            });
+          }).catch((err) => {
+            let o = errorService.CreateError(this.action, err.message);
+            errorService.emitChange(o);
+          });
+        });
+        break;
+      case "CLUB":
+
+        this.action = $localize`Charger le club`;
+        this.comp_serv.GetAllClubs().then((list_club) => {
+          this.visu.thisClub = list_club.find(x => x.id == this.value);
+          this.comp_serv.GetSeasonByClub(this.value).then((seasons) => {
+            this.visu.thisClub.list_season = seasons;
+            let this_saison = seasons.find(x => x.iscurrent == 1);
+            if (this_saison == null) {
+              this_saison = seasons.reduce((maxSeason, season) => (season.id > maxSeason.id ? season : maxSeason), seasons[0]);
+            }
+            this.comp_serv.GetTeamsByClubBySeason(this.value, this_saison.id).then((tea) => {
+              this.visu.thisClub.teams = tea;
+
+              this.joueur_serv.GetAllPlayersClub(this.value, this_saison.id).then((pla_club) => {
+                this.visu.thisClub.players = pla_club;
+                this.comp_serv.GetPrizelist(this.value).then((pri) => {
+                  this.visu.thisClub.prizelist = pri;
+
                 }).catch((err) => {
                   let o = errorService.CreateError(this.action, err.message);
                   errorService.emitChange(o);
@@ -147,9 +177,7 @@ export class ClubsComponent implements OnInit {
           let o = errorService.CreateError(this.action, err.message);
           errorService.emitChange(o);
         });
-
         break;
-
       default:
       case "SEASON":
         this.action = $localize`Charger les clubs`;
@@ -166,7 +194,7 @@ export class ClubsComponent implements OnInit {
 
           }
 
-          this.comp_serv.GetAllClubs(season_id).then((list_club) => {
+          this.comp_serv.GetAllClubsSeason(season_id).then((list_club) => {
             this.visu.list_club = list_club;
             this.visu.list_club.sort((a, b) => {
               const nomA = a.name.toUpperCase(); // Ignore la casse lors du tri
@@ -204,6 +232,7 @@ export class ClubsComponent implements OnInit {
                 return comparaison; // Inverse pour le tri descendant
               });
               this.selected_menu = "CLUB";
+              this.from_type = "SEASON";
             }).catch((err) => {
               let o = errorService.CreateError(this.action, err.message);
               errorService.emitChange(o);
@@ -226,10 +255,26 @@ export class ClubsComponent implements OnInit {
     this.Load();
   }
 
+  GoToTeam(id){
+    this.from = "EQUIPE";
+    this.value = id;
+    this.Load();
+  }
+
   GoTo(event) {
     this.from = event.type;
     this.value = event.id;
     this.Load();
 
+  }
+  ChangerSeasonClub() {
+    const errorService = ErrorService.instance;
+    this.action = $localize`Charger les équipes`;
+    this.comp_serv.GetTeamsByClubBySeason(this.visu.thisClub.id, this.season_id_club).then((teamssss) => {
+      this.visu.thisClub.teams = teamssss;
+    }).catch((err) => {
+      let o = errorService.CreateError(this.action, err.message);
+      errorService.emitChange(o);
+    });
   }
 }

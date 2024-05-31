@@ -11,7 +11,7 @@ import { player_game } from 'src/class/player_game_detail';
 export class JoueurItemComponent implements OnInit {
   @Input() joueur:full_player;
   @Input() joueur_game:player_game;
-  @Input() context : "RECHERCHE" | "MATCH" | "CLUB";
+  @Input() context : "RECHERCHE" | "MATCH" | "CLUB" | "JOUEUR";
   nb_but:number[] = [];
   nb_assist:number[] = [];
   nb_fault:number[] = [];

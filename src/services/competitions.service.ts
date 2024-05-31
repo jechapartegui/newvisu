@@ -252,11 +252,27 @@ export class CompetitionsService {
         return Promise.reject(error);
       });
   }
-  GetAllClubs(id): Promise<clubs[]> {
+  GetAllClubsSeason(id): Promise<clubs[]> {
     this.url = environment.url + 'public_clubs_getall.php';
     //  this.url = this.url + "login.php";
     const body = {
       seasonid: id
+    };
+
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
+  GetAllClubs(): Promise<clubs[]> {
+    this.url = environment.url + 'public_clubs_getall.php';
+    //  this.url = this.url + "login.php";
+    const body = {
     };
 
 

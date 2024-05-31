@@ -33,9 +33,11 @@ import { RankingPlayerComponent } from './ranking-player/ranking-player.componen
 import { GameEventComponent } from './game-event/game-event.component';
 import { JoueursComponent } from './joueurs/joueurs.component';
 import { ClubsComponent } from './clubs/clubs.component';
+import { PrizelistComponent } from './prizelist/prizelist.component';
+import { ListSaisonComponent } from './list-saison/list-saison.component';
 
 @NgModule({
-  declarations: [ JoueursComponent, ClubsComponent, FilterTeamPipe, FilterRoundPipe, FilterSporthallPipe, FilterTournamentPipe, CompetitionDetailComponent, RankingComponent, RankingPlayerComponent, GameEventComponent,
+  declarations: [ PrizelistComponent, ListSaisonComponent, JoueursComponent, ClubsComponent, FilterTeamPipe, FilterRoundPipe, FilterSporthallPipe, FilterTournamentPipe, CompetitionDetailComponent, RankingComponent, RankingPlayerComponent, GameEventComponent,
     AppComponent, NotifJechaComponent, GamesComponent, DefautComponent, GameListComponent, GameItemComponent, SearchComponent, JoueurItemComponent, EquipeItemComponent, ClubItemComponent, CompetitionItemComponent, GymnaseItemComponent, CompetitionsComponent, CompetitionItemComponent, RoundDetailComponent],
   imports: [
     BrowserModule,HttpClientModule,  BrowserAnimationsModule,
