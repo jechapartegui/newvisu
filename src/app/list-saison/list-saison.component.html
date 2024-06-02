@@ -1,1 +1,184 @@
-<p>list-saison works!</p>
+<ng-container *ngFor="let saison of list">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">{{saison.name}} </p>
+            <button class="card-header-icon"
+                (click)="saison.nextseason ==1 ? saison.nextseason = 0 : saison.nextseason = 1"
+                aria-label="more options">
+                <span *ngIf="saison.nextseason ==1" class="icon">
+                    <i class="fas fa-angle-up" aria-hidden="true"></i>
+                </span>
+                <span *ngIf="saison.nextseason ==0" class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
+        </header>
+        <div *ngIf="saison.nextseason ==1" class="card-content">
+            <ng-container *ngFor="let joueur of seasons">
+                <div *ngIf="joueur.season_id == saison.id" class="box games">
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <div class="media-right" style="cursor: pointer;" (click)="GoToClub(joueur.club_id)">
+                                        <figure class="image is-32x32 ">
+                                            <img src="{{joueur.club_logo}}" alt="logo" />
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <a (click)="GoToTeam(joueur.team_id)">{{joueur.team_name}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column noshow">
+                            <div class="columns is-mobile noshow">
+                                <div class="column">
+                                    <p class="level-item" *ngIf="joueur.position && joueur.position.length>0">
+                                        {{joueur.position}}</p>
+                                </div>
+                                <div class="column">
+                                    <p>{{joueur.agecategory}}</p>
+                                </div>
+                                <div class="column">
+                                    <span *ngIf="joueur.player.games_played>0" class="level-item" aria-label="reply"
+                                        style="border-style: outset;
+                                border-radius: 5px;
+                                padding: 3px;
+                                width: fit-content;
+                                ">
+                                        <span class="icon is-small" style="width: auto;">
+                                            <div
+                                                style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                                {{joueur.player.games_played}}<img height="20px" i18n-title
+                                                    src="assets\default\games.png" [title]="joueur.player.games_played"
+                                                    width="20px">
+                                            </div>
+                                        </span>
+                                        <span *ngIf="joueur.player.goal>0" class="icon is-small" style="width: auto;">
+                                            <div
+                                                style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                                {{joueur.player.goal}}<img height="20px" i18n-title
+                                                    src="assets/matchIcons/goal.svg" [title]="joueur.player.goal"
+                                                    width="20px">
+                                            </div>
+                                        </span>
+                                        <span *ngIf="joueur.player.assist>0" class="icon is-small" style="width: auto;">
+                                            <div
+                                                style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                                {{joueur.player.assist}}<img height="20px" i18n-title
+                                                    src="assets/default/Assist.png" [title]="joueur.player.assist"
+                                                    width="20px">
+                                            </div>
+                                        </span>
+                                        <span *ngIf="joueur.player.fault>0" class="icon is-small" style="width: auto;">
+                                            <div
+                                                style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                                {{joueur.player.fault}}<img height="20px" i18n-title
+                                                    src="assets/default/sifflet.png" [title]="joueur.player.fault"
+                                                    width="20px">
+                                            </div>
+
+                                        </span>
+                                        <span *ngIf="joueur.player.mvp>0" class="icon is-small" style="width: auto;">
+                                            <div
+                                                style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                                {{joueur.player.mvp}}<img height="20px" i18n-title
+                                                    src="assets/default/star.png" [title]="joueur.player.mvp"
+                                                    width="20px">
+                                            </div>
+
+                                        </span>
+                                        <span *ngIf="joueur.player.shots>0" class="icon is-small" style="width: auto;">
+                                            <div
+                                                style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                                {{ joueur.player.pc_saves | number:'1.0-0' }}% <img height="20px"
+                                                    i18n-title src="assets/default/Arrets.png"
+                                                    [title]="joueur.player.saves" width="20px"> <small>
+                                                    {{joueur.player.saves}} <span> / </span>
+                                                    {{joueur.player.shots}}</small>
+                                            </div>
+
+                                        </span>
+
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns is-mobile mobile-only">
+                        <div class="column">
+                            <p class="level-item" *ngIf="joueur.position && joueur.position.length>0">
+                                {{joueur.position}}</p>
+                        </div>
+                        <div class="column">
+                            <p>{{joueur.agecategory}}</p>
+                        </div>
+                        <div class="column">
+                            <span *ngIf="joueur.player.games_played>0" class="level-item" aria-label="reply" style="border-style: outset;
+                        border-radius: 5px;
+                        padding: 3px;
+                        width: fit-content;
+                        ">
+                                <span class="icon is-small" style="width: auto;">
+                                    <div
+                                        style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                        {{joueur.player.games_played}}<img height="20px" i18n-title
+                                            src="assets\default\games.png" [title]="joueur.player.games_played"
+                                            width="20px">
+                                    </div>
+                                </span>
+                                <span *ngIf="joueur.player.goal>0" class="icon is-small" style="width: auto;">
+                                    <div
+                                        style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                        {{joueur.player.goal}}<img height="20px" i18n-title
+                                            src="assets/matchIcons/goal.svg" [title]="joueur.player.goal" width="20px">
+                                    </div>
+                                </span>
+                                <span *ngIf="joueur.player.assist>0" class="icon is-small" style="width: auto;">
+                                    <div
+                                        style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                        {{joueur.player.assist}}<img height="20px" i18n-title
+                                            src="assets/default/Assist.png" [title]="joueur.player.assist" width="20px">
+                                    </div>
+                                </span>
+                                <span *ngIf="joueur.player.fault>0" class="icon is-small" style="width: auto;">
+                                    <div
+                                        style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                        {{joueur.player.fault}}<img height="20px" i18n-title
+                                            src="assets/default/sifflet.png" [title]="joueur.player.fault" width="20px">
+                                    </div>
+
+                                </span>
+                                <span *ngIf="joueur.player.mvp>0" class="icon is-small" style="width: auto;">
+                                    <div
+                                        style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                        {{joueur.player.mvp}}<img height="20px" i18n-title src="assets/default/star.png"
+                                            [title]="joueur.player.mvp" width="20px">
+                                    </div>
+
+                                </span>
+                                <span *ngIf="joueur.player.shots>0" class="icon is-small" style="width: auto;">
+                                    <div
+                                        style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                                        {{ joueur.player.pc_saves | number:'1.0-0' }}% <img height="20px" i18n-title
+                                            src="assets/default/Arrets.png" [title]="joueur.player.saves" width="20px">
+                                        <small>
+                                            {{joueur.player.saves}} <span> / </span>
+                                            {{joueur.player.shots}}</small>
+                                    </div>
+
+                                </span>
+
+                            </span>
+                        </div>
+                    </div>
+                    <span class="mobile-only">
+                        <hr style="margin: 0px;" />
+                    </span>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

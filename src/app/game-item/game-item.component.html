@@ -23,20 +23,25 @@
                 <span (click)="GoToTeam(match.team_home_id)">{{match.team_home_name}}</span>
             </div>
             <div>
-                <img class="logo" src="{{match.team_home_logo}}">
+                <img *ngIf="!match.team_home_logo" class="logo"  src="{{ url +'api/public_club_logo_get.php?c='+ match.club_home_id }}">
+                <img *ngIf="match.team_home_logo" class="logo" src="{{match.team_home_logo}}">
             </div>
             <div class="score" (click)="GoToMatch()">
+                <ng-container *ngIf="match.is_live">
+                    {{match.score_home}} - {{match.score_away}}
+                </ng-container>
                 <ng-container *ngIf="match.is_played">
                     {{match.score_home}} - {{match.score_away}}
                 </ng-container>
-                <ng-container *ngIf="!match.is_played">
+                <ng-container *ngIf="!match.is_played && !match.is_live">
                     <span class="heure_score"> <i class="fa-regular fa-clock"></i>
                         {{match.time.slice(0, -3)}}</span>
 
                 </ng-container>
             </div>
             <div>
-                <img class="logo" src="{{match.team_away_logo}}">
+                <img *ngIf="!match.team_home_logo" class="logo"  src="{{ url +'api/public_club_logo_get.php?c='+ match.club_away_id }}">
+                <img *ngIf="match.team_home_logo" class="logo" src="{{match.team_away_logo}}">
             </div>
             <div class="team start">
                 <span (click)="GoToTeam(match.team_away_id)">{{match.team_away_name}}</span>
@@ -65,6 +70,59 @@
     <div class="column not-mobile end">
         <span (click)="GoToRound(match.round_id)">{{match.round_name}}</span>
         <span (click)="GoToTournament(match.competition_id)"><strong>{{match.competition_name}}</strong></span>
+        <ng-container *ngIf="match.player">
+            <nav *ngIf="match.player.goal>0 || match.player.assist>0 || match.player.fault>0 || match.player.mvp>0 || match.player.saves>0" class="level is-mobile" style="
+                border-style: outset;
+            border-radius: 5px;
+            padding: 3px;
+            width: fit-content;
+            ">
+                  <div class="level-left">
+                    <span class="level-item" aria-label="reply" style="gap: 6px;">
+                      <span *ngIf="match.player.goal>0" class="icon is-small" style="width: auto;">
+                        <div 
+                          style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                          {{match.player.goal}}<img height="20px" i18n-title
+                            src="assets/matchIcons/goal.svg" [title]="match.player.goal" width="20px">
+                        </div>
+                      </span>
+                      <span *ngIf="match.player.assist>0" class="icon is-small" style="width: auto;">
+                        <div 
+                          style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                          {{match.player.assist}}<img height="20px" i18n-title
+                            src="assets/default/Assist.png" [title]="match.player.assist" width="20px">
+                        </div>              
+                      </span>
+                      <span *ngIf="match.player.fault>0" class="icon is-small" style="width: auto;">
+                        <div 
+                          style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                          {{match.player.fault}}<img height="20px" i18n-title
+                            src="assets/default/sifflet.png" [title]="match.player.fault" width="20px">
+                        </div>    
+                        
+                      </span>
+                      <span *ngIf="match.player.mvp>0" class="icon is-small" style="width: auto;">
+                        <div
+                          style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                         <img height="20px" i18n-title
+                            src="assets/default/star.png" [title]="match.player.mvp" width="20px">
+                        </div>    
+                        
+                      </span>
+                      <span *ngIf="match.player.saves>0" class="icon is-small" style="width: auto;">
+                        <div
+                          style="position: relative;display: flex;flex-direction: row;justify-content: flex-start;;">
+                          {{ match.player.pc_saves | number:'1.0-0' }}% <img height="20px" i18n-title
+                            src="assets/default/Arrets.png" [title]="match.player.saves" width="20px">  <small> {{match.player.saves}} <span> / </span> {{match.player.shots}}</small> 
+                        </div>    
+                        
+                      </span>
+                     
+                    </span>
+        
+                  </div>
+                </nav>
+        </ng-container>
     </div>
 </div>
 

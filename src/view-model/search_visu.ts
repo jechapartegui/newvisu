@@ -21,7 +21,7 @@ export class search_visu {
         this.search_players = list_search.player;
         this.search_teams = list_search.team;
         this.search_sporthalls = list_search.sporthall;
-        var max = 1;
+        var max = 0;
         if (this.search_players && this.search_players.length > 0) {
             if (this.search_players.length > max) {
                 max = this.search_players.length;

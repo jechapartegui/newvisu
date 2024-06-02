@@ -9,7 +9,7 @@
           <img src="{{joueur.photo}}" alt="Image" />
         </figure>
       </div>
-      <div class="media-content">
+      <div class="media-content" (click)="GoToJoueur(joueur.id)">
         <div class="content">
           <p>
             <span class="title"><strong>{{joueur.firstname}} {{joueur.lastname}}</strong></span>
@@ -38,7 +38,7 @@
           </div>
         </nav>
       </div>
-      <div class="media-right">
+      <div class="media-right" (click)="GoToClub(joueur.clubid)">
         <figure class="image is-32x32 noshow">
           <img src="{{joueur.clublogo}}" alt="logo" />
         </figure>
@@ -129,7 +129,7 @@
         justify-content: flex-start;
         margin-bottom: 0px;
     ">
-            <small>#{{joueur.statistics.number}}</small>&nbsp;<span class="title"
+            <small>#{{joueur.number}}</small>&nbsp;<span class="title"
               (click)="GoToJoueur(joueur.id)"><strong>{{joueur.firstname}} {{joueur.lastname}}</strong></span>
               <div class="level-left">
                 <a class="level-item" aria-label="reply">
@@ -231,24 +231,25 @@
         justify-content: flex-start;
         margin-bottom: 0px;
     ">
-            <small>#{{joueur.statistics.number}}</small>&nbsp;<span class="title"
+            <small>#{{joueur.number}}</small>&nbsp;<span class="title"
               (click)="GoToJoueur(joueur.id)"><strong>{{joueur.firstname}} {{joueur.lastname}}</strong></span>
               <div class="level-left">
-                <a class="level-item" aria-label="reply">
+                <p class="level-item" *ngIf="joueur.position && joueur.position.length>0">{{joueur.position}}</p>
+                <p class="level-item" aria-label="reply">
                   <span class="icon is-small">
                     <i *ngIf="joueur.sex == 'Male'" class="fas fa-mars"></i>
                     <i *ngIf="joueur.sex == 'Female'" class="fas fa-venus"></i>
                   </span>
-                </a>
-                <a class="level-item">
+                </p>
+                <p class="level-item">
                   <img *ngIf="joueur.nat1 && joueur.nat1 != '0'" class="nat1" width="15px"
                     src="assets/flags/{{joueur.nat1 | lowercase}}.png" title="{{joueur.nat1}}">
     
-                </a>
-                <a class="level-item" aria-label="like">
+                </p>
+                <p class="level-item" aria-label="like">
                   <img *ngIf="joueur.nat2 && joueur.nat2 != '0'" class="nat2" width="15px"
                     src="assets/flags/{{joueur.nat2 | lowercase}}.png" title="{{joueur.nat2}}">
-                </a>
+                </p>
               </div>
             <br />
         </div>
@@ -311,7 +312,12 @@
           </div>
         </nav>
       </div>
-
+      <div class="media-right" (click)="GoToClub(joueur.clubid)">
+        <p class="team">{{joueur.clubname}}</p>
+        <figure class="image is-64x64 ">
+          <img src="{{joueur.clublogo}}" alt="logo" />
+        </figure>     
+      </div>
     </article>
   </div>
 </ng-container>

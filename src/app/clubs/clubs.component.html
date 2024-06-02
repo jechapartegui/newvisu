@@ -76,38 +76,30 @@
             </ul>
 
         </div>
-        <app-club-item [club]="this.visu.thisClub" [context]="'CLUB'"></app-club-item>
+        <app-club-item [club]="this.visu.thisClub" (onChange)="GoTo($event)" [context]="'CLUB'"></app-club-item>
 
         <div class="box">
             <div class="columns">
                 <div class="column">
-                    <div class="field">
-                        <label class="label" i18n>Changer de saison</label>
-                        <div class="control">
-                            <div class="select">
-                                <select [(ngModel)]="season_id_club">
-                                    <ng-container *ngFor="let ss of visu.thisClub.list_season">
-                                        <option [ngValue]="ss.id">{{ss.name}}</option>
-                                    </ng-container>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="control">
-                            <button (click)="ChangerSeasonClub()" class="button is-link" i18n>Changer</button>
+                    <label class="label" i18n>Changer de saison</label>
+                </div>
+                <div class="column">
+                    <div class="control">
+                        <div class="select">
+                            <select [(ngModel)]="season_id_club">
+                                <ng-container *ngFor="let ss of visu.thisClub.list_season">
+                                    <option [ngValue]="ss.id">{{ss.name}}</option>
+                                </ng-container>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="column">
-
-
-                    <div class="tags are-medium">
-                        <ng-container *ngFor="let tt of visu.thisClub.teams">
-                            <a class="tag is-primary" (click)="GoToTeam(tt.id)">{{tt.name}} {{tt.category}}</a>
-                        </ng-container>
+                    <div class="control">
+                        <button (click)="ChangerSeasonClub()" class="button is-link" i18n>Changer</button>
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -130,6 +122,13 @@
 
                 </ul>
             </div>
+            <ng-container *ngIf="selected_sous_menu == 'JOUEURS'">
+                <ng-container *ngIf="visu.thisClub.players">
+                    <ng-container *ngFor="let jr of visu.thisClub.players">
+                        <app-joueur-item [joueur]="jr" [context]="'CLUB'"></app-joueur-item>
+                    </ng-container></ng-container>
+            </ng-container>
+
         </ng-container>
         <ng-container *ngIf="selected_menu=='TEAM'">
             <div *ngIf="this.visu.thisTeam" class="tabs is-toggle is-fullwidth">

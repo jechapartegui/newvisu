@@ -1,1 +1,25 @@
+.mobile-only{
+    display: none;
+}
+@media screen and (max-width: 767px) {
+    .mobile-only{
+        display: block;
+    }
+    .columns.mobile-only{
+        display: flex;
+    }
+    .media-content{
+        font-size: x-small;
+    }
 
+    .noshow{
+        display: none;
+    }
+    .card-content {
+        padding: 0px;
+    }
+    .box{
+        margin: 0px;
+        padding: 0px;
+    }
+}

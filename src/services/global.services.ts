@@ -138,7 +138,6 @@ export class GlobalService {
     let thisUrl: string = location.href;
     if (thisUrl.indexOf("/en/") > 0) {
       this.thisLanguage = 'EN';
-      console.log("EN")
     }
     if (thisUrl.indexOf("/nl/") > 0) {
       this.thisLanguage = 'NL';

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { full_game } from 'src/class/full_game';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-game-item',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 export class GameItemComponent implements OnInit {
   @Input() match: full_game
   @Input() federation: boolean = false;
+  url = environment.url;
   constructor(private router: Router) { }
   ngOnInit(): void {
 

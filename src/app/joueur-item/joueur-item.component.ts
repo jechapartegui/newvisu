@@ -24,6 +24,7 @@ export class JoueurItemComponent implements OnInit {
         this.joueur.number = this.joueur_game.number;
         this.joueur.statistics = new player_game();
         this.joueur.statistics = this.joueur_game;
+        this.joueur.id = this.joueur_game.id;
         this.joueur.photo = this.joueur_game.photo;       
       }
       if(this.joueur.statistics){
@@ -36,13 +37,17 @@ export class JoueurItemComponent implements OnInit {
         for (let i = 1; i <= this.joueur.statistics.fault; i++) {
           this.nb_fault.push(i);
         }
-        if(this.joueur.statistics.shots>0){
-          this.joueur.statistics.pc_saves = this.joueur.statistics.saves / this.joueur.statistics.shots * 100
+        if(this.joueur.position && this.joueur.position.length>0){
+          let u:any = this.joueur.position;
+          this.joueur.position = u[0].position;
         }
       }
      
   }
   GoToJoueur(id:number){
     this.router.navigate(['/joueurs'], { queryParams: { id: id } });     
+  }
+  GoToClub(id:number){
+    this.router.navigate(['/clubs'], { queryParams: { id: id } });     
   }
 }

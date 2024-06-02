@@ -110,6 +110,7 @@ export class ClubsComponent implements OnInit {
                           this.visu.thisTeam.rounds_rk = null;
                         }
                       })
+                      this.selected_menu = "TEAM";
                       this.selected_sous_menu = "JOUEURS";
                       this.from_type = "EQUIPE";
                     }).catch((err) => {
@@ -156,7 +157,9 @@ export class ClubsComponent implements OnInit {
                 this.visu.thisClub.players = pla_club;
                 this.comp_serv.GetPrizelist(this.value).then((pri) => {
                   this.visu.thisClub.prizelist = pri;
-
+                  this.selected_menu = "CLUB";
+                  this.selected_sous_menu = "JOUEURS";
+                  this.from_type = "EQUIPE";
                 }).catch((err) => {
                   let o = errorService.CreateError(this.action, err.message);
                   errorService.emitChange(o);

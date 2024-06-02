@@ -18,7 +18,7 @@
                     <span i18n>Saisons</span>
                 </a>
             </li>
-            <li *ngIf="visu.player.prizelist" [class]="selected_menu === 'PALMARES' ? 'is-active' :''"
+            <li *ngIf="visu.player.prizelist && visu.player.prizelist.length>0" [class]="selected_menu === 'PALMARES' ? 'is-active' :''"
                 (click)="selected_menu = 'PALMARES'">
                 <a>
                     <span i18n>Palmarès</span>
@@ -30,4 +30,8 @@
     <ng-container *ngIf="selected_menu == 'MATCH'">
         <app-game-list *ngIf="visu.player.matchs_list" [liste_date]="visu.date_list"
             [matchs]="visu.player.matchs_list"></app-game-list>
+    </ng-container>
+    <ng-container *ngIf="selected_menu == 'SAISON'">
+        <app-list-saison *ngIf="visu.player.seasons_details"  [list]="visu.season_list"
+            [seasons]="visu.player.seasons_details"></app-list-saison>
     </ng-container>

@@ -21,7 +21,6 @@ export class JoueursComponent implements OnInit {
     this.loading = true;
     this.visu = new player_visu();
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       if ('id' in params) {
         this.id = params['id']
       }
@@ -38,6 +37,7 @@ export class JoueursComponent implements OnInit {
     await Promise.all([_joueur, _match,_season,_palm]).then(results => {
       this.visu.load_page_joueur(results[0], results[1], results[2], results[3]);
       this.loading = false;
+      this.selected_menu = 'SAISON';
     });
   }
 }
