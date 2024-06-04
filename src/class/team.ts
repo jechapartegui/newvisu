@@ -35,3 +35,9 @@ export class teams extends obj_master {
   defaultcoloraway1: string;
   defaultcoloraway2: string;
 }
+export class short_team{
+  category: string;
+  clubid: number;
+  id: number;
+  name: string;
+}

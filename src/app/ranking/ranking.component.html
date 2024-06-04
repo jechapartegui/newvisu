@@ -47,7 +47,8 @@
             <td class="player_team">
                 <span class="team" (click)="GoToTeam(item.team_id)">{{item.team_name}}</span>
                 <figure class="image is-16x16" (click)="GoToTeam(item.team_id)">
-                    <img src="{{item.team_logo}}" alt="logo" />
+                    <img *ngIf="item.team_logo" src="{{item.team_logo}}" alt="logo" />
+                    <img *ngIf="!item.team_logo" src="{{ url +'api/public_club_logo_get.php?c='+ item.clubid}}" alt="logo" />
                 </figure>
             </td>
             <td>

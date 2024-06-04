@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { teams_standings } from 'src/class/standings';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-ranking',
@@ -13,6 +14,7 @@ export class RankingComponent {
   @Input() is_ot: boolean = true;
   @Input() is_nul: boolean = true;
   @Input() is_fft: boolean = true;
+  url = environment.url;
   public sort: "DIFF_ASC" | "DIFF_DESC" | "CONC_ASC" | "CONC_DESC" | "BUT_ASC" | "BUT_DESC" | "VIC_ASC" | "VIC_DESC" | "PTS_ASC" | "PTS_DESC" | "MJ_ASC" | "MJ_DESC" | "NUL_ASC" | "NUL_DESC" | "DEF_ASC" | "DEF_DESC" | "VIC_OT_ASC" | "VIC_OT_DESC" | "DEF_OT_ASC" | "DEF_OT_DESC" | "FFT_ASC" | "FFT_DESC" | "NO" = "NO";
   constructor(public router: Router) { }
   GoToTeam(id) {

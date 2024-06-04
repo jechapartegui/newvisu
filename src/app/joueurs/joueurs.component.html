@@ -35,3 +35,7 @@
         <app-list-saison *ngIf="visu.player.seasons_details"  [list]="visu.season_list"
             [seasons]="visu.player.seasons_details"></app-list-saison>
     </ng-container>
+    <ng-container *ngIf="selected_menu == 'PALMARES'">
+        <app-prizelist *ngIf="visu.player.prizelist"  
+            [prize_list]="visu.player.prizelist"></app-prizelist>
+    </ng-container>

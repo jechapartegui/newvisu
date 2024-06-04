@@ -11,7 +11,9 @@
     .media-content{
         font-size: x-small;
     }
-
+    .mobile{
+        font-size: x-small;
+    }
     .noshow{
         display: none;
     }

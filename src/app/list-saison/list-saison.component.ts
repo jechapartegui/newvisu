@@ -13,9 +13,20 @@ export class ListSaisonComponent implements OnInit {
   constructor(public router:Router){}
   @Input() seasons:full_season[];
   @Input() list:season[];
+   visgo:boolean=false;
 ngOnInit(): void {
+    let huh = 0;
+    this.seasons.forEach((sss)=>{
+      huh += sss.player.goal_conceed;
+    })
+    if(huh ==0){
+      this.visgo = false;
+    } else {
+      this.visgo = true;
+    }
     this.list.forEach((ss) =>{
       ss.nextseason = 1;
+      
     })
 }
 

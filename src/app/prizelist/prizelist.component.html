@@ -1,1 +1,48 @@
-<p>prizelist works!</p>
+<ng-container *ngFor="let pz of prize_list">
+    <div class="col-12 mb-2 col-sm-3 ng-scope cadre">
+        <div class="row">
+          <div class="col-2">
+            <img *ngIf="pz.title==='CHAMPIONSHIP_WINNER'" class="prize_img" src="assets/default/winner.png">
+            <img *ngIf="pz.title==='CHAMPIONSHIP_RUNNERUP'" class="prize_img" src="assets/default/second.png">
+            <img *ngIf="pz.title==='CHAMPIONSHIP_3RD'" class="prize_img" src="assets/default/third.png">
+            <img
+              *ngIf="pz.title==='BEST_ASSIST' || pz.title==='BEST_PLAYER' || pz.title==='BEST_SCORER' || pz.title==='BEST_GOALIE'"
+              class="prize_img"
+              src="assets/default/trophy_color.png">
+          </div>
+          <div class="col-10">
+           {{pz.title}}
+          </div>
+    
+        </div>
+        <div class="row trophy_line">
+          <ng-container *ngIf="context === 'TOURNAMENT'">
+            <div *ngIf="pz.type_object==='CLUB'">
+              <a class="link" style="cursor:pointer;" [routerLink]="['/teams']" [queryParams]="{id: pz.id_object}">
+                <img class="prize_img" src="{{ pz.logo }}"><span class="prize_text">{{pz.name}}</span>
+              </a>
+            </div>
+            <div *ngIf="pz.type_object==='PLAYER'">
+              <a class="link" style="cursor:pointer;" [routerLink]="['/players']" [queryParams]="{id: pz.id_object}">
+                <img class="prize_img" src="{{ pz.logo }}"><span class="prize_text">{{pz.name}}</span>
+              </a>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="context === 'CLUB'">
+            <div *ngIf="pz.winning_object==='TOURNAMENT'">
+              <a class="link" style="cursor:pointer;" [routerLink]="['/competitions']" [queryParams]="{id: pz.winning_id}">
+                <span class="prize_text">{{pz.name}}</span>
+              </a>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="context === 'PLAYER'">
+            <div *ngIf="pz.winning_object==='TOURNAMENT'">
+              <a class="link" style="cursor:pointer;" [routerLink]="['/competitions']" [queryParams]="{id: pz.winning_id}">
+                <span class="prize_text">{{pz.name}}</span>
+              </a>
+            </div>
+          </ng-container>
+        </div>
+        </div>
+
+</ng-container>

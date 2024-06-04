@@ -1,7 +1,17 @@
 .box.games{
     padding: 0.15em;
 }
-
+.centrer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+}
+.nom{
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align:start;
+}
 
 
 .team{

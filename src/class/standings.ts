@@ -21,6 +21,7 @@ export class teams_standings{
   public GOAL_DIFF: number
   public club_name: string;
   public club_logo: string;
+  public clubid: number;
 }
 
 

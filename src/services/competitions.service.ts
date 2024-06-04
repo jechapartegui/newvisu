@@ -9,7 +9,7 @@ import { ranking_player } from 'src/class/ranking_points';
 import { prizelist } from 'src/class/prizelist';
 import { teams_standings } from 'src/class/standings';
 import { clubs } from 'src/class/club';
-import { teams } from 'src/class/team';
+import { short_team, teams } from 'src/class/team';
 
 @Injectable({
   providedIn: 'root'
@@ -321,7 +321,7 @@ export class CompetitionsService {
         return Promise.reject(error);
       });
   }
-  GetTeamsByClubBySeason(id:number, season_id:number):Promise<teams[]>{
+  GetTeamsByClubBySeason(id:number, season_id:number):Promise<short_team[]>{
     this.url = environment.url + 'public_teams_byclubbyseason.php';
     //  this.url = this.url + "login.php";
     const body = {
