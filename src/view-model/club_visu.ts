@@ -22,6 +22,7 @@ export class season_club {
     display:boolean = false;
     constructor(list: short_team[], sea:season) {
         this.list_team = [];
+        this.season = sea;
         list.forEach((l) => {
             let ttd: team_to_display = new team_to_display(l);
             this.list_team.push(ttd);

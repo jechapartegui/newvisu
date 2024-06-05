@@ -1,21 +1,30 @@
 <ng-container *ngFor="let pz of prize_list">
-    <div class="col-12 mb-2 col-sm-3 ng-scope cadre">
-        <div class="row">
-          <div class="col-2">
-            <img *ngIf="pz.title==='CHAMPIONSHIP_WINNER'" class="prize_img" src="assets/default/winner.png">
-            <img *ngIf="pz.title==='CHAMPIONSHIP_RUNNERUP'" class="prize_img" src="assets/default/second.png">
-            <img *ngIf="pz.title==='CHAMPIONSHIP_3RD'" class="prize_img" src="assets/default/third.png">
+    <div class="box">
+      <div class="ligne">
+          <figure class="image is-32x32 noshow" style="margin: 0.15em;">
+            <img *ngIf="pz.title==='CHAMPIONSHIP_WINNER'" src="assets/default/winner.png">
+            <img *ngIf="pz.title==='CHAMPIONSHIP_RUNNERUP'"  src="assets/default/second.png">
+            <img *ngIf="pz.title==='CHAMPIONSHIP_3RD'"  src="assets/default/third.png">
             <img
               *ngIf="pz.title==='BEST_ASSIST' || pz.title==='BEST_PLAYER' || pz.title==='BEST_SCORER' || pz.title==='BEST_GOALIE'"
               class="prize_img"
               src="assets/default/trophy_color.png">
-          </div>
-          <div class="col-10">
-           {{pz.title}}
-          </div>
+      </figure>
+      <figure class="image is-16x16 mobile" style="margin: 0.15em;">
+        <img *ngIf="pz.title==='CHAMPIONSHIP_WINNER'" src="assets/default/winner.png">
+        <img *ngIf="pz.title==='CHAMPIONSHIP_RUNNERUP'"  src="assets/default/second.png">
+        <img *ngIf="pz.title==='CHAMPIONSHIP_3RD'"  src="assets/default/third.png">
+        <img
+          *ngIf="pz.title==='BEST_ASSIST' || pz.title==='BEST_PLAYER' || pz.title==='BEST_SCORER' || pz.title==='BEST_GOALIE'"
+          class="prize_img"
+          src="assets/default/trophy_color.png">
+  </figure>  
+            
+          <p *ngIf="pz.title==='CHAMPIONSHIP_WINNER'" i18n>Vainqueur du championnat</p>
+          <p *ngIf="pz.title==='CHAMPIONSHIP_RUNNERUP'" i18n>Finaliste du championnat</p>
+          <p *ngIf="pz.title==='CHAMPIONSHIP_3RD'" i18n>3ème du championnat</p>
     
-        </div>
-        <div class="row trophy_line">
+       
           <ng-container *ngIf="context === 'TOURNAMENT'">
             <div *ngIf="pz.type_object==='CLUB'">
               <a class="link" style="cursor:pointer;" [routerLink]="['/teams']" [queryParams]="{id: pz.id_object}">
@@ -43,6 +52,5 @@
             </div>
           </ng-container>
         </div>
-        </div>
-
+      </div>
 </ng-container>

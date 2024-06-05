@@ -31,7 +31,7 @@
                 <figure class="image is-32x32 mobile" style="margin: 0.15em;">
                     <img class="list_logo" src="{{ url +'api/public_club_logo_get.php?c='+ club.id }}">
                 </figure>
-                <a class="level-item" >
+                <a class="level-item">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17">
                         <path fill="none" d="M0 0h24v24H0z" />
                         <path
@@ -60,12 +60,36 @@
                     <a [href]="club.website" *ngIf="club.website">{{club.website}} </a><br />
                 </div>
             </div>
-            <div class="media-right">
-                <ng-container *ngFor="let tt of club.teams">
-                    <span (click)="GoToTeam(tt.id)" style="margin: 1px;cursor: pointer;" class="tag is-link">{{tt.name}}</span></ng-container>
-            </div>
 
 
         </article>
+        <div *ngIf="club.players && club.players.length>0" class="card">
+            <header class="card-header">
+                <p class="card-header-title" style="cursor: pointer;" (click)="display_jr ? display_jr = false : display_jr = true"
+                     i18n>Joueurs actuels du club</p>
+                    <button (click)="display_jr ? display_jr = false : display_jr = true" class="card-header-icon" 
+                    aria-label="more options">
+                    <i *ngIf="!display_jr"  class="fas fa-plus"></i>
+                    <i *ngIf="display_jr" class="fas fa-minus"></i></button>
+            </header>
+            <div *ngIf="display_jr" class="card-content">
+                <ng-container *ngFor="let jr of club.players">
+                    <app-joueur-item [joueur]="jr" [context]="'CLUB'"></app-joueur-item>
+                </ng-container>
+            </div>
+        </div>
+        <div *ngIf="club.prizelist && club.prizelist.length>0" class="card">
+            <header class="card-header" >
+                <p class="card-header-title" style="cursor: pointer;" (click)="display_palm ? display_palm = false : display_palm = true"
+                     i18n>Palmarès</p>
+                    <button class="card-header-icon" (click)="display_palm ? display_palm = false : display_palm = true"
+                    aria-label="more options">
+                    <i *ngIf="!display_palm" class="fas fa-plus"></i>
+                    <i *ngIf="display_palm" class="fas fa-minus"></i></button>
+            </header>
+            <div *ngIf="display_palm" class="card-content">
+                    <app-prizelist [context]="'CLUB'" [prize_list]="club.prizelist"></app-prizelist>
+            </div>
+        </div>
     </div>
 </ng-container>

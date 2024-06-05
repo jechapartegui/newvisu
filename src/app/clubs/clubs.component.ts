@@ -50,104 +50,60 @@ export class ClubsComponent implements OnInit {
     this.Load();
   }
 
-  async getTeam(id: number) {
-    this.visu.list_saison_club.forEach((ss) =>{
+  LoadTeam(id: number) {
+    const errorService = ErrorService.instance;
+    this.visu.thisTeam = null;
+    this.visu.list_saison_club.forEach((ss) => {
       ss.display = false;
-      ss.list_team.forEach((t) =>{
-        if(t.shortTeam.id  == id){
+      ss.list_team.forEach((t) => { 
+        t.display = false;
+        if (t.shortTeam.id == id) {
           ss.display = true;
           t.display = true;
-          if(!t.data_loaded){
-          let _game = this.match_serv.GetAllMatchTeam(id);
-          let _player = this.joueur_serv.GetAllPlayersTeam(id);
-          let _ref = this.comp_serv.GetTeam(id);
-          let _score = this.match_serv.Get(this.id);
-          let _event = this.match_serv.get_event(this.id);
-          await Promise.all([_game, _player, _offi, _ref, _score,_event]).then(results => {
-            t.Update(results[0],results[1],results[2],results[3],results[4],results[5]);
-             });
-            
-            }
-        }
-      })
+          if (!t.data_loaded) {
+            this.comp_serv.GetTeam(id).then((equipe) => {
+              t.thisTeam = equipe;
+              this.match_serv.GetAllMatchTeam(id).then((reponse: response_listmatch) => {
+                reponse.list_match.forEach(m => {
+                  m.team_home_logo = reponse.list_logo.filter(x => x.id == m.club_home_id)[0].logo;
+                  m.team_away_logo = reponse.list_logo.filter(x => x.id == m.club_away_id)[0].logo;
+                  m.sporthall = reponse.list_sporthall.filter(x => x.id == m.sporthall_id)[0];
+                })
+                t.thisTeam.games_list = reponse.list_match;
+                t.thisTeam.date_list = new Array<Date>();
+                t.thisTeam.games_list.forEach(element => {
+                  if (!(t.thisTeam.date_list.find(e => e == element.date))) {
+                    t.thisTeam.date_list.push(element.date);
+                  }
+                });
+                t.thisTeam.date_list.sort(function (a, b) {
+                  return a < b ? 1 : -1;
+                });
+                t.thisTeam.games_list.sort(
+                  function (a, b) {
+                    return a.time > b.time ? 1 : -1;
+                  }
+                );
+                this.action = $localize`Charger les joueurs de l'équipe`;
+                this.joueur_serv.GetAllPlayersTeam(id).then((players) => {
+                  t.thisTeam.players = players;
+                  this.action = $localize`Charger les classements`;
+                  this.comp_serv.GetRankingsTeam(id).then((list_rk) => {
+                    if (list_rk.length > 0) {
+                      t.thisTeam.rounds_rk = [];
+                      list_rk.forEach(element => {
+                        this.comp_serv.GetRound(element[0].round_id).then((rd) => {
+                          rd.ranking_team = element;
+                          t.thisTeam.rounds_rk.push(rd);
+                        })
 
-    })
-    
-  }
-
-  Load() {
-    const errorService = ErrorService.instance;
-    switch (this.from) {
-      case "EQUIPE":
-        this.comp_serv.GetTeam(this.value).then((equipe) => {
-
-          this.visu.thisTeam = equipe;
-          this.selected_menu = "TEAM";
-          this.visu.thisClub = equipe.club;
-          this.visu.list_saison_club = [];
-          this.comp_serv.GetSeasonByClub(this.value).then((seasons) => {
-            seasons.forEach((ss) => {
-              this.comp_serv.GetTeamsByClubBySeason(this.value, ss.id).then((tea) => {
-                this.visu.list_saison_club.push(new season_club(tea, ss));
-              }).catch((err) => {
-                let o = errorService.CreateError(this.action, err.message);
-                errorService.emitChange(o);
-              });
-            });
-
-              this.joueur_serv.GetAllPlayersClub(equipe.clubid, equipe.seasonid).then((pla_club) => {
-                this.visu.thisClub.players = pla_club;
-                this.comp_serv.GetPrizelist(equipe.clubid).then((pri) => {
-                  this.visu.thisClub.prizelist = pri;
-
-                  this.match_serv.GetAllMatchTeam(this.value).then((reponse: response_listmatch) => {
-                    reponse.list_match.forEach(m => {
-                      m.team_home_logo = reponse.list_logo.filter(x => x.id == m.club_home_id)[0].logo;
-                      m.team_away_logo = reponse.list_logo.filter(x => x.id == m.club_away_id)[0].logo;
-                      m.sporthall = reponse.list_sporthall.filter(x => x.id == m.sporthall_id)[0];
-                    })
-                    this.visu.thisTeam.games_list = reponse.list_match;
-                    this.visu.thisTeam.date_list = new Array<Date>();
-                    this.visu.thisTeam.games_list.forEach(element => {
-                      if (!(this.visu.thisTeam.date_list.find(e => e == element.date))) {
-                        this.visu.thisTeam.date_list.push(element.date);
-                      }
-                    });
-                    this.visu.thisTeam.date_list.sort(function (a, b) {
-                      return a < b ? 1 : -1;
-                    });
-                    this.visu.thisTeam.games_list.sort(
-                      function (a, b) {
-                        return a.time > b.time ? 1 : -1;
-                      }
-                    );
-                    this.action = $localize`Charger les joueurs de l'équipe`;
-                    this.joueur_serv.GetAllPlayersTeam(this.value).then((players) => {
-                      this.visu.thisTeam.players = players;
-                      this.action = $localize`Charger les classements`;
-                      this.comp_serv.GetRankingsTeam(this.value).then((list_rk) => {
-                        if (list_rk.length > 0) {
-                          this.visu.thisTeam.rounds_rk = [];
-                          list_rk.forEach(element => {
-                            this.comp_serv.GetRound(element[0].round_id).then((rd) => {
-                              rd.ranking_team = element;
-                              this.visu.thisTeam.rounds_rk.push(rd);
-
-                            })
-
-                          });
-                        } else {
-                          this.visu.thisTeam.ranking_team = null;
-                          this.visu.thisTeam.rounds_rk = null;
-                        }
-                      })
-                      this.selected_menu = "TEAM";
-                      this.selected_sous_menu = "JOUEURS";
-                      this.from_type = "EQUIPE";
-                    }).catch((err) => {
-                      let o = errorService.CreateError(this.action, err.message);
-                      errorService.emitChange(o);
-                    });
+                      });
+                    } else {
+                      t.thisTeam.ranking_team = null;
+                      t.thisTeam.rounds_rk = null;
+                    }
+                    t.data_loaded = true;
+                    this.visu.thisTeam = t.thisTeam;
                   }).catch((err) => {
                     let o = errorService.CreateError(this.action, err.message);
                     errorService.emitChange(o);
@@ -164,10 +120,60 @@ export class ClubsComponent implements OnInit {
               let o = errorService.CreateError(this.action, err.message);
               errorService.emitChange(o);
             });
+          } else {
+            this.visu.thisTeam = t.thisTeam;
+          }
+        }
+      })
+
+    })
+
+  }
+
+  Load() {
+    const errorService = ErrorService.instance;
+    switch (this.from) {
+      case "EQUIPE":
+        this.comp_serv.GetTeam(this.value).then((equipe) => {
+
+          this.visu.thisTeam = equipe;
+          this.selected_menu = "TEAM";
+          this.visu.thisClub = equipe.club;
+          this.visu.list_saison_club = [];
+          this.comp_serv.GetSeasonByClub(this.visu.thisClub.id).then((seasons) => {
+            this.visu.list_season = seasons;
+            seasons.forEach((ss) => {
+              this.comp_serv.GetTeamsByClubBySeason(this.visu.thisClub.id, ss.id).then((tea) => {
+                this.visu.list_saison_club.push(new season_club(tea, ss));
+              }).catch((err) => {
+                let o = errorService.CreateError(this.action, err.message);
+                errorService.emitChange(o);
+              });
+            });
+
+            this.joueur_serv.GetAllPlayersClub(equipe.clubid, equipe.seasonid).then((pla_club) => {
+              this.visu.thisClub.players = pla_club;
+              this.comp_serv.GetPrizelistClub(equipe.clubid).then((pri) => {
+                this.visu.thisClub.prizelist = pri;
+                this.LoadTeam(this.value);
+                this.selected_menu = "TEAM";
+                this.selected_sous_menu = "JOUEURS";
+                this.from_type = "CLUB";
+              }).catch((err) => {
+                let o = errorService.CreateError(this.action, err.message);
+                errorService.emitChange(o);
+              });
+            }).catch((err) => {
+              let o = errorService.CreateError(this.action, err.message);
+              errorService.emitChange(o);
+            });
           }).catch((err) => {
             let o = errorService.CreateError(this.action, err.message);
             errorService.emitChange(o);
           });
+        }).catch((err) => {
+          let o = errorService.CreateError(this.action, err.message);
+          errorService.emitChange(o);
         });
         break;
       case "CLUB":
@@ -176,6 +182,9 @@ export class ClubsComponent implements OnInit {
           this.visu.thisClub = list_club.find(x => x.id == this.value);
           this.visu.list_saison_club = [];
           this.comp_serv.GetSeasonByClub(this.value).then((seasons) => {
+            seasons.sort(function (a, b) {
+              return a.id < b.id ? 1 : -1;
+            });
             seasons.forEach((ss) => {
               this.comp_serv.GetTeamsByClubBySeason(this.value, ss.id).then((tea) => {
                 this.visu.list_saison_club.push(new season_club(tea, ss));
@@ -189,19 +198,15 @@ export class ClubsComponent implements OnInit {
             if (this_saison == null) {
               this_saison = seasons.reduce((maxSeason, season) => (season.id > maxSeason.id ? season : maxSeason), seasons[0]);
             }
-          
 
-              this.joueur_serv.GetAllPlayersClub(this.value, this_saison.id).then((pla_club) => {
-                this.visu.thisClub.players = pla_club;
-                this.comp_serv.GetPrizelist(this.value).then((pri) => {
-                  this.visu.thisClub.prizelist = pri;
-                  this.selected_menu = "CLUB";
-                  this.selected_sous_menu = "JOUEURS";
-                  this.from_type = "EQUIPE";
-                }).catch((err) => {
-                  let o = errorService.CreateError(this.action, err.message);
-                  errorService.emitChange(o);
-                });
+
+            this.joueur_serv.GetAllPlayersClub(this.value, this_saison.id).then((pla_club) => {
+              this.visu.thisClub.players = pla_club;
+              this.comp_serv.GetPrizelistClub(this.value).then((pri) => {
+                this.visu.thisClub.prizelist = pri;
+                this.selected_menu = "CLUB";
+                this.selected_sous_menu = "JOUEURS";
+                this.from_type = "CLUB";
               }).catch((err) => {
                 let o = errorService.CreateError(this.action, err.message);
                 errorService.emitChange(o);
@@ -214,7 +219,11 @@ export class ClubsComponent implements OnInit {
             let o = errorService.CreateError(this.action, err.message);
             errorService.emitChange(o);
           });
-       
+        }).catch((err) => {
+          let o = errorService.CreateError(this.action, err.message);
+          errorService.emitChange(o);
+        });
+
         break;
       default:
       case "SEASON":

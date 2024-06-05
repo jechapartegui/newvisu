@@ -1,1 +1,28 @@
-
+.ligne{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: flex-start;
+    gap: 6px;
+}
+.mobile{
+    display: none;
+}
+@media screen and (max-width: 767px) {
+    .ligne{
+        font-size: x-small;
+    }
+    .noshow{
+        display: none;
+    }
+    .mobile{
+        display: block;
+    }
+    .card-content {
+        padding: 0px;
+    }
+    .box{
+        margin: 0px;
+        padding: 0px;
+    }
+}

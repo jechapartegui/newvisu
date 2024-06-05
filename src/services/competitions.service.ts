@@ -214,6 +214,24 @@ export class CompetitionsService {
         return Promise.reject(error);
       });
   }
+  GetPrizelistClub(id): Promise<prizelist[]> {
+    this.url = environment.url + 'public_prizelist_get.php';
+    //  this.url = this.url + "login.php";
+    const body = {
+      club: id,
+      command: "getall_club"
+    };
+
+
+    return this.global.POST(this.url, body)
+      .then((response) => {
+        return response;
+      })
+      .catch(error => {
+        // Gestion de l'erreur
+        return Promise.reject(error);
+      });
+  }
   GetRanking(id): Promise<teams_standings[]> {
     this.url = environment.url + 'public_round_get.php';
     //  this.url = this.url + "login.php";

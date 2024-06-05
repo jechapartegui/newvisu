@@ -13,7 +13,8 @@ export class ClubItemComponent  {
   @Input() context : "RECHERCHE" | "MATCH" | "CLUB";  
   @Output() onChange = new EventEmitter<any>();
   url = environment.url;
-
+  display_palm:boolean=false;
+  display_jr:boolean=false;
   constructor(private router:Router){}
   GoToClub(id) {
     let kvp = { type : "CLUB", id : id};
