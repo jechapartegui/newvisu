@@ -5,6 +5,12 @@
   "generators": {},
   "sourceRoot": "src",
   "prefix": "app",
+  "i18n": {
+    "locales": {
+      "en": "src/locale/messages.en.xlf",
+      "fr": "src/locale/messages.xlf"
+    }
+  },
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -23,7 +29,11 @@
         "styles": [
           "src/styles.css"
         ],
-        "scripts": []
+        "scripts": [],
+        "localize": [
+          "en",
+          "fr"
+        ]
       },
       "configurations": {
         "production": {
@@ -41,13 +51,57 @@
           ],
           "outputHashing": "all"
         },
+        "production-en": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "localize": [
+            "en"
+          ],
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.prod.ts",
+              "with": "src/environments/environment.belge.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
         "development": {
           "buildOptimizer": false,
           "optimization": false,
           "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true
+          "namedChunks": true,
+          "localize": [
+            "fr"
+          ]
+        },
+        "development-en": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "localize": [
+            "en"
+          ],
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.prod.ts",
+              "with": "src/environments/environment.belge.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production",
@@ -64,6 +118,10 @@
         "development": {
           "browserTarget": "newvisu:build:development",
           "port": 2211
+        },
+        "development-en": {
+          "browserTarget": "newvisu:build:development-en",
+          "port": 2510
         }
       },
       "defaultConfiguration": "development"
@@ -71,7 +129,8 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "newvisu:build"
+        "browserTarget": "newvisu:build",
+        "outputPath": "src/locale"
       }
     },
     "test": {
